@@ -46,6 +46,9 @@ RUNTEQ内リリース(MVP)
 ### 画面遷移図
 [figma](https://www.figma.com/file/2Upm8KbJLHW5ZmP9sXq475/Wild-Hot-Spring-App?node-id=0%3A1)
 
+### ER図
+[ER図](https://drive.google.com/file/d/1Oz5Tdxkgh-ORyFEaVLM6PKczE9Gj3OvS/view?usp=sharing)
+
 ### スケジュール
 - README〜ER図作成：2/15〆切
 - メイン機能実装：2/15 - 3/11
