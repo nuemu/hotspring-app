@@ -1,0 +1,20 @@
+{
+  "name": "hotspring-app",
+  "private": true,
+  "dependencies": {
+    "@rails/actioncable": "^6.0.0",
+    "@rails/activestorage": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "5.4.3",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.12",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "version": "0.1.0",
+  "devDependencies": {
+    "@vue/compiler-sfc": "^3.2.31",
+    "vue-loader": "^17.0.0",
+    "webpack-dev-server": "^3"
+  }
+}
