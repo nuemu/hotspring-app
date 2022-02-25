@@ -1,4 +1,6 @@
 require 'factory_bot_rails'
 
-FactoryBot.create(:hotspring, :unexplored)
-FactoryBot.create(:hotspring, :open)
+10.times do
+  FactoryBot.create(:hotspring, :unexplored)
+  FactoryBot.create(:hotspring, :open)
+end
