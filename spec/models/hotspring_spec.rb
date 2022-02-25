@@ -4,7 +4,7 @@ RSpec.describe 'Hotspring Model Test', type: :model do
   describe 'Validation check' do
     context 'validations,' do
       it 'has validation' do
-        hotspring = build(:hotspring, name:'')
+        hotspring = build(:hotspring, name: '')
         hotspring.valid?
       end
       it 'is invalid with empty latitude' do

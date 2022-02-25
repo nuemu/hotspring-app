@@ -82,6 +82,7 @@ Style/StringLiterals:
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/puma.rb'
     - 'config/spring.rb'
+    - 'spec/rails_helper.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -89,3 +90,14 @@ Style/StringLiterals:
 # SupportedStyles: percent, brackets
 Style/SymbolArray:
   EnforcedStyle: brackets
+
+Documentation:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+  
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'app/controllers/**/*'

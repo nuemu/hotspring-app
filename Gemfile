@@ -17,16 +17,16 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #Frontend
 gem 'webpacker', '~> 5.0'
 
-#Lint
-gem 'rubocop', require: false
-gem 'rubocop-rails', require: false
-
 group :development, :test do
   #debug tool
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   #test tool
   gem 'rspec-rails', '~> 5.0.0'
   gem 'factory_bot_rails'
+
+  #Lint
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
