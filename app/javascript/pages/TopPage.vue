@@ -63,8 +63,7 @@ export default{
 <style scoped>
 #map{
   margin-padding: 0;
-  min-height: 100vh;
-  height: 100%;
+  height: 500pt;
   width: 100%;
 }
 </style>
