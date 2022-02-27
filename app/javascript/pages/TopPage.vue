@@ -47,7 +47,6 @@ export default{
     },
     generateMarkers(){
       this.hotsprings.forEach(element => {
-        console.log(element)
         var marker = L.marker([element.latitude, element.longtitude]).addTo(this.map)
         marker.bindPopup(
           "<b>"+element.name+"</b><br>"
@@ -62,9 +61,7 @@ export default{
 
 <style scoped>
 #map{
-  margin-padding: 0;
   min-height: 100vh;
   height: 100%;
-  width: 100%;
 }
 </style>
