@@ -1,17 +1,7 @@
 <template>
-<footer class="footer">
-  <div class="container">
-    <p class="text-muted">Footer</p>
+<footer class="footer mt-auto py-2 bg-light fixed-bottom">
+  <div class="container px-3">
+    <span class="text-muted">ここには固定フッタのコンテンツを配置。</span>
   </div>
 </footer>
 </template>
-
-<style scoped>
-.footer {
-position: absolute;
-bottom: 0;
-width: 100%;
-height: 40px;
-background-color: #f5f5f5;
-}
-</style>
