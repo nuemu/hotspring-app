@@ -11,6 +11,9 @@ gem 'jbuilder', '~> 2.7'
 # DB:postgresql
 gem 'pg', '~> 1.1'
 
+#Authentication
+gem 'sorcery'
+
 #time-zone
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
