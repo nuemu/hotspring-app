@@ -8,6 +8,14 @@ FactoryBot.define do
       status { 'unexplored' }
     end
 
+    trait :not_exist do
+      status { 'not_exist' }
+    end
+
+    trait :prohibit do
+      status { 'prohibit' }
+    end
+
     trait :open do
       status { 'open' }
     end
