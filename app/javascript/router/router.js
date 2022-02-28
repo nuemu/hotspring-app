@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import TopPage from '../pages/TopPage.vue'
+import Explore from '../pages/Explore.vue'
  
 const routes = [
   {
@@ -7,6 +8,11 @@ const routes = [
     name: 'TopPage',
     component: TopPage
   },
+  {
+    path: '/explore',
+    name: 'Explore',
+    component: Explore
+  }
 ]
 
 const router = createRouter({
