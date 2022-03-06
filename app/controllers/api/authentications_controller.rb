@@ -3,6 +3,6 @@ class Api::AuthenticationsController < ApplicationController
 
   def create
     user = login(params[:name], params[:password])
-    render json: user
+    render json: user.name
   end
 end
