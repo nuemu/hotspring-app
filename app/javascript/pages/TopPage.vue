@@ -23,17 +23,8 @@ export default{
   },
   mounted(){
     this.map = this.CreateMap();
-    this.fetchHotsprings();
   },
   methods:{
-    fetchHotsprings() {
-      this.$axios.get('hotsprings?status=open')
-        .then(res => {
-          this.hotsprings = res.data
-          this.generateMarkers()
-        })
-        .catch(err => console.log(err.status))
-    },
     CreateMap(){
       var map = L.map("map");
 
