@@ -1,5 +1,5 @@
 module Authentication
-  include 'jwt'
+  require 'jwt'
 
   KEY = Rails.application.credentials.secret_key_base
 

@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :hotsprings, only: %w[index show]
-    resource :authentication, only: %w[create]
+    resource :session, only: %w[create]
   end
 
   get '*path', to: 'static_pages#index'
