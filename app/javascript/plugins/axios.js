@@ -1,10 +1,7 @@
 import axios from 'axios'
 
-export default{
-  install(app){
-    const axiosInstance = axios.create({
-      baseURL: 'api'
-    })
-    app.config.globalProperties.$axios = axiosInstance
-  }
-}
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:3000/api'
+})
+
+export default axiosInstance
