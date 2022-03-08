@@ -6,33 +6,39 @@ const map_module = {
   state(){
     return{
       hotsprings:[],
+      hotspring:{},
     }
   },
   getters:{
     hotsprings(state){
       return state.hotsprings
     },
+    hotspring(state){
+      return state.hotspring
+    },
     hotspring_icons(state){
-      console.log("called")
       const icons = state.hotsprings.map(element => {
-        console.log(element)
-        return create_icon(element.name, element.lat, element.lon)
+        return create_icon(element.name, element.latitude, element.longtitude)
       })
       return icons
-    }
+    },
   },
   mutations:{
     setHotsprings(state, data){
-      const processed_data = data.map(element => {
-        return {'name': element.name, 'lat': element.latitude, 'lon': element.longtitude, 'status': element.status}
-      })
-      state.hotsprings = processed_data
+      state.hotsprings = data
+    },
+    setHotspring(state, data){
+      state.hotspring = data
     }
   },
   actions:{
-    async fetchHotsprings({commit}){
-      const response = await axios.get('hotsprings',{ params: {'status': 2}})
+    async fetchHotsprings({commit}, status){
+      const response = await axios.get('hotsprings',{ params: {'status': status}})
       commit('setHotsprings', response.data)
+    },
+    async fetchHotspring({commit}, name){
+      const response = await axios.get('hotspring',{ params: {'name': name}})
+      commit('setHotspring', response.data)
     }
   }
 }

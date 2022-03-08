@@ -4,6 +4,11 @@
     ref="map-root"
     style="width: 100%; height: 100vh">
   </div>
+
+  <div id="popup" class="ol-popup">
+    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+  </div>
 </template>
 
 <script>
@@ -16,25 +21,48 @@ import { mapActions, mapGetters } from 'vuex'
 
 import vt from '../plugins/openlayer_tiles'
 
+import Overlay from 'ol/Overlay';
+
 export default {
   computed:{
     ...mapGetters('map',['hotspring_icons'])
   },
   created(){
-    this.fetchHotsprings()
+    this.fetchHotsprings(3)
+  },
+  data(){
+    return{
+      map:{},
+    }
   },
   watch:{
     hotspring_icons(){
       this.hotspring_icons.forEach(layer => {
-        console.log(layer)
         this.map.addLayer(layer)
       })
     }
   },
   mounted() {
-    
+    const container = document.getElementById('popup');
+    const content = document.getElementById('popup-content');
+    const closer = document.getElementById('popup-closer');
+    const overlay = new Overlay({
+      element: container,
+      autoPan: true,
+      autoPanAnimation: {
+        duration: 250
+      }
+    });
+
+    closer.onclick = function() {
+      overlay.setPosition(undefined);
+      closer.blur();
+      return false;
+    };
+
     this.map = new Map({
       target: 'map',
+      overlays: [overlay],
       view: new View({
         zoom: 10,
         center: fromLonLat([140.46, 35.3]),
@@ -44,9 +72,12 @@ export default {
 
     this.map.addLayer(vt)
 
-    this.map.on('click', function(e) {
-      const lonlat = transform(e.coordinate, 'EPSG:3857', 'EPSG:4326');
-      alert("lat: " + lonlat[1] + ", lat: " + lonlat[0]);
+    this.map.on('click', function(evt) {
+      this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
+        content.innerHTML =
+          "<a href='/"+feature.getProperties().name+"'>" + feature.getProperties().name + "</a>"
+        overlay.setPosition(evt.coordinate);
+      });
     });
     
   },
