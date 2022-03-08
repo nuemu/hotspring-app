@@ -4,7 +4,6 @@
 
 <script>
 import Map from '../components/Map.vue'
-import { mapGetters, mapMutations } from 'vuex'
 
 export default{
   components:{
