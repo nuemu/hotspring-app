@@ -1,29 +1,55 @@
 <template>
-  <div id="map"></div>
+  <div 
+    id="map"
+    ref="map-root"
+    style="width: 100%; height: 100vh">
+  </div>
 </template>
 
 <script>
-import Leaflet from 'leaflet'
-import 'leaflet/dist/leaflet.css'
+import View from 'ol/View'
+import Map from 'ol/Map'
 
-export default{
-  mounted(){
-    var map = L.map("map");
+import VectorTileLayer from 'ol/layer/VectorTile';
+import VectorTileSource from 'ol/source/VectorTile';
+import MVTFormat from 'ol/format/MVT';
+import { fromLonLat, transform } from 'ol/proj'
 
-    L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
-      attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
-    }).addTo(map);
+import 'ol/ol.css'
 
-    map.setView([35.3622222, 138.7313889], 5);
+export default {
+  mounted() {
+    const vt = new VectorTileLayer({
+      source: new VectorTileSource({
+        format: new MVTFormat({
+          layers: ['coastline']
+        }),
+        url: 'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf',
+        attributions: [
+          '<a href="https://github.com/gsi-cyberjapan/gsimaps-vector-experiment" target="_blank" rel=”noopener noreferrer”>国土地理院</a>',
+        ],
+      })
+    })
+
+    var map = new Map({
+      target: 'map',
+      layers: [
+        vt
+      ],
+      view: new View({
+        zoom: 5,
+        center: fromLonLat([140.46, 36.37]),
+        constrainResolution: true
+      }),
+    })
+
+    map.on('click', function(e) {
+      const lonlat = transform(e.coordinate, 'EPSG:3857', 'EPSG:4326');
+      alert("lat: " + lonlat[1] + ", lat: " + lonlat[0]);
+    });
+
+
+    
   },
 }
 </script>
-
-<style scoped>
-#map{
-  margin-padding: 0;
-  min-height: 100vh;
-  height: 100%;
-  width: 100%;
-}
-</style>
