@@ -2,7 +2,7 @@ class Api::HotspringsController < Api::BaseController
   skip_before_action :authenticate
 
   def index
-    hotsprings = Hotspring.where(status: params[:status])
+    hotsprings = Hotspring.permit(params[:status].to_i)
     render json: hotsprings
   end
 

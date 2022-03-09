@@ -25,10 +25,12 @@ import Overlay from 'ol/Overlay';
 
 export default {
   computed:{
-    ...mapGetters('map',['hotspring_icons'])
+    ...mapGetters('map',['hotspring_icons']),
+    ...mapGetters('users',['user_name']),
   },
   created(){
-    this.fetchHotsprings(3)
+    if(this.user_name !== '') this.fetchHotsprings(1)
+    this.fetchHotsprings(0)
   },
   data(){
     return{
@@ -36,10 +38,18 @@ export default {
     }
   },
   watch:{
-    hotspring_icons(){
+ /*   hotspring_icons(){
       this.hotspring_icons.forEach(layer => {
         this.map.addLayer(layer)
       })
+    },*/
+    hotspring_icons(){
+      this.map.addLayer(this.hotspring_icons)
+    },
+    user_name(){
+      if(this.user_name !== '') this.fetchHotsprings(1)
+      this.fetchHotsprings(0)
+      console.log(this.map.getLayers().array_[0])
     }
   },
   mounted() {
@@ -75,7 +85,7 @@ export default {
     this.map.on('click', function(evt) {
       this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
         content.innerHTML =
-          "<a href='/hotspring/"+feature.getProperties().name+"'>" + feature.getProperties().name + "</a>"
+          "<a href='/hotspring/"+feature.getProperties().features[0].values_.name+"'>" + feature.getProperties().features[0].values_.name + "</a>"
         overlay.setPosition(evt.coordinate);
       });
     });
