@@ -29,6 +29,9 @@ const map_module = {
     },
     setHotspring(state, data){
       state.hotspring = data
+    },
+    setComment(state, comment){
+      state.hotspring.comments.push(comment)
     }
   },
   actions:{

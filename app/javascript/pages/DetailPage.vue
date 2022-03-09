@@ -8,17 +8,27 @@
   <div>快適性:{{comfort}}</div>
   <div>危険性:{{danger}}</div>
   <p>Comments</p>
-  <div v-for="comment in hot.comments" :key="comment.id">{{comment.comment}}{{comment.user_id}}</div>
+  <button @click="submit" class="btn btn-secondary">+</button><input v-model="new_comment">
+  <div v-for="comment in comments" :key="comment.id">{{comment.comment}}{{comment.user_id}}</div>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 export default{
+  data(){
+    return{
+      new_comment: '',
+    }
+  },
   computed:{
     ...mapGetters('map',['hotspring','hotsprings']),
+    ...mapGetters('users',['user_name']),
     hot(){
       return this.hotspring.name ? this.hotspring : {'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
+    },
+    comments(){
+      return this.hotspring.comments ? this.hotspring.comments.slice().reverse() : [{'comment':'loading...'}]
     },
     comfort(){
       if(this.hotspring.posts){
@@ -42,7 +52,11 @@ export default{
   },
   methods:{
     ...mapMutations('map', ['setHotspring']),
-    ...mapActions('map',['fetchHotspring']),
+    ...mapActions('map', ['fetchHotspring']),
+    ...mapActions('users', ['postComment']),
+    submit(){
+      this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})
+    }
   }
 }
 </script>
