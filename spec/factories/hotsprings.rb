@@ -5,6 +5,8 @@ FactoryBot.define do
     longtitude { rand(138.6..138.8) }
     description { 'description' }
 
+    status { 'open' }
+
     trait :unexplored do
       status { 'unexplored' }
     end
@@ -15,10 +17,6 @@ FactoryBot.define do
 
     trait :prohibit do
       status { 'prohibit' }
-    end
-
-    trait :open do
-      status { 'open' }
     end
   end
 end

@@ -8,6 +8,6 @@ class Api::HotspringsController < Api::BaseController
 
   def show
     hotspring = Hotspring.find_by(name: params[:name])
-    render json: hotspring
+    render json: hotspring, include: [:posts, :comments]
   end
 end
