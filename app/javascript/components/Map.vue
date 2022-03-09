@@ -75,7 +75,7 @@ export default {
     this.map.on('click', function(evt) {
       this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
         content.innerHTML =
-          "<a href='/"+feature.getProperties().name+"'>" + feature.getProperties().name + "</a>"
+          "<a href='/hotspring/"+feature.getProperties().name+"'>" + feature.getProperties().name + "</a>"
         overlay.setPosition(evt.coordinate);
       });
     });

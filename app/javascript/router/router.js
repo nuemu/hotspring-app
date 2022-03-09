@@ -9,7 +9,7 @@ const routes = [
     component: TopPage
   },
   {
-    path: '/:name',
+    path: '/hotspring/:name',
     component: DetailPage
   }
 ]
