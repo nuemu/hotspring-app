@@ -22,6 +22,7 @@ const users_module = {
     },
     logout(state){
       state.user_name = '',
+      axios.defaults.headers['Authorization']='Bearer ',
       localStorage.removeItem('token')
     }
   },
