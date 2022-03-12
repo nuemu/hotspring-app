@@ -1,6 +1,7 @@
 <template>
   <p></p>
   <div class="container">
+    <button class="btn btn-white">情報提供</button>
     <img src="http://abehiroshi.la.coocan.jp/abe-top-20190328-2.jpg" class="img-fluid d-block mx-auto">
     <h1 class="text-center">{{hot.name}}</h1>
     <div class="text-center">
@@ -27,12 +28,12 @@
     <div class="comment wrapper container">
       <div class="title">Comments</div>
         <div class="input-group">
-          <input class="form-contro" @focus="comment=true" @blur="comment=false" v-model="new_comment" placeholder="情報投稿をお願いします...">
-          <button @click="submit" class="btn btn-white">+</button>
+          <input class="form" @focus="editing=true" v-model="new_comment" placeholder="コメントを入力してください">
+          <button @click="submit" v-if="editing" class="btn btn-white">+</button>
         </div>
-        <div class="container-sm" v-for="comment in comments" :key="comment.id">
+        <div class="container-sm comments" v-for="comment in comments" :key="comment.id">
           {{comment.attributes.comment}}
-          <span class="text-right float-right">
+          <span class="text-right">
             -{{comment.attributes.user.data.attributes.name}}
           </span>
         </div>
@@ -49,7 +50,7 @@ export default{
   data(){
     return{
       new_comment: '',
-      comment: false,
+      editing: false,
     }
   },
   components:{
@@ -100,7 +101,8 @@ export default{
   position:relative;
   left: 12.5%;
 }
-.form-contro{
+.form{
+  width: 70%;
   border: none;
   outline: none;
 }
@@ -116,7 +118,10 @@ export default{
   width:60%;
   left: 20%;
 }
-.float{
-  z-index:1;
+.btn{
+  color: grey;
+}
+.comments{
+  overflow-wrap: anywhere;
 }
 </style>

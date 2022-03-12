@@ -1,7 +1,8 @@
 class Api::CommentsController < Api::BaseController
   def create
     comments = current_user.post(post_params)
-    render json: comments[-1]
+    comment = CommentSerializer.new(comments[-1])
+    render json: comment
   end
 
   private
