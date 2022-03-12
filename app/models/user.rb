@@ -8,6 +8,6 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   def post(params)
-    comments << Comment.new(hotspring_id: params[:id], comment: params[:comment]) if params[:comment]
+    comments << Comment.new(hotspring_id: params[:hotspring_id], comment: params[:comment]) if params[:comment]
   end
 end

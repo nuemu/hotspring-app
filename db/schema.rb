@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_035939) do
   create_table "comments", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "hotspring_id", null: false
-    t.text "comment"
+    t.text "comment", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["hotspring_id"], name: "index_comments_on_hotspring_id"

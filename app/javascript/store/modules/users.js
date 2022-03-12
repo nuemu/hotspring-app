@@ -42,7 +42,8 @@ const users_module = {
       commit('set_user', response.data)
     },
     async postComment({commit},params){
-      const response = await axios.post('posts', {'id':params.hotspring_id, 'comment':params.comment})
+      console.log(params)
+      const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
       commit('map/setComment', response.data, {root: true})
     }
   }

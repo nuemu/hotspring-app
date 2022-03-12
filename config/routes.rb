@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resource :sessions, only: %w[create]
     resource :registers, only: %w[create]
 
-    resources :posts, only: %w[create]
+    resources :comments, only: %w[create]
 
     get 'me', to: 'sessions#me'
     get 'hotspring', to: 'hotsprings#show'

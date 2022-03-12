@@ -8,6 +8,7 @@ class Api::HotspringsController < Api::BaseController
 
   def show
     hotspring = Hotspring.find_by(name: params[:name])
-    render json: hotspring, include: [:posts, :comments]
+    hotspring_json = HotspringSerializer.new(hotspring)
+    render json: hotspring_json
   end
 end

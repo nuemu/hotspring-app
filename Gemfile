@@ -10,6 +10,7 @@ gem 'jbuilder', '~> 2.7'
 
 # DB:postgresql
 gem 'pg', '~> 1.1'
+gem 'jsonapi-serializer'
 
 #Authentication
 gem 'sorcery'

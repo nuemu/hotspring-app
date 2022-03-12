@@ -36,7 +36,7 @@ const map_module = {
       state.hotspring = data
     },
     setComment(state, comment){
-      state.hotspring.comments.push(comment)
+      state.hotspring.comments.data.push(comment.data)
     }
   },
   actions:{
@@ -46,7 +46,7 @@ const map_module = {
     },
     async fetchHotspring({commit}, name){
       const response = await axios.get('hotspring',{ params: {'name': name}})
-      commit('setHotspring', response.data)
+      commit('setHotspring', response.data.data.attributes)
     }
   }
 }
