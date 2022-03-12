@@ -46,7 +46,8 @@ const map_module = {
     },
     async fetchHotspring({commit}, name){
       const response = await axios.get('hotspring',{ params: {'name': name}})
-      commit('setHotspring', response.data)
+      console.log(response.data)
+      commit('setHotspring', response.data.data.attributes)
     }
   }
 }
