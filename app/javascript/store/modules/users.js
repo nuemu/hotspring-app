@@ -22,25 +22,28 @@ const users_module = {
     },
     logout(state){
       state.user_name = '',
+      axios.defaults.headers['Authorization']='Bearer ',
       localStorage.removeItem('token')
     }
   },
   actions:{
     async login({commit}, user){
       const response = await axios.post('sessions',user)
-      console.log(response.headers['authtoken'])
       commit('set_user', response.data)
       commit('set_token', response.headers['authtoken'])
     },
     async register({commit}, user){
       const response = await axios.post('registers',user)
-      console.log(response)
       commit('set_user', response.data)
       commit('set_token', response.headers['authtoken'])
     },
     async who_is_me({commit}){
       const response = await axios.get('me')
       commit('set_user', response.data)
+    },
+    async postComment({commit},params){
+      const response = await axios.post('posts', {'id':params.hotspring_id, 'comment':params.comment})
+      commit('map/setComment', response.data, {root: true})
     }
   }
 }

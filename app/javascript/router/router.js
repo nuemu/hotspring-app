@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import TopPage from '../pages/TopPage.vue'
-import Explore from '../pages/Explore.vue'
+import DetailPage from '../pages/DetailPage.vue'
  
 const routes = [
   {
@@ -9,9 +9,8 @@ const routes = [
     component: TopPage
   },
   {
-    path: '/explore',
-    name: 'Explore',
-    component: Explore
+    path: '/hotspring/:name',
+    component: DetailPage
   }
 ]
 
