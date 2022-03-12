@@ -22,6 +22,9 @@ import { mapActions, mapGetters } from 'vuex'
 import vt from '../plugins/openlayer_tiles'
 
 import Overlay from 'ol/Overlay';
+import {defaults as defaultControls} from 'ol/control';
+
+import RotateNorthControl from '../plugins/ol_control.js'
 
 export default {
   computed:{
@@ -71,6 +74,7 @@ export default {
     };
 
     this.map = new Map({
+      controls: defaultControls().extend([new RotateNorthControl()]),
       target: 'map',
       overlays: [overlay],
       view: new View({
@@ -81,7 +85,7 @@ export default {
     })
 
     this.map.addLayer(vt)
-
+    //setVisible(false, true)
     this.map.on('click', function(evt) {
       this.forEachFeatureAtPixel(evt.pixel, function(feature, layer) {
         content.innerHTML =
@@ -96,3 +100,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.rotate-north {
+  top: 65px;
+  left: .5em;
+  width: 10px;
+}
+.ol-touch .rotate-north {
+  top: 80px;
+}
+</style>

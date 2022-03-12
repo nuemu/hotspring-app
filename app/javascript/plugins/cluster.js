@@ -36,6 +36,7 @@ export function cluster(hotsprings){
 
   const styleCache = {};
   const clusters = new VectorLayer({
+    name: 'cluster',
     source: clusterSource,
     style: function (feature) {
       const size = feature.get('features').length;
