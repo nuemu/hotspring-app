@@ -1,32 +1,46 @@
 import {Control} from 'ol/control';
+import hotspring_status from './hotspring_status.js'
 
-class RotateNorthControl extends Control {
+class VisibilityControl extends Control {
   constructor(opt_options) {
     const options = opt_options || {};
 
-    const unexplored = document.createElement('input');
-    unexplored.type = 'checkbox'
+    let checkboxes = []
+    let checkbox_names = []
 
-    const unexplored_text = document.createElement('div');
-    unexplored_text.innerHTML = 'Unexplored';
+    hotspring_status.forEach((status, index) =>{
+      checkboxes.push(document.createElement('input'));
+      checkboxes[index].type = 'checkbox'
+      checkboxes[index].class= status
+
+      checkbox_names.push(document.createElement('div'));
+      checkbox_names[index].innerHTML = status
+    });
 
     const element = document.createElement('div');
-    element.className = 'rotate-north ol-unselectable ol-control';
-    element.appendChild(unexplored_text);
-    element.appendChild(unexplored);
+    element.className = 'ol-selectable ol-control';
+
+
+    hotspring_status.forEach((status, index) =>{
+      element.appendChild(checkbox_names[index]);
+      element.appendChild(checkboxes[index]);
+    });
 
     super({
       element: element,
       target: options.target,
     });
 
-    unexplored.addEventListener('click', this.handleRotateNorth.bind(this), false);
+    hotspring_status.forEach((status, index) =>{
+      checkboxes[index].addEventListener('click', this.handleVisibility.bind(this), false);
+    });
   }
 
-  handleRotateNorth() {
-    this.getMap().getLayers().forEach(layer => {if(layer.get('name')=='cluster'){layer.setVisible(!layer.getVisible())}})
-    //this.getMap().getView().setRotation(90);
+  handleVisibility(e) {
+    this.getMap().getLayers().forEach(layer => {
+      if(layer.get('name')==e.path[0].class){layer.setVisible(!layer.getVisible())}
+    })
   }
 }
 
-export default RotateNorthControl
+export default VisibilityControl

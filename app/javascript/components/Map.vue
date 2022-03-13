@@ -15,6 +15,9 @@ import { fromLonLat } from 'ol/proj'
 
 import gsi from '../ol/gsi_layer.js'
 
+import {defaults as defaultControls} from 'ol/control'
+import VisibilityControl from '../ol/ol_control.js'
+
 export default {
   name: 'Map',
   data(){

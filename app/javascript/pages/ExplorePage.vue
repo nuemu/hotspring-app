@@ -18,6 +18,7 @@ import { popup } from '../ol/register_popup.js'
 import { mapActions, mapGetters } from 'vuex'
 
 import Map from '../components/Map.vue'
+import VisibilityControl from '../ol/ol_control.js'
 
 export default{
   components:{
@@ -43,6 +44,7 @@ export default{
   },
   mounted(){    
     popup(this.$refs.map.map)
+    this.$refs.map.map.addControl(new VisibilityControl)
   },
   methods:{
     ...mapActions('hotsprings', ['postHotspring','fetchHotsprings']),
