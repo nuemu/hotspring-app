@@ -19,12 +19,12 @@ import { fromLonLat, transform } from 'ol/proj'
 import 'ol/ol.css'
 import { mapActions, mapGetters } from 'vuex'
 
-import vt from '../plugins/gsi_layer'
+import vt from '../ol/gsi_layer'
 
 import Overlay from 'ol/Overlay';
 import {defaults as defaultControls} from 'ol/control';
 
-import RotateNorthControl from '../plugins/ol_control.js'
+import RotateNorthControl from '../ol/ol_control.js'
 
 export default {
   computed:{

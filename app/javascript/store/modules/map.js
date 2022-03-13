@@ -1,7 +1,7 @@
 import axios from '../../plugins/axios.js'
-import {create_icon} from '../../plugins/openlayer.js'
+import {create_icon} from '../../ol/cluster.js'
 
-import {cluster} from '../../plugins/cluster.js'
+import {cluster} from '../../ol/cluster.js'
 
 const map_module = {
   namespaced: true,

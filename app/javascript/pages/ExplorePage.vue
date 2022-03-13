@@ -11,8 +11,8 @@ import Map from 'ol/Map'
 import View from 'ol/View'
 import { fromLonLat } from 'ol/proj'
 
-import gsi from '../plugins/gsi_layer'
-import thermal from '../plugins/thermal_layer'
+import gsi from '../ol/gsi_layer'
+import thermal from '../ol/thermal_layer'
 
 export default{
   mounted(){
