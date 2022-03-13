@@ -2,7 +2,7 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
 import MVTFormat from 'ol/format/MVT';
 
-const vt = new VectorTileLayer({
+const gsi = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVTFormat({
       layers: ['coastline', 'waterarea']
@@ -14,4 +14,4 @@ const vt = new VectorTileLayer({
   })
 })
 
-export default vt
+export default gsi

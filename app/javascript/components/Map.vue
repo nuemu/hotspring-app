@@ -19,7 +19,7 @@ import { fromLonLat, transform } from 'ol/proj'
 import 'ol/ol.css'
 import { mapActions, mapGetters } from 'vuex'
 
-import vt from '../plugins/openlayer_tiles'
+import vt from '../plugins/gsi_layer'
 
 import Overlay from 'ol/Overlay';
 import {defaults as defaultControls} from 'ol/control';
