@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2022_03_09_035939) do
   end
 
   create_table "hotsprings", force: :cascade do |t|
-    t.string "name"
+    t.string "name", default: "未探索", null: false
     t.integer "status", default: 0, null: false
     t.float "latitude", null: false
     t.float "longtitude", null: false
