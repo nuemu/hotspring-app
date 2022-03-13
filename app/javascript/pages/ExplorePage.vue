@@ -57,8 +57,9 @@ export default{
 }
 </script>
 
-<style scoped>
+<style>
 @import '../ol/popup.css';
+@import '../ol/visibility_control.css';
 #map{
   min-height: 100vh;
   height: 100%;

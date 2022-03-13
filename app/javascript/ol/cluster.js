@@ -36,7 +36,6 @@ export function cluster(hotsprings){
 
   hotspring_status.forEach(status => {
     clusters = clusters.concat(categorized_clusters[status])
-    console.log(clusters)
   })
 
   return clusters

@@ -1,0 +1,9 @@
+.checkbox_wrapper{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.visibility{
+  top: 65px;
+  left: .5em;
+}

@@ -40,7 +40,6 @@ const hotsprings_module = {
   actions:{
     async fetchHotsprings({commit}, status){
       const response = await axios.get('hotsprings',{ params: {'status': status}})
-      console.log(response)
       commit('setHotsprings', response.data)
     },
     async fetchHotspring({commit}, name){
