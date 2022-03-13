@@ -28,7 +28,7 @@ import RotateNorthControl from '../ol/ol_control.js'
 
 export default {
   computed:{
-    ...mapGetters('map',['hotspring_icons']),
+    ...mapGetters('hotsprings',['hotspring_icons']),
     ...mapGetters('users',['user_name']),
   },
   created(){
@@ -96,7 +96,7 @@ export default {
     
   },
   methods:{
-    ...mapActions('map', ['fetchHotsprings'])
+    ...mapActions('hotsprings', ['fetchHotsprings'])
   }
 }
 </script>

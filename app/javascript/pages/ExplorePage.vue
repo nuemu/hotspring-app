@@ -23,7 +23,7 @@ import { fromLonLat } from 'ol/proj'
 import gsi from '../ol/gsi_layer'
 //import thermal from '../ol/thermal_layer'
 import { popup } from '../ol/popup.js'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default{
   data(){
@@ -33,7 +33,18 @@ export default{
       memo: '',
     }
   },
-  mounted(){
+  computed:{
+    ...mapGetters('hotsprings',['hotspring_icons']),
+  },
+  watch:{
+    hotspring_icons(){
+      this.map.addLayer(this.hotspring_icons)
+    },
+  },
+  created(){
+    this.fetchHotsprings(1)
+  },
+  mounted(){    
     this.map = new Map({
       target: 'map',
       layers: [gsi],
@@ -47,13 +58,11 @@ export default{
     popup(this.map)
   },
   methods:{
-    ...mapActions('map', ['postHotspring']),
+    ...mapActions('hotsprings', ['postHotspring','fetchHotsprings']),
     register(){
       const latlon = this.$refs.popup.children[1].innerText.split(',')
-      console.log(latlon)
       const params = {'description':this.memo ,'latitude': latlon[1],'longtitude': latlon[0]}
       this.postHotspring(params)
-      console.log(this.memo)
     }
   }
 }

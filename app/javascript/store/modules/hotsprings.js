@@ -1,9 +1,7 @@
 import axios from '../../plugins/axios.js'
-import {create_icon} from '../../ol/cluster.js'
-
 import {cluster} from '../../ol/cluster.js'
 
-const map_module = {
+const hotsprings_module = {
   namespaced: true,
   state(){
     return{
@@ -18,12 +16,6 @@ const map_module = {
     hotspring(state){
       return state.hotspring
     },
- /*   hotspring_icons(state){
-      const icons = state.hotsprings.map(element => {
-        return create_icon(element.name, element.latitude, element.longtitude)
-      })
-      return icons
-    },*/
     hotspring_icons(state){
       return cluster(state.hotsprings)
     }
@@ -31,6 +23,12 @@ const map_module = {
   mutations:{
     setHotsprings(state, data){
       state.hotsprings = data
+    },
+    addHotspring(state, data){
+      let hotsprings = state.hotsprings
+      console.log(hotsprings)
+      hotsprings.push(data)
+      state.hotpsrings = hotsprings
     },
     setHotspring(state, data){
       state.hotspring = data
@@ -42,6 +40,7 @@ const map_module = {
   actions:{
     async fetchHotsprings({commit}, status){
       const response = await axios.get('hotsprings',{ params: {'status': status}})
+      console.log(response)
       commit('setHotsprings', response.data)
     },
     async fetchHotspring({commit}, name){
@@ -50,9 +49,9 @@ const map_module = {
     },
     async postHotspring({commit}, params){
       const response = await axios.post('hotsprings', params)
-      console.log(response)
+      commit('addHotspring', response.data)
     }
   }
 }
 
-export default map_module
+export default hotsprings_module
