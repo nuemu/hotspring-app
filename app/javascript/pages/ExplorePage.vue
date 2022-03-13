@@ -1,9 +1,6 @@
 <template>
-  <div 
-    id="map"
-    ref="map-root"
-    style="width: 100%; height: 100vh">
-  </div>
+  <Map ref="map"/>
+  
   <div id="popup" class="ol-popup">
     <a href="#" id="popup-closer" class="ol-popup-closer"></a>
     <div id="popup-content" ref="popup"></div>
@@ -16,16 +13,16 @@
 </template>
 
 <script>
-import Map from 'ol/Map'
-import View from 'ol/View'
-import { fromLonLat } from 'ol/proj'
-
-import gsi from '../ol/gsi_layer'
 //import thermal from '../ol/thermal_layer'
-import { popup } from '../ol/popup.js'
+import { popup } from '../ol/register_popup.js'
 import { mapActions, mapGetters } from 'vuex'
 
+import Map from '../components/Map.vue'
+
 export default{
+  components:{
+    Map
+  },
   data(){
     return{
       longtitude: '',
@@ -38,24 +35,14 @@ export default{
   },
   watch:{
     hotspring_icons(){
-      this.map.addLayer(this.hotspring_icons)
+      this.$refs.map.map.addLayer(this.hotspring_icons)
     },
   },
   created(){
     this.fetchHotsprings(1)
   },
   mounted(){    
-    this.map = new Map({
-      target: 'map',
-      layers: [gsi],
-      view: new View({
-        zoom: 10,
-        center: fromLonLat([140.46, 35.3]),
-        constrainResolution: false
-      }),
-    })
-
-    popup(this.map)
+    popup(this.$refs.map.map)
   },
   methods:{
     ...mapActions('hotsprings', ['postHotspring','fetchHotsprings']),
