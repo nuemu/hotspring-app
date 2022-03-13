@@ -12,8 +12,37 @@ import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
 
+import hotspring_status from './hotspring_status.js'
+
 export function cluster(hotsprings){
-  // require elements of hotsprings have .longtitude .latitude .name
+  // require elements of hotsprings have .longtitude .latitude .name .status
+  let categorized_hotsprings = {}
+  let categorized_clusters = {}
+  hotspring_status.forEach(status => {
+    categorized_hotsprings[status]=[]
+    categorized_clusters[status] = []
+  })
+  hotsprings.forEach(element => {
+    categorized_hotsprings[element.status].push(element)
+  })
+
+  hotspring_status.forEach(status => {
+    const clusterSource = generate_features(categorized_hotsprings[status])
+
+    categorized_clusters[status] = generate_clusters(clusterSource, status)
+  })
+
+  let clusters = []
+
+  hotspring_status.forEach(status => {
+    clusters = clusters.concat(categorized_clusters[status])
+    console.log(clusters)
+  })
+
+  return clusters
+}
+
+function generate_features(hotsprings){
   const features = hotsprings.map(element => {
     return new Feature({
       geometry: new Point(fromLonLat([element.longtitude, element.latitude])),
@@ -34,9 +63,13 @@ export function cluster(hotsprings){
     source: source,
   });
 
+  return clusterSource
+}
+
+function generate_clusters(clusterSource, status){
   const styleCache = {};
   const clusters = new VectorLayer({
-    name: 'cluster',
+    name: status,
     source: clusterSource,
     style: function (feature) {
       const size = feature.get('features').length;

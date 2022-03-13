@@ -20,7 +20,7 @@ export default{
   },
   watch:{
     hotspring_icons(){
-      this.$refs.map.map.addLayer(this.hotspring_icons)
+      this.hotspring_icons.forEach(icons => this.$refs.map.map.addLayer(icons))
     },
     user_name(){
       if(this.user_name !== '') this.fetchHotsprings(1)

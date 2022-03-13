@@ -36,7 +36,7 @@ export default{
   },
   watch:{
     hotspring_icons(){
-      this.$refs.map.map.addLayer(this.hotspring_icons)
+      this.hotspring_icons.forEach(icons => this.$refs.map.map.addLayer(icons))
     },
   },
   created(){
