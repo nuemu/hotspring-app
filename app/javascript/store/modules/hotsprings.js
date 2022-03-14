@@ -42,8 +42,10 @@ const hotsprings_module = {
       const response = await axios.get('hotsprings',{ params: {'status': status}})
       commit('setHotsprings', response.data)
     },
-    async fetchHotspring({commit}, name){
-      const response = await axios.get('hotsprings/'+name)
+    async fetchHotspring({commit}, lonlat){
+      const lon = lonlat.split(',')[0]
+      const lat = lonlat.split(',')[1]
+      const response = await axios.get('hotspring' ,{ params: {'lat': lat, 'lon': lon}})
       commit('setHotspring', response.data.data.attributes)
     },
     async postHotspring({commit}, params){

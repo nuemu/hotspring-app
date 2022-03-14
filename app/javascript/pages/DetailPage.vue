@@ -57,7 +57,7 @@ export default{
     StarRating
   },
   computed:{
-    ...mapGetters('map',['hotspring','hotsprings']),
+    ...mapGetters('hotsprings',['hotspring','hotsprings']),
     ...mapGetters('users',['user_name']),
     hot(){
       return this.hotspring.name ? this.hotspring : {'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
@@ -77,8 +77,8 @@ export default{
     this.fetchHotspring(this.$route.params.name)
   },
   methods:{
-    ...mapMutations('map', ['setHotspring']),
-    ...mapActions('map', ['fetchHotspring']),
+    ...mapMutations('hotsprings', ['setHotspring']),
+    ...mapActions('hotsprings', ['fetchHotspring']),
     ...mapActions('users', ['postComment']),
     submit(){
       this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})

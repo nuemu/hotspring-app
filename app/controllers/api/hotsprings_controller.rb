@@ -7,7 +7,7 @@ class Api::HotspringsController < Api::BaseController
   end
 
   def show
-    hotspring = Hotspring.find_by(name: params[:id])
+    hotspring = Hotspring.find_by(latitude: params[:lat], longtitude: params[:lon])
     hotspring_json = HotspringSerializer.new(hotspring)
     render json: hotspring_json
   end
