@@ -14,14 +14,13 @@
 
 <script>
 //import thermal from '../ol/thermal_layer'
-import { popup } from '../ol/register_popup.js'
 import { mapActions, mapGetters } from 'vuex'
 
 import Map from '../components/Map.vue'
-import VisibilityControl from '../ol/ol_control.js'
-import { Interaction } from '../ol/interaction.js'
+
+import { popup } from '../ol/register_popup.js'
 import { InteractionStyle } from '../ol/interaction_style.js'
-import {Vector as VectorSource} from 'ol/source';
+import InteractionControl from '../ol/interaction_control.js'
 
 export default{
   components:{
@@ -45,16 +44,11 @@ export default{
   created(){
     this.fetchHotsprings(1)
   },
-  mounted(){    
-    const source = new VectorSource();
-    const draw_layer = InteractionStyle(source)
-
-    this.$refs.map.map.addLayer(draw_layer)
-
-    Interaction(this.$refs.map.map, source)
-
+  mounted(){
     popup(this.$refs.map.map)
-    this.$refs.map.map.addControl(new VisibilityControl)
+    InteractionStyle(this.$refs.map.map)
+
+    this.$refs.map.map.addControl(new InteractionControl)
   },
   methods:{
     ...mapActions('hotsprings', ['postHotspring','fetchHotsprings']),

@@ -1,12 +1,11 @@
 import Overlay from 'ol/Overlay';
-import {toLonLat} from 'ol/proj';
 
 export function popup(map){
   const container = document.getElementById('popup');
-  const content = document.getElementById('popup-content');
   const closer = document.getElementById('popup-closer');
 
   const overlay = new Overlay({
+    name: 'register',
     element: container,
     autoPan: {
       animation: {
@@ -22,12 +21,4 @@ export function popup(map){
   };
 
   map.addOverlay(overlay);
-
-  map.on('singleclick', function (evt) {
-    const coordinate = evt.coordinate;
-    const lonlat = toLonLat(coordinate);
-  
-    content.innerHTML = '<p>この周辺を登録しますか？:</p><code>' + lonlat + '</code>';
-    overlay.setPosition(coordinate);
-  });
 }
