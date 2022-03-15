@@ -19,6 +19,9 @@ import { mapActions, mapGetters } from 'vuex'
 
 import Map from '../components/Map.vue'
 import VisibilityControl from '../ol/ol_control.js'
+// import Interaction from '../ol/interaction.js'
+import { InteractionStyle } from '../ol/interaction_style.js'
+import {Vector as VectorSource} from 'ol/source';
 
 export default{
   components:{
@@ -43,6 +46,11 @@ export default{
     this.fetchHotsprings(1)
   },
   mounted(){    
+    const source = new VectorSource();
+    const draw_layer = InteractionStyle(source)
+
+    this.$refs.map.map.addLayer(draw_layer)
+
     popup(this.$refs.map.map)
     this.$refs.map.map.addControl(new VisibilityControl)
   },
