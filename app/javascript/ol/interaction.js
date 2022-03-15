@@ -1,14 +1,20 @@
-import {Draw, Modify, Snap} from 'ol/interaction';
+import Draw from 'ol/interaction/Draw.js';
+import Modify from 'ol/interaction/Modify.js';
+import Snap from 'ol/interaction/Snap.js';
 
-const modify = new Modify({source: source});
-map.addInteraction(modify);
+export function Interaction(map, source){
+  const modify = new Modify({source: source});
+  map.addInteraction(modify);
 
-function addInteractions() {
-  draw = new Draw({
-    source: source,
-    type: 'Cycle',
-  });
-  map.addInteraction(draw);
-  snap = new Snap({source: source});
-  map.addInteraction(snap);
+  function addInteractions() {
+    const draw = new Draw({
+      source: source,
+      type: 'Circle',
+    });
+    map.addInteraction(draw);
+    const snap = new Snap({source: source});
+    map.addInteraction(snap);
+  }
+
+  addInteractions()
 }
