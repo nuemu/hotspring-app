@@ -30,7 +30,6 @@ import Thermal from '../ol/thermal_layer.js'
 
 import { popup } from '../ol/register_popup.js'
 import { InteractionStyle } from '../ol/interaction_style.js'
-import InteractionControl from '../ol/interaction_control.js'
 
 export default{
   components:{
@@ -59,8 +58,6 @@ export default{
     popup(this.$refs.map.map)
     InteractionStyle(this.$refs.map.map)
 
-    this.$refs.map.map.addControl(new InteractionControl)
-
     this.$refs.map.map.addLayer(Thermal)
     this.$refs.map.map.addLayer(Photo)
     this.$refs.side.normal()
@@ -70,6 +67,7 @@ export default{
     register(){
       const latlon = this.$refs.popup.children[1].innerText.split(',')
       const params = {'description':this.memo ,'latitude': latlon[1],'longtitude': latlon[0]}
+      this.postHotspring(params)
     },
   }
 }
@@ -80,13 +78,16 @@ export default{
 @import '../ol/visibility_control.css';
 
 .map {
+  position:relative;
+  z-index: 0;
   width: 90%;
   height: 100%;
   float: right;
 }
 .sidepanel {
-  background: #eeee;
-  z-index: 1;
+  background-color: #ffff;
+  position:relative;
+  z-index: 100;
   width: 10%;
   height: 100vh;
   float: right;
