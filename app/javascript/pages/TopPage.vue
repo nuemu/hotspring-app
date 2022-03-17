@@ -33,11 +33,10 @@ export default{
   watch:{
     hotspring_icons(){
       this.hotspring_icons.forEach(icons => this.$refs.map.map.addLayer(icons))
-      this.$refs.map.map.addControl(new VisibilityControl)
       popup(this.$refs.map.map)
     },
     user_name(){
-      if(this.user_name !== '') {
+      if(this.user_name) {
         this.fetchHotsprings(1)
         this.$refs.map.map.addControl(new VisibilityControl)
       }

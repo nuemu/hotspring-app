@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :hotsprings, only: %w[index create]
+    resource :articles, only: %w[create]
     resource :sessions, only: %w[create]
     resource :registers, only: %w[create]
 
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
 
     get 'me', to: 'sessions#me'
     get 'hotspring', to: 'hotsprings#show'
+    get 'article', to: 'articles#show'
   end
 
   get '*path', to: 'static_pages#index'

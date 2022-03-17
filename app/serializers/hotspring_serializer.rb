@@ -12,4 +12,8 @@ class HotspringSerializer
   attribute :posts do |obj|
     PostSerializer.new(obj.posts)
   end
+
+  attribute :articles do |obj|
+    ArticleSerializer.new(obj.articles)
+  end
 end

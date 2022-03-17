@@ -6,6 +6,7 @@ export function InteractionStyle(map){
   const source = new VectorSource();
   const vector = new VectorLayer({
     source: source,
+    zIndex: 10,
     name: 'interaction',
     style: new Style({
       fill: new Fill({

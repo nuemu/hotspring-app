@@ -44,7 +44,7 @@ const users_module = {
     async postComment({commit},params){
       console.log(params)
       const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
-      commit('map/setComment', response.data, {root: true})
+      commit('hotsprings/setComment', response.data, {root: true})
     }
   }
 }

@@ -1,48 +1,68 @@
 <template>
   <p></p>
   <div class="container">
-    <button class="btn btn-white">情報提供</button>
+    <button class="btn">情報提供</button>
     <img src="http://abehiroshi.la.coocan.jp/abe-top-20190328-2.jpg" class="img-fluid d-block mx-auto">
     <h1 class="text-center">{{hot.name}}</h1>
     <div class="text-center">
       <a :href="'https://www.google.co.jp/maps/@'+hot.latitude+','+hot.longtitude+',15z?hl=ja'" class="link-dark">lat:{{hot.latitude}}, long:{{hot.longtitude}}</a>
     </div>
+    <p></p>
+
     <div class="description wrapper container">
-      <div class="title">Description</div>
-      <div class="container-sm">{{hot.description}}</div>
+      <div class="lead">Description</div>
+      <div class="container-sm" style="white-space: pre-line;">{{hot.description}}</div>
     </div>
-    <div class="rating wrapper container">
-    </div>
+    <p></p>
+
     <div class="comment wrapper container">
-      <div class="title">Comments</div>
-        <div class="input-group">
-          <input class="form" @focus="editing=true" v-model="new_comment" placeholder="コメントを入力してください">
-          <button @click="submit" v-if="editing" class="btn btn-white">+</button>
-        </div>
-        <div class="container-sm comments" v-for="comment in comments" :key="comment.id">
-          {{comment.attributes.comment}}
-          <span class="text-right">
-            -{{comment.attributes.user.data.attributes.name}}
-          </span>
+      <div class="lead">Comments</div>
+      <div v-if="user_name" class="input-group container-sm">
+        <textarea ref="comment" rows="1" @input="input" class="form-control form-control-plaintext" @focus="editing=true" v-model="new_comment" placeholder="コメントを入力してください"></textarea>
+        <button @click="submit" class="btn">+</button>
+      </div>
+      <div class="container-sm" v-for="comment in comments" :key="comment.id" style="white-space: pre-line;">
+        {{comment.attributes.comment}}
+        <div class="text-end">
+          {{comment.attributes.user.data.attributes.name}}
         </div>
       </div>
     </div>
+    <p></p>
+
+    <div class="articles wrapper container">
+      <div class="lead">Articles</div>
+      <div v-if="user_name" class="input-group container-sm">
+        <input type="url" class="form-control form-control-plaintext" @focus="editing_url=true" v-model="new_url" placeholder="URLを入力してください">
+        <button @click="add_url" class="btn">+</button>
+      </div>
+      <div class="container-sm" v-for="article in articles" :key="article.id">
+        <Article :url="String(article.attributes.url)" />
+        {{String(article.attributes.url)}}
+        <p></p>
+      </div>
+    </div>
+
+  </div>
+
   <p></p>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import StarRating from 'vue-star-rating'
+import Article from '../components/Article.vue'
 
 export default{
   data(){
     return{
       new_comment: '',
-      editing: false,
+      new_url: '',
     }
   },
   components:{
-    StarRating
+    StarRating,
+    Article
   },
   computed:{
     ...mapGetters('hotsprings',['hotspring','hotsprings']),
@@ -54,11 +74,8 @@ export default{
       // 要改修
       return this.hotspring.comments ? this.hotspring.comments.data.slice().reverse() : [{'comment':'loading...', 'attributes':{'comment':'loading','user':{'data':{'attributes':{'name':'loading...'}}}}}]
     },
-    comfort(){
-      return 3
-    },
-    danger(){
-      return 3
+    articles(){
+      return this.hotspring.articles ? this.hotspring.articles.data.slice().reverse() : [{'id':0,'attributes':{'url':'loading...'}}]
     }
   },
   created(){
@@ -66,50 +83,24 @@ export default{
   },
   methods:{
     ...mapMutations('hotsprings', ['setHotspring']),
-    ...mapActions('hotsprings', ['fetchHotspring']),
+    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle']),
     ...mapActions('users', ['postComment']),
     submit(){
       this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})
+      this.new_comment = ''
+    },
+    add_url(){
+      this.postArticle({'hotspring_id':this.hotspring.id, 'url':this.new_url})
+      this.new_url = ''
+    },
+    input(){
     }
   }
 }
 </script>
 
 <style scoped>
-.wrapper{
-  text-indent: 10%;
-}
-.title{
-  font-size: 200%;
-  font-weight: lighter;
-}
-.input-group{
-  width: 100%;
-  text-align: center;
-  position:relative;
-  left: 12.5%;
-}
 .form{
-  width: 70%;
-  border: none;
   outline: none;
-}
-.input-group-text{
-  background-color:none;
-}
-.container-sm{
-  position: relative;
-  left: 2%;
-}
-.align-items-start{
-  position: relative;
-  width:60%;
-  left: 20%;
-}
-.btn{
-  color: grey;
-}
-.comments{
-  overflow-wrap: anywhere;
 }
 </style>
