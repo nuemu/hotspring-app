@@ -12,18 +12,6 @@
       <div class="container-sm">{{hot.description}}</div>
     </div>
     <div class="rating wrapper container">
-      <div class="title">Ratings</div>
-      <div class="container-sm row align-items-start">
-        <span class="col-sm">快適性：<StarRating :inline="true" :read-only="true" :star-size="20" :rating="comfort"/></span>
-        <span class="col-sm">危険性：<StarRating :inline="true" :read-only="true" :star-size="20" :rating="danger" active-color="#9c0000"/></span>
-      </div>
-      <div class="container-sm" v-if="false">
-        <span class="row align-items-start">
-        <span class="col-sm">水温：<StarRating :inline="true" :star-size="20" :rating="comfort"/></span>
-        <span class="col-sm">経路：<StarRating :inline="true" :star-size="20" :rating="comfort"/></span>
-        <span class="col-sm">ガス：<StarRating :inline="true" :star-size="20" :rating="comfort"/></span>
-        </span>
-      </div>
     </div>
     <div class="comment wrapper container">
       <div class="title">Comments</div>
