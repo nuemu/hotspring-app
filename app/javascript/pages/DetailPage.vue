@@ -19,7 +19,7 @@
       <div class="lead">Comments</div>
       <div v-if="user_name" class="input-group container-sm">
         <textarea ref="comment" rows="1" @input="input" class="form-control form-control-plaintext" @focus="editing=true" v-model="new_comment" placeholder="コメントを入力してください"></textarea>
-        <button @click="submit" v-if="editing" class="btn">+</button>
+        <button @click="submit" class="btn">+</button>
       </div>
       <div class="container-sm" v-for="comment in comments" :key="comment.id" style="white-space: pre-line;">
         {{comment.attributes.comment}}
@@ -34,10 +34,12 @@
       <div class="lead">Articles</div>
       <div v-if="user_name" class="input-group container-sm">
         <input type="url" class="form-control form-control-plaintext" @focus="editing_url=true" v-model="new_url" placeholder="URLを入力してください">
-        <button @click="add_url" v-if="editing_url" class="btn">+</button>
+        <button @click="add_url" class="btn">+</button>
       </div>
-      <div class="container-sm">
-        <Article />
+      <div class="container-sm" v-for="article in articles" :key="article.id">
+        <Article :url="String(article.attributes.url)" />
+        {{String(article.attributes.url)}}
+        <p></p>
       </div>
     </div>
 
@@ -56,8 +58,6 @@ export default{
     return{
       new_comment: '',
       new_url: '',
-      editing: false,
-      editing_url: false,
     }
   },
   components:{
@@ -74,6 +74,9 @@ export default{
       // 要改修
       return this.hotspring.comments ? this.hotspring.comments.data.slice().reverse() : [{'comment':'loading...', 'attributes':{'comment':'loading','user':{'data':{'attributes':{'name':'loading...'}}}}}]
     },
+    articles(){
+      return this.hotspring.articles ? this.hotspring.articles.data.slice().reverse() : [{'id':0,'attributes':{'url':'loading...'}}]
+    }
   },
   created(){
     this.fetchHotspring(this.$route.params.name)

@@ -35,6 +35,9 @@ const hotsprings_module = {
     },
     setComment(state, comment){
       state.hotspring.comments.data.push(comment.data)
+    },
+    setArticle(state, article){
+      state.hotspring.articles.data.push(article.data)
     }
   },
   actions:{
@@ -54,7 +57,7 @@ const hotsprings_module = {
     },
     async postArticle({commit}, params){
       const response = await axios.post('articles', params)
-      console.log(response)
+      commit('setArticle', response.data)
     }
   }
 }

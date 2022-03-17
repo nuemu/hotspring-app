@@ -1,26 +1,33 @@
 <template>
-  <div @click="click">
-    <iframe :srcdoc="html" sandbox scrolling="no" class="card-img-top"></iframe>
+  <div @click="click" class="ratio ratio-21x9" style="outline: solid;">
+    <iframe :src="url" :srcdoc="html" sandbox scrolling="no" allow="none"></iframe>
   </div>
 </template>
 
 <script>
 import axios from '../plugins/axios.js'
 export default{
+  props:['url'],
   data(){
     return{
       html: '',
-      url: 'https://tori-kara.hatenablog.com/'
     }
   },
   created(){
-    this.getDom()
+    if(this.url !== 'loading...') this.getDom()
   },
   methods:{
     async getDom(){
+      // CORS対策
       await axios.get('article', {params:{'url': this.url}})
         .then(response => {
-          this.html = response.data
+          const html = new DOMParser().parseFromString(response.data, 'text/html');
+          const base = document.createElement('base')
+          base.href = this.url
+          base.target = "_self"
+          html.head.prepend(base)
+
+          this.html = new XMLSerializer().serializeToString(html)
         })
     },
     click(){
@@ -32,7 +39,6 @@ export default{
 
 <style scoped>
 iframe{
-  height: 300px;
   pointer-events:none;
 }
 </style>

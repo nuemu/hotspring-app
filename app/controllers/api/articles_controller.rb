@@ -8,7 +8,8 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def create
-    url = Hotspring.find(params[:hotspring_id]).articles << Article.new(url: params[:url])
-    render json: url[-1]
+    articles = Hotspring.find(params[:hotspring_id]).articles << Article.new(url: params[:url])
+    article = ArticleSerializer.new(articles[-1])
+    render json: article
   end
 end
