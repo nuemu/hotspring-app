@@ -11,8 +11,6 @@
       <div class="title">Description</div>
       <div class="container-sm">{{hot.description}}</div>
     </div>
-    <div class="rating wrapper container">
-    </div>
     <div class="comment wrapper container">
       <div class="title">Comments</div>
         <div class="input-group">
@@ -27,12 +25,17 @@
         </div>
       </div>
     </div>
+    <div class="articles wrapper container">
+      <div class="title">Articles</div>
+        <Article />
+    </div>
   <p></p>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import StarRating from 'vue-star-rating'
+import Article from '../components/Article.vue'
 
 export default{
   data(){
@@ -42,7 +45,8 @@ export default{
     }
   },
   components:{
-    StarRating
+    StarRating,
+    Article
   },
   computed:{
     ...mapGetters('hotsprings',['hotspring','hotsprings']),

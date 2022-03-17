@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     get 'me', to: 'sessions#me'
     get 'hotspring', to: 'hotsprings#show'
+    get 'article', to: 'articles#show'
   end
 
   get '*path', to: 'static_pages#index'
