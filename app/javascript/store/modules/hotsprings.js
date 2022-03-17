@@ -1,9 +1,7 @@
 import axios from '../../plugins/axios.js'
-import {create_icon} from '../../plugins/openlayer.js'
+import {cluster} from '../../ol/cluster.js'
 
-import {cluster} from '../../plugins/cluster.js'
-
-const map_module = {
+const hotsprings_module = {
   namespaced: true,
   state(){
     return{
@@ -18,12 +16,6 @@ const map_module = {
     hotspring(state){
       return state.hotspring
     },
- /*   hotspring_icons(state){
-      const icons = state.hotsprings.map(element => {
-        return create_icon(element.name, element.latitude, element.longtitude)
-      })
-      return icons
-    },*/
     hotspring_icons(state){
       return cluster(state.hotsprings)
     }
@@ -31,6 +23,12 @@ const map_module = {
   mutations:{
     setHotsprings(state, data){
       state.hotsprings = data
+    },
+    addHotspring(state, data){
+      let hotsprings = state.hotsprings
+      console.log(hotsprings)
+      hotsprings.push(data)
+      state.hotpsrings = hotsprings
     },
     setHotspring(state, data){
       state.hotspring = data
@@ -44,11 +42,17 @@ const map_module = {
       const response = await axios.get('hotsprings',{ params: {'status': status}})
       commit('setHotsprings', response.data)
     },
-    async fetchHotspring({commit}, name){
-      const response = await axios.get('hotspring',{ params: {'name': name}})
+    async fetchHotspring({commit}, lonlat){
+      const lon = lonlat.split(',')[0]
+      const lat = lonlat.split(',')[1]
+      const response = await axios.get('hotspring' ,{ params: {'lat': lat, 'lon': lon}})
       commit('setHotspring', response.data.data.attributes)
+    },
+    async postHotspring({commit}, params){
+      const response = await axios.post('hotsprings', params)
+      commit('addHotspring', response.data)
     }
   }
 }
 
-export default map_module
+export default hotsprings_module
