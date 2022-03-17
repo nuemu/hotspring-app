@@ -16,8 +16,11 @@
         </li>
       </ul>
       <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
-        <li v-if="user_name" class="nav-item">
-          <router-link to="/explore" class="nav-link active">野湯探索</router-link>
+        <li v-if="user_name && $route.path == '/'" class="nav-item">
+          <router-link to="/explore" class="nav-link active">野湯登録</router-link>
+        </li>
+        <li v-else class="nav-item">
+          <router-link to="/" class="nav-link active">野湯一覧</router-link>
         </li>
       </ul>
     </div>

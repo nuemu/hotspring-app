@@ -9,17 +9,20 @@ class VisibilityControl extends Control {
     let checkboxes = []
     let checkbox_names = []
 
-    hotspring_status.forEach((status, index) =>{
+    Object.keys(hotspring_status).forEach((status, index) =>{
       checkbox_wrappers.push(document.createElement('div'));
-      checkbox_wrappers[index].className = 'checkbox_wrapper';
+      checkbox_wrappers[index].className = 'form-check';
 
       checkboxes.push(document.createElement('input'));
       checkboxes[index].type = 'checkbox'
-      checkboxes[index].className= status
-      checkboxes[index].checked = 'checked'
-
-      checkbox_names.push(document.createElement('div'));
-      checkbox_names[index].innerHTML = status
+      checkboxes[index].className = status + ' form-check-input'
+      checkboxes[index].id = status
+      if(status !== 'not_exist') checkboxes[index].checked = 'checked'
+      
+      checkbox_names.push(document.createElement('label'));
+      checkbox_names[index].className = 'form-check-label'
+      checkbox_names[index].for = status
+      checkbox_names[index].innerHTML = hotspring_status[status]
 
       
       checkbox_wrappers[index].appendChild(checkbox_names[index]);
@@ -30,7 +33,7 @@ class VisibilityControl extends Control {
     element.className = 'ol-selectable ol-control visibility';
 
 
-    hotspring_status.forEach((status, index) =>{
+    Object.keys(hotspring_status).forEach((status, index) =>{
       element.appendChild(checkbox_wrappers[index])
     });
 
@@ -39,14 +42,14 @@ class VisibilityControl extends Control {
       target: options.target,
     });
 
-    hotspring_status.forEach((status, index) =>{
+    Object.keys(hotspring_status).forEach((status, index) =>{
       checkboxes[index].addEventListener('click', this.handleVisibility.bind(this), false);
     });
   }
 
   handleVisibility(e) {
     this.getMap().getLayers().forEach(layer => {
-      if(layer.get('name')==e.path[0].className){layer.setVisible(!layer.getVisible())}
+      if(layer.get('name') + ' form-check-input'==e.path[0].className){layer.setVisible(!layer.getVisible())}
     })
   }
 }

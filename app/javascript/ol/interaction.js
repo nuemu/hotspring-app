@@ -22,7 +22,7 @@ export function Interaction(map, type){
   function addInteractions() {
     draw = new Draw({
       source: source,
-      type: 'Circle',
+      type: 'Polygon',
     });
     map.addInteraction(draw);
     snap = new Snap({source: source});

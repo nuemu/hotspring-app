@@ -18,7 +18,7 @@ export function cluster(hotsprings){
   // require elements of hotsprings have .longtitude .latitude .name .status
   let categorized_hotsprings = {}
   let categorized_clusters = {}
-  hotspring_status.forEach(status => {
+  Object.keys(hotspring_status).forEach(status => {
     categorized_hotsprings[status]=[]
     categorized_clusters[status] = []
   })
@@ -26,7 +26,7 @@ export function cluster(hotsprings){
     categorized_hotsprings[element.status].push(element)
   })
 
-  hotspring_status.forEach(status => {
+  Object.keys(hotspring_status).forEach(status => {
     const clusterSource = generate_features(categorized_hotsprings[status])
 
     categorized_clusters[status] = generate_clusters(clusterSource, status)
@@ -34,7 +34,7 @@ export function cluster(hotsprings){
 
   let clusters = []
 
-  hotspring_status.forEach(status => {
+  Object.keys(hotspring_status).forEach(status => {
     clusters = clusters.concat(categorized_clusters[status])
   })
 

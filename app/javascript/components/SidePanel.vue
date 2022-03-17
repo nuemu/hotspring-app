@@ -6,21 +6,24 @@
     <li @click="description" class="list-group-item list-group-item-action text-center">使い方</li>
   </ul>
 </div>
+<p></p>
 <div>
   <div class="container">
-    <h5 class="lead">機能</h5>
+    <h5 class="lead">Click</h5>
     <ol class="list-group list-group-flush list-group-numbered">
       <li @click="register" class="list-group-item list-group-item-action">野湯登録</li>
-      <li @click="draw" class="list-group-item list-group-item-action">線を引く</li>
+      <li @click="draw" class="list-group-item list-group-item-action">囲む</li>
+      <li @click="none" class="list-group-item list-group-item-action">-</li>
     </ol>
   </div>
 </div>
+<p></p>
 <div>
   <div class="container">
-    <h5>地図</h5>
+    <h5 class="lead">Map</h5>
     <ol class="list-group list-group-flush list-group-numbered">
       <li @click="normal" class="list-group-item list-group-item-action">水系地図</li>
-      <li @click="thermal" class="list-group-item list-group-item-action">Thermal</li>
+      <li @click="thermal" class="list-group-item list-group-item-action">サーマル</li>
       <li @click="photo" class="list-group-item list-group-item-action">航空写真</li>
     </ol>
   </div>
@@ -40,6 +43,11 @@ export default{
   methods:{
     description(){
       this.$refs.description.modal_appearance = true
+    },
+    none(){
+      const map = this.$parent.$refs.map.map
+      Interaction(map, false)
+      map.un('singleclick', register)
     },
     register(){
       const map = this.$parent.$refs.map.map
