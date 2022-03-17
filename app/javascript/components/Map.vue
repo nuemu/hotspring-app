@@ -14,9 +14,7 @@ import View from 'ol/View'
 import { fromLonLat } from 'ol/proj'
 
 import gsi from '../ol/gsi_layer.js'
-
-import {defaults as defaultControls} from 'ol/control'
-import VisibilityControl from '../ol/ol_control.js'
+import { transformExtent } from 'ol/proj';
 
 export default {
   name: 'Map',
@@ -30,9 +28,10 @@ export default {
       target: 'map',
       layers: [gsi],
       view: new View({
-        zoom: 10,
+        zoom: 5,
         center: fromLonLat([140.46, 35.3]),
-        constrainResolution: false
+        constrainResolution: false,
+        extent: transformExtent([110, 20, 170, 46], 'EPSG:4326', 'EPSG:3857')
       }),
     })
   },
