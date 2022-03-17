@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div @click="click">
     <iframe :srcdoc="html" sandbox scrolling="no" class="card-img-top"></iframe>
   </div>
 </template>
@@ -10,7 +10,7 @@ export default{
   data(){
     return{
       html: '',
-      url: 'https://getbootstrap.jp/docs/5.0/components/card/'
+      url: 'https://tori-kara.hatenablog.com/'
     }
   },
   created(){
@@ -22,6 +22,9 @@ export default{
         .then(response => {
           this.html = response.data
         })
+    },
+    click(){
+      window.open(this.url, "_blank", "noreferrer")
     }
   }
 }

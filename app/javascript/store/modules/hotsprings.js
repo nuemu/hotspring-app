@@ -51,6 +51,10 @@ const hotsprings_module = {
     async postHotspring({commit}, params){
       const response = await axios.post('hotsprings', params)
       commit('addHotspring', response.data)
+    },
+    async postArticle({commit}, params){
+      const response = await axios.post('articles', params)
+      console.log(response)
     }
   }
 }
