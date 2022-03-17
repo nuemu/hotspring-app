@@ -37,6 +37,10 @@ const users_module = {
       commit('set_user', response.data)
       commit('set_token', response.headers['authtoken'])
     },
+    async fetchAuthUser({ commit, state }) {
+      if (!localStorage.token) return null
+      if (state.user_name) return state.user_name
+    },
     async who_is_me({commit}){
       const response = await axios.get('me')
       commit('set_user', response.data)

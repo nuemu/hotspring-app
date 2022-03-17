@@ -46,9 +46,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_070114) do
   create_table "posts", force: :cascade do |t|
     t.bigint "hotspring_id", null: false
     t.bigint "user_id", null: false
-    t.integer "accesibility"
-    t.integer "water_tempreature"
-    t.integer "gas_risk"
+    t.integer "status", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["hotspring_id"], name: "index_posts_on_hotspring_id"
@@ -59,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_070114) do
     t.string "name", null: false
     t.string "crypted_password"
     t.string "salt"
+    t.integer "admin", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_users_on_name", unique: true
