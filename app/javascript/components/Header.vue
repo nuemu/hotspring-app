@@ -3,24 +3,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <router-link to="/" class="navbar-brand">App Icon Here</router-link>
-    <button class="navbar-toggler" type="button">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li v-if="user_name" class="nav-item">
-          <a href="" class="nav-link active" @click.prevent = "logout" >{{user_name}}</a>
-        </li>
-        <li v-else class="nav-item">
-          <a href="" class="nav-link active" @click.prevent = "$refs.authentication.modal_appearance = true" >ログイン/新規登録</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li v-if="user_name && $route.path == '/'" class="nav-item">
           <router-link to="/explore" class="nav-link active">野湯登録</router-link>
         </li>
-        <li v-else class="nav-item">
+        <li v-else-if="$route.path!=='/'" class="nav-item">
           <router-link to="/" class="nav-link active">野湯一覧</router-link>
+        </li>
+        <li v-if="user_name" class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{user_name}}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">お気に入り</a></li>
+            <li><a class="dropdown-item" href="#" @click="logout">ログアウト</a></li>
+          </ul>
+        </li>
+        <li v-else class="nav-item">
+          <a href="" class="nav-link active" @click.prevent = "$refs.authentication.modal_appearance = true" >ログイン/新規登録</a>
         </li>
       </ul>
     </div>

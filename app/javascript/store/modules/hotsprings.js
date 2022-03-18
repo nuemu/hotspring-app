@@ -73,6 +73,7 @@ const hotsprings_module = {
             break
         }
       })
+      return response.data.data.attributes
     },
     async postHotspring({commit}, params){
       const response = await axios.post('hotsprings', params)
