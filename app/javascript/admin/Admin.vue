@@ -5,6 +5,10 @@
   <div v-if="true">
     <Hotspring />
   </div>
+
+  <div v-if="true">
+    <User />
+  </div>
   
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -21,11 +25,13 @@
 <script>
 import Sidebar from './Sidebar.vue'
 import Hotspring from './Hotspring.vue'
+import User from './User.vue'
 
 export default {
   components:{
     Sidebar,
-    Hotspring
+    Hotspring,
+    User
   }
 }
 </script>

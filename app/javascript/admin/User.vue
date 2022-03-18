@@ -21,21 +21,15 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>名称</th>
-                  <th>緯度</th>
-                  <th>経度</th>
-                  <th>詳細</th>
+                  <th>名</th>
                   <th>削除</th>
                   <th>編集</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="hotspring in hotsprings" :key="hotspring.id">
-                  <td>{{hotspring.id}}</td>
-                  <td>{{hotspring.name}}</td>
-                  <td>{{hotspring.latitude}}</td>
-                  <td>{{hotspring.longtitude}}</td>
-                  <td>{{hotspring.description}}</td>
+                <tr v-for="user in users" :key="user.id">
+                  <td>{{user.id}}</td>
+                  <td>{{user.name}}</td>
                   <td><button class="btn">X</button></td>
                   <td><button class="btn">E</button></td>
                 </tr>
@@ -56,14 +50,17 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  computed:{
-    ...mapGetters('hotsprings',['hotsprings'])
+  data(){
+    return{
+      users: []
+    }
   },
   created(){
-    this.fetchHotsprings(1)
+    this.fetchUsers(1)
+      .then(response => this.users = response)
   },
   methods:{
-    ...mapActions('hotsprings',['fetchHotsprings'])
+    ...mapActions('users',['fetchUsers'])
   }
 }
 </script>

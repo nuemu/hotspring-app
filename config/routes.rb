@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resource :articles, only: %w[create]
     resource :sessions, only: %w[create]
     resource :registers, only: %w[create]
+    resources :users, only: %w[index]
 
     resources :comments, only: %w[create]
 
