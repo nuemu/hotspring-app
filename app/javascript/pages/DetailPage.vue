@@ -5,7 +5,11 @@
     <div class="text-center">
       <img :src="img" height="480">
     </div>
-    <h1 class="text-center">{{hot.name}}<Star :hotspring_id="hot.id"/></h1>
+    <h1 class="text-center">
+      <StatusIcons :status="hot.status"/>
+      {{hot.name}}
+      <Star :hotspring_id="hot.id"/>
+    </h1>
     <div class="text-center">
       <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
         lat:{{hot.latitude}}, long:{{hot.longtitude}}
@@ -55,6 +59,7 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import Article from '../components/Article.vue'
 import Star from '../components/Star.vue'
+import StatusIcons from '../components/StatusIcons.vue'
 
 export default{
   data(){
@@ -65,13 +70,14 @@ export default{
   },
   components:{
     Article,
-    Star
+    Star,
+    StatusIcons
   },
   computed:{
     ...mapGetters('hotsprings',['hotspring','hotsprings','comments', 'articles']),
     ...mapGetters('users',['user_name']),
     hot(){
-      return this.hotspring ? this.hotspring : {'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
+      return this.hotspring ? this.hotspring : {'status':0, 'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
     },
     img(){
       const hotspring_icon = require('hotspring.svg')
