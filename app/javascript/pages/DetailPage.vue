@@ -5,7 +5,7 @@
     <div class="text-center">
       <img :src="img" height="640">
     </div>
-    <h1 class="text-center">{{hot.name}}</h1>
+    <h1 class="text-center">{{hot.name}}<Star/></h1>
     <div class="text-center">
       <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
         lat:{{hot.latitude}}, long:{{hot.longtitude}}
@@ -22,7 +22,7 @@
     <div class="comment wrapper container">
       <div class="lead">Comments</div>
       <div v-if="user_name" class="input-group container-sm">
-        <textarea ref="comment" rows="1" @input="input" class="form-control form-control-plaintext" @focus="editing=true" v-model="new_comment" placeholder="コメントを入力してください"></textarea>
+        <textarea ref="comment" rows="1" @input="input" class="form-control form-control-plaintext" v-model="new_comment" placeholder="コメントを入力してください"></textarea>
         <button @click="submit" class="btn">+</button>
       </div>
       <div class="container-sm" v-for="comment in comments" :key="comment.id" style="white-space: pre-line;">
@@ -37,7 +37,7 @@
     <div class="articles wrapper container">
       <div class="lead">Articles</div>
       <div v-if="user_name" class="input-group container-sm">
-        <input type="url" class="form-control form-control-plaintext" @focus="editing_url=true" v-model="new_url" placeholder="URLを入力してください">
+        <input type="url" class="form-control form-control-plaintext" v-model="new_url" placeholder="URLを入力してください">
         <button @click="add_url" class="btn">+</button>
       </div>
       <div class="container-sm" v-for="article in articles" :key="article.url">
@@ -53,8 +53,8 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import StarRating from 'vue-star-rating'
 import Article from '../components/Article.vue'
+import Star from '../components/Star.vue'
 
 export default{
   data(){
@@ -64,8 +64,8 @@ export default{
     }
   },
   components:{
-    StarRating,
-    Article
+    Article,
+    Star
   },
   computed:{
     ...mapGetters('hotsprings',['hotspring','hotsprings','comments', 'articles']),

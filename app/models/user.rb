@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   def post(params)
     comments << Comment.new(hotspring_id: params[:hotspring_id], comment: params[:comment]) if params[:comment]

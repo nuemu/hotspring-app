@@ -5,11 +5,15 @@ const users_module = {
   state(){
     return{
       user_name: '',
+      favorites: '',
     }
   },
   getters:{
     user_name(state){
       return state.user_name
+    },
+    favorites(state){
+      return state.favorites
     }
   },
   mutations:{
@@ -51,6 +55,13 @@ const users_module = {
     async fetchUsers(){
       const response = await axios.get('users')
       return response.data
+    },
+    async Fav({commit}, lonlat){
+      console.log(lonlat)
+      const lon = lonlat.split(',')[0]
+      const lat = lonlat.split(',')[1]
+      const resposne = await axios.post('favorite', { params: {'lat': lat, 'lon': lon}})
+      console.log(response)
     }
   }
 }

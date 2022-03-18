@@ -45,7 +45,6 @@ const hotsprings_module = {
       state.hotspring = data
     },
     setComment(state, comment){
-      console.log(comment)
       state.comments.push(comment)
     },
     setArticle(state, article){
@@ -68,7 +67,6 @@ const hotsprings_module = {
             commit('setComment', element.attributes)
             break
           case 'post':
-            console.log(element)
             break
           case 'article':
             commit('setArticle', element.attributes)
