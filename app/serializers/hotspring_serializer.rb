@@ -1,6 +1,6 @@
 class HotspringSerializer
   include JSONAPI::Serializer
-  attributes :name, :latitude, :longtitude, :description, :id
+  attributes :name, :latitude, :longtitude, :description, :id, :image_url
 
   has_many :comments, serializer: CommentSerializer
   has_many :articles, serializer: ArticleSerializer

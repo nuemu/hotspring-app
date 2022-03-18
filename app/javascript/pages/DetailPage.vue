@@ -3,7 +3,7 @@
   <div class="container">
     <button class="btn">情報提供</button>
     <div class="text-center">
-      <img :src="img" height="640">
+      <img :src="img" height="480">
     </div>
     <h1 class="text-center">{{hot.name}}<Star :hotspring_id="hot.id"/></h1>
     <div class="text-center">
@@ -74,7 +74,14 @@ export default{
       return this.hotspring ? this.hotspring : {'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
     },
     img(){
-      return "http://drive.google.com/uc?export=view&id="+"https://drive.google.com/file/d/1O78Aw8NYaBEbne-ZUCgdwRboSvHS3-AZ/view?usp=sharing".split('d/')[1].split('/view')[0]
+      const hotspring_icon = require('hotspring.svg')
+      if(this.hotspring){
+        if(this.hotspring.image_url) {
+          return "http://drive.google.com/uc?export=view&id="+this.hotspring.image_url.split('d/')[1].split('/view')[0]
+        }
+        return hotspring_icon  
+      }
+      else return hotspring_icon
     }
   },
   created(){

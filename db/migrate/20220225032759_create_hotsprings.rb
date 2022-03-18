@@ -6,6 +6,7 @@ class CreateHotsprings < ActiveRecord::Migration[6.1]
       t.float :latitude, null: false
       t.float :longtitude, null: false
       t.text :description
+      t.text :image_url
 
       t.timestamps
     end

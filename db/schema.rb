@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2022_03_18_030432) do
     t.float "latitude", null: false
     t.float "longtitude", null: false
     t.text "description"
+    t.text "image_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
