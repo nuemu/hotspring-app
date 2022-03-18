@@ -36,7 +36,6 @@ const users_module = {
   actions:{
     async login({commit}, user){
       const response = await axios.post('sessions',user)
-      console.log(response)
       commit('set_user', response.data.data.attributes.name)
       commit('set_token', response.headers['authtoken'])
     },
@@ -52,7 +51,6 @@ const users_module = {
       commit('set_token', localStorage.token)
 
       const response = await axios.get('me')
-      console.log(response.data.included)
       commit('set_favorites', response.data.included)
       commit('set_user', response.data.data.attributes.name)
 

@@ -28,4 +28,5 @@ export function register(evt) {
     evt.map.getOverlays().forEach(over => {if(over.options.name == 'register') overlay = over})
     overlay.setPosition(coordinate);
   }
+  else alert('他の登録地点に近すぎます(200m以上離してください)')
 };

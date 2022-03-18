@@ -11,8 +11,15 @@
     <div id="popup-content" ref="popup"></div>
     <p></p>
     <div class="mb-3">
-      詳細：<textarea class="form-control" placeholder="登録理由等" v-model="memo"></textarea>
-      <button class="btn btn-secondary" @click="register">登録</button>
+      <Form @submit="register">
+        <div class="input-group">
+          <Field v-model="description" v-slot="{ field }" name="description" rules="present">
+            <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" @keydown.enter.shift="CommentSubmit" placeholder="登録理由等記入"></textarea>
+          </Field>
+        </div>
+        <ErrorMessage name="description" style="color:red;" as="p" />
+        <button class="btn btn-secondary">登録</button>
+      </Form>
     </div>
   </div>
 </template>
@@ -20,6 +27,7 @@
 <script>
 //import thermal from '../ol/thermal_layer'
 import { mapActions, mapGetters } from 'vuex'
+import { Field, Form, ErrorMessage } from 'vee-validate';
 
 import Map from '../components/Map.vue'
 import SidePanel from '../components/SidePanel.vue'
@@ -28,14 +36,16 @@ import Photo from '../ol/gsi_photo_layer.js'
 import Thermal from '../ol/thermal_layer.js'
 import Water from '../ol/gsi_water_layer.js'
 
-
 import { popup } from '../ol/register_popup.js'
 import { InteractionStyle } from '../ol/interaction_style.js'
 
 export default{
   components:{
     Map,
-    SidePanel
+    SidePanel,
+    Form,
+    Field,
+    ErrorMessage,
   },
   data(){
     return{
@@ -93,5 +103,8 @@ export default{
   width: 10%;
   height: 100vh;
   float: right;
+}
+textarea{
+  resize: none;
 }
 </style>
