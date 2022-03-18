@@ -31,7 +31,7 @@ const users_module = {
       state.user_name = '',
       axios.defaults.headers['Authorization']='Bearer ',
       localStorage.removeItem('token')
-    }
+    },
   },
   actions:{
     async login({commit}, user){
@@ -52,6 +52,7 @@ const users_module = {
       commit('set_token', localStorage.token)
 
       const response = await axios.get('me')
+      console.log(response.data.included)
       commit('set_favorites', response.data.included)
       commit('set_user', response.data.data.attributes.name)
 

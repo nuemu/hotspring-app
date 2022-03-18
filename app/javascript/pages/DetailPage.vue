@@ -5,10 +5,17 @@
     <div class="text-center">
       <img :src="img" height="480">
     </div>
-    <h1 class="text-center">
+    <h1 class="text-center" v-if="hot.status!=='unexplored'">
       <StatusIcons :status="hot.status"/>
       {{hot.name}}
       <Star :hotspring_id="hot.id"/>
+    </h1>
+    <h1 class="text-center" v-else>
+      <Form @submit="TitleSubmit">
+        <Field ref="title" v-model="new_name" name="title" class="form" rules="present"/>
+        <Star :hotspring_id="hot.id"/>
+        <ErrorMessage name="title" style="color:red;" as="p" />
+      </Form>
     </h1>
     <div class="text-center">
       <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
@@ -25,11 +32,17 @@
 
     <div class="comment wrapper container">
       <div class="lead">Comments</div>
-      <div v-if="user_name" class="input-group container-sm">
-        <textarea ref="comment" rows="1" @input="input" class="form-control form-control-plaintext" v-model="new_comment" placeholder="コメントを入力してください"></textarea>
-        <button @click="submit" class="btn">+</button>
+      <div v-if="user_name" class="container-sm">
+        <Form>
+          <div class="input-group">
+            <Field v-model="new_comment" v-slot="{ field }" name="comment" rules="present">
+              <textarea ref="comment" rows="1" v-bind="field" class="form-control form-control-plaintext" @keydown.enter.shift="CommentSubmit" placeholder="コメントはShift+Enterで送信できます"></textarea>
+            </Field>
+          </div>
+          <ErrorMessage name="comment" style="color:red;" as="p" />
+        </Form>
       </div>
-      <div class="container-sm" v-for="comment in comments" :key="comment.id" style="white-space: pre-line;">
+      <div class="container-sm" v-for="comment in comments.reverse()" :key="comment.id" style="white-space: pre-line;">
         {{comment.comment}}
         <div class="text-end">
           {{comment.user.data.attributes.name}}
@@ -40,11 +53,15 @@
 
     <div class="articles wrapper container">
       <div class="lead">Articles</div>
-      <div v-if="user_name" class="input-group container-sm">
-        <input type="url" class="form-control form-control-plaintext" v-model="new_url" placeholder="URLを入力してください">
-        <button @click="add_url" class="btn">+</button>
+      <div v-if="user_name" class="container-sm">
+        <Form @submit="UrlSubmit">
+          <div class="input-group">
+            <Field ref="url" name="url" v-model="new_url" class="form-control form-control-plaintext" rules="present|url" placeholder="情報提供をお願いします..."/>
+          </div>
+          <ErrorMessage name="url" style="color:red;" as="p" />
+        </Form>
       </div>
-      <div class="container-sm" v-for="article in articles" :key="article.url">
+      <div class="container-sm" v-for="article in articles.reverse()" :key="article.url">
         <Article :url="article.url" />
         <p></p>
       </div>
@@ -57,13 +74,17 @@
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { Field, Form, ErrorMessage } from 'vee-validate';
+
 import Article from '../components/Article.vue'
 import Star from '../components/Star.vue'
 import StatusIcons from '../components/StatusIcons.vue'
+import axios from '../plugins/axios.js'
 
 export default{
   data(){
     return{
+      new_name: '',
       new_comment: '',
       new_url: '',
     }
@@ -71,7 +92,10 @@ export default{
   components:{
     Article,
     Star,
-    StatusIcons
+    StatusIcons,
+    Form,
+    Field,
+    ErrorMessage,
   },
   computed:{
     ...mapGetters('hotsprings',['hotspring','hotsprings','comments', 'articles']),
@@ -92,27 +116,33 @@ export default{
   },
   created(){
     this.fetchHotspring(this.$route.params.name)
+      .then(() => this.new_name = this.hot.name)
   },
   methods:{
     ...mapMutations('hotsprings', ['setHotspring']),
     ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment']),
-    submit(){
+    TitleSubmit() {
+      this.$refs.title.blur()
+    },
+    CommentSubmit() {
       this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})
-      this.new_comment = ''
+      this.$refs.comment.blur()
     },
-    add_url(){
-      this.postArticle({'hotspring_id':this.hotspring.id, 'url':this.new_url})
-      this.new_url = ''
+    async UrlSubmit() {
+      await axios.get('article', {params:{'url': this.new_url}})
+        .then(() => {
+          this.postArticle({'hotspring_id':this.hotspring.id, 'url':this.new_url})
+        })
     },
-    input(){
-    }
   }
 }
 </script>
 
 <style scoped>
 .form{
+  border: none;
   outline: none;
+  text-align: center;
 }
 textarea{
   resize: none;

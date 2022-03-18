@@ -16,15 +16,13 @@ export default{
       id: 0
     }
   },
-  watch:{
-    hotspring_id(){
-      this.favorites.forEach(element => {
-        if(this.hotspring_id==element.attributes.hotspring_id){
-          this.fav = true
-          this.id = element.id
-        }
-      })
-    }
+  mounted(){
+    this.favorites.forEach(element => {
+      if(this.hotspring_id==element.attributes.hotspring_id){
+        this.fav = true
+        this.id = element.id
+      }
+    })
   },
   computed:{
     ...mapGetters('users',['favorites']),

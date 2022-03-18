@@ -84,7 +84,7 @@ const hotsprings_module = {
     },
     async postArticle({commit}, params){
       const response = await axios.post('articles', params)
-      commit('setArticle', response.data)
+      commit('setArticle', response.data.data.attributes)
     }
   }
 }
