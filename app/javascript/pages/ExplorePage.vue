@@ -11,7 +11,7 @@
     <div id="popup-content" ref="popup"></div>
     <p></p>
     <div class="mb-3">
-      メモ：<textarea class="form-control" placeholder="登録理由等" v-model="memo"></textarea>
+      詳細：<textarea class="form-control" placeholder="登録理由等" v-model="memo"></textarea>
       <button class="btn btn-secondary" @click="register">登録</button>
     </div>
   </div>
