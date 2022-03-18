@@ -5,8 +5,11 @@ const hotsprings_module = {
   namespaced: true,
   state(){
     return{
-      hotsprings:[],
-      hotspring:{},
+      hotsprings: false,
+      hotspring: false,
+      comments: [],
+      posts: [],
+      articles: [],
     }
   },
   getters:{
@@ -18,6 +21,15 @@ const hotsprings_module = {
     },
     hotspring_icons(state){
       return cluster(state.hotsprings)
+    },
+    comments(state){
+      return state.comments
+    },
+    posts(state){
+      return state.posts
+    },
+    articles(state){
+      return state.articles
     }
   },
   mutations:{
@@ -26,7 +38,6 @@ const hotsprings_module = {
     },
     addHotspring(state, data){
       let hotsprings = state.hotsprings
-      console.log(hotsprings)
       hotsprings.push(data)
       state.hotpsrings = hotsprings
     },
@@ -34,10 +45,11 @@ const hotsprings_module = {
       state.hotspring = data
     },
     setComment(state, comment){
-      state.hotspring.comments.data.push(comment.data)
+      console.log(comment)
+      state.comments.push(comment)
     },
     setArticle(state, article){
-      state.hotspring.articles.data.push(article.data)
+      state.articles.push(article)
     }
   },
   actions:{
@@ -50,10 +62,27 @@ const hotsprings_module = {
       const lat = lonlat.split(',')[1]
       const response = await axios.get('hotspring' ,{ params: {'lat': lat, 'lon': lon}})
       commit('setHotspring', response.data.data.attributes)
+      response.data.included.forEach(element => {
+        switch(element.type){
+          case 'comment':
+            commit('setComment', element.attributes)
+            break
+          case 'post':
+            console.log(element)
+            break
+          case 'article':
+            commit('setArticle', element.attributes)
+            break
+        }
+      })
     },
     async postHotspring({commit}, params){
       const response = await axios.post('hotsprings', params)
       commit('addHotspring', response.data)
+    },
+    async postComment({commit},params){
+      const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
+      commit('setComment', response.data.data.attributes)
     },
     async postArticle({commit}, params){
       const response = await axios.post('articles', params)

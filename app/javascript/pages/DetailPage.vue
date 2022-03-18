@@ -26,9 +26,9 @@
         <button @click="submit" class="btn">+</button>
       </div>
       <div class="container-sm" v-for="comment in comments" :key="comment.id" style="white-space: pre-line;">
-        {{comment.attributes.comment}}
+        {{comment.comment}}
         <div class="text-end">
-          {{comment.attributes.user.data.attributes.name}}
+          {{comment.user.data.attributes.name}}
         </div>
       </div>
     </div>
@@ -40,8 +40,8 @@
         <input type="url" class="form-control form-control-plaintext" @focus="editing_url=true" v-model="new_url" placeholder="URLを入力してください">
         <button @click="add_url" class="btn">+</button>
       </div>
-      <div class="container-sm" v-for="article in articles" :key="article.id">
-        <Article :url="String(article.attributes.url)" />
+      <div class="container-sm" v-for="article in articles" :key="article.url">
+        <Article :url="article.url" />
         <p></p>
       </div>
     </div>
@@ -68,17 +68,10 @@ export default{
     Article
   },
   computed:{
-    ...mapGetters('hotsprings',['hotspring','hotsprings']),
+    ...mapGetters('hotsprings',['hotspring','hotsprings','comments', 'articles']),
     ...mapGetters('users',['user_name']),
     hot(){
-      return this.hotspring.name ? this.hotspring : {'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
-    },
-    comments(){
-      // 要改修
-      return this.hotspring.comments ? this.hotspring.comments.data.slice().reverse() : [{'comment':'loading...', 'attributes':{'comment':'loading','user':{'data':{'attributes':{'name':'loading...'}}}}}]
-    },
-    articles(){
-      return this.hotspring.articles ? this.hotspring.articles.data.slice().reverse() : [{'id':0,'attributes':{'url':'loading...'}}]
+      return this.hotspring ? this.hotspring : {'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
     },
     img(){
       return "http://drive.google.com/uc?export=view&id="+"https://drive.google.com/file/d/1O78Aw8NYaBEbne-ZUCgdwRboSvHS3-AZ/view?usp=sharing".split('d/')[1].split('/view')[0]
@@ -89,8 +82,7 @@ export default{
   },
   methods:{
     ...mapMutations('hotsprings', ['setHotspring']),
-    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle']),
-    ...mapActions('users', ['postComment']),
+    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment']),
     submit(){
       this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})
       this.new_comment = ''

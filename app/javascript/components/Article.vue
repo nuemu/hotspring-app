@@ -1,6 +1,6 @@
 <template>
   <div @click="click" class="ratio ratio-21x9" style="outline: solid;">
-    <iframe :src="url" :srcdoc="html" sandbox scrolling="no" allow="none"></iframe>
+    <iframe :src="url" :srcdoc="html" sandbox scrolling="no"></iframe>
   </div>
   <a :href="url">{{title}}</a>
 </template>

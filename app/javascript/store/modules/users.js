@@ -48,11 +48,6 @@ const users_module = {
 
       return state.user_name
     },
-    async postComment({commit},params){
-      console.log(params)
-      const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
-      commit('hotsprings/setComment', response.data, {root: true})
-    },
     async fetchUsers(){
       const response = await axios.get('users')
       return response.data

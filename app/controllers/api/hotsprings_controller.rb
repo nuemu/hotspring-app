@@ -7,8 +7,10 @@ class Api::HotspringsController < Api::BaseController
   end
 
   def show
-    hotspring = Hotspring.find_by(latitude: params[:lat], longtitude: params[:lon])
-    hotspring_json = HotspringSerializer.new(hotspring)
+    hotspring = Hotspring
+                .includes(:comments, :posts, :articles, comments: :user)
+                .find_by(latitude: params[:lat], longtitude: params[:lon])
+    hotspring_json = HotspringSerializer.new(hotspring, { include: [:comments, :posts, :articles] })
     render json: hotspring_json
   end
 
