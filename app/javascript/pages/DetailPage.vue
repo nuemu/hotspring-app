@@ -5,7 +5,7 @@
     <div class="text-center">
       <img :src="img" height="640">
     </div>
-    <h1 class="text-center">{{hot.name}}<Star/></h1>
+    <h1 class="text-center">{{hot.name}}<Star :hotspring_id="hot.id"/></h1>
     <div class="text-center">
       <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
         lat:{{hot.latitude}}, long:{{hot.longtitude}}
@@ -71,7 +71,7 @@ export default{
     ...mapGetters('hotsprings',['hotspring','hotsprings','comments', 'articles']),
     ...mapGetters('users',['user_name']),
     hot(){
-      return this.hotspring ? this.hotspring : {'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
+      return this.hotspring ? this.hotspring : {'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
     },
     img(){
       return "http://drive.google.com/uc?export=view&id="+"https://drive.google.com/file/d/1O78Aw8NYaBEbne-ZUCgdwRboSvHS3-AZ/view?usp=sharing".split('d/')[1].split('/view')[0]

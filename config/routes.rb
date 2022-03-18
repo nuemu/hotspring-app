@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resource :registers, only: %w[create]
     resources :users, only: %w[index]
 
+    resources :favorites, only: %w[create destroy]
     resources :comments, only: %w[create]
 
     get 'me', to: 'sessions#me'

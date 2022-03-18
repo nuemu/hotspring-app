@@ -5,7 +5,7 @@ const hotsprings_module = {
   namespaced: true,
   state(){
     return{
-      hotsprings: false,
+      hotsprings: [],
       hotspring: false,
       comments: [],
       posts: [],

@@ -7,24 +7,38 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default{
+  props:['hotspring_id'],
   data(){
     return{
       fav: false,
+      id: 0
+    }
+  },
+  watch:{
+    hotspring_id(){
+      this.favorites.forEach(element => {
+        if(this.hotspring_id==element.attributes.hotspring_id){
+          this.fav = true
+          this.id = element.id
+        }
+      })
     }
   },
   computed:{
+    ...mapGetters('users',['favorites']),
     favorite(){
       return this.fav ? 'favorite' : 'unfavorite'
     }
   },
   methods:{
-    ...mapActions('users',['Fav']),
+    ...mapActions('users',['Fav','unFav']),
     click(){
+      if(!this.fav) this.Fav(this.hotspring_id)
+      else this.unFav(this.id)
+
       this.fav = !this.fav
-      const lonlat = this.$route.params.name
-      this.Fav(lonlat)
     }
   }
 }

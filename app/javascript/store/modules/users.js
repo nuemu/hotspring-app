@@ -24,6 +24,9 @@ const users_module = {
       axios.defaults.headers['Authorization']='Bearer '+token
       localStorage.setItem('token', token)
     },
+    set_favorites(state, favorites){
+      state.favorites = favorites
+    },
     logout(state){
       state.user_name = '',
       axios.defaults.headers['Authorization']='Bearer ',
@@ -33,12 +36,13 @@ const users_module = {
   actions:{
     async login({commit}, user){
       const response = await axios.post('sessions',user)
-      commit('set_user', response.data)
+      console.log(response)
+      commit('set_user', response.data.data.attributes.name)
       commit('set_token', response.headers['authtoken'])
     },
     async register({commit}, user){
       const response = await axios.post('registers',user)
-      commit('set_user', response.data)
+      commit('set_user', response.data.data.attributes.name)
       commit('set_token', response.headers['authtoken'])
     },
     async fetchAuthUser({ commit, state }) {
@@ -48,21 +52,21 @@ const users_module = {
       commit('set_token', localStorage.token)
 
       const response = await axios.get('me')
-      commit('set_user', response.data)
+      commit('set_favorites', response.data.included)
+      commit('set_user', response.data.data.attributes.name)
 
       return state.user_name
+    },
+    async Fav({commit}, hotspring_id){
+      const response = await axios.post('favorites', {'hotspring_id': hotspring_id})
+    },
+    async unFav({commit}, id){
+      const response = await axios.delete('favorites/'+id)
     },
     async fetchUsers(){
       const response = await axios.get('users')
       return response.data
     },
-    async Fav({commit}, lonlat){
-      console.log(lonlat)
-      const lon = lonlat.split(',')[0]
-      const lat = lonlat.split(',')[1]
-      const resposne = await axios.post('favorite', { params: {'lat': lat, 'lon': lon}})
-      console.log(response)
-    }
   }
 }
 
