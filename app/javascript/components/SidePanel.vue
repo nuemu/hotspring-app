@@ -22,7 +22,8 @@
   <div class="container">
     <h5 class="lead">Map</h5>
     <ol class="list-group list-group-flush list-group-numbered">
-      <li @click="normal" class="list-group-item list-group-item-action">水系地図</li>
+      <li @click="normal" class="list-group-item list-group-item-action">標準地図</li>
+      <li @click="water" class="list-group-item list-group-item-action">水系地図</li>
       <li @click="thermal" class="list-group-item list-group-item-action">サーマル</li>
       <li @click="photo" class="list-group-item list-group-item-action">航空写真</li>
     </ol>
@@ -64,6 +65,29 @@ export default{
     normal(){
       this.selected = 0
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
+        if(layer.get('name')=='normal'){
+          layer.setVisible(true)
+        }
+        if(layer.get('name')=='water'){
+          layer.setVisible(false)
+        }
+        if(layer.get('name')=='THERMAL'){
+          layer.setVisible(false)
+        }
+        if(layer.get('name')=='photo'){
+          layer.setVisible(false)
+        }
+      })
+    },
+    water(){
+      this.selected = 0
+      this.$parent.$refs.map.map.getLayers().forEach(layer => {
+        if(layer.get('name')=='normal'){
+          layer.setVisible(false)
+        }
+        if(layer.get('name')=='water'){
+          layer.setVisible(true)
+        }
         if(layer.get('name')=='THERMAL'){
           layer.setVisible(false)
         }
@@ -75,6 +99,9 @@ export default{
     thermal(){
       this.selected = 1
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
+        if(layer.get('name')=='water'){
+          layer.setVisible(false)
+        }
         if(layer.get('name')=='THERMAL'){
           layer.setVisible(true)
         }
@@ -86,6 +113,9 @@ export default{
     photo(){
       this.selected = 2
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
+        if(layer.get('name')=='water'){
+          layer.setVisible(false)
+        }
         if(layer.get('name')=='THERMAL'){
           layer.setVisible(false)
         }

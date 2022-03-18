@@ -2,10 +2,14 @@
   <p></p>
   <div class="container">
     <button class="btn">情報提供</button>
-    <img src="http://abehiroshi.la.coocan.jp/abe-top-20190328-2.jpg" class="img-fluid d-block mx-auto">
+    <div class="text-center">
+      <img :src="img" height="640">
+    </div>
     <h1 class="text-center">{{hot.name}}</h1>
     <div class="text-center">
-      <a :href="'https://www.google.co.jp/maps/@'+hot.latitude+','+hot.longtitude+',15z?hl=ja'" class="link-dark">lat:{{hot.latitude}}, long:{{hot.longtitude}}</a>
+      <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
+        lat:{{hot.latitude}}, long:{{hot.longtitude}}
+      </a>
     </div>
     <p></p>
 
@@ -38,7 +42,6 @@
       </div>
       <div class="container-sm" v-for="article in articles" :key="article.id">
         <Article :url="String(article.attributes.url)" />
-        {{String(article.attributes.url)}}
         <p></p>
       </div>
     </div>
@@ -76,6 +79,9 @@ export default{
     },
     articles(){
       return this.hotspring.articles ? this.hotspring.articles.data.slice().reverse() : [{'id':0,'attributes':{'url':'loading...'}}]
+    },
+    img(){
+      return "http://drive.google.com/uc?export=view&id="+"https://drive.google.com/file/d/1O78Aw8NYaBEbne-ZUCgdwRboSvHS3-AZ/view?usp=sharing".split('d/')[1].split('/view')[0]
     }
   },
   created(){
@@ -102,5 +108,8 @@ export default{
 <style scoped>
 .form{
   outline: none;
+}
+textarea{
+  resize: none;
 }
 </style>

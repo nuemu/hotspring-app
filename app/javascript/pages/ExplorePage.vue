@@ -26,6 +26,7 @@ import SidePanel from '../components/SidePanel.vue'
 
 import Photo from '../ol/gsi_photo_layer.js'
 import Thermal from '../ol/thermal_layer.js'
+import Water from '../ol/gsi_water_layer.js'
 
 
 import { popup } from '../ol/register_popup.js'
@@ -60,6 +61,7 @@ export default{
 
     this.$refs.map.map.addLayer(Thermal)
     this.$refs.map.map.addLayer(Photo)
+    this.$refs.map.map.addLayer(Water)
     this.$refs.side.normal()
   },
   methods:{

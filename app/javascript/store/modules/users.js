@@ -40,10 +40,13 @@ const users_module = {
     async fetchAuthUser({ commit, state }) {
       if (!localStorage.token) return null
       if (state.user_name) return state.user_name
-    },
-    async who_is_me({commit}){
+
+      commit('set_token', localStorage.token)
+
       const response = await axios.get('me')
       commit('set_user', response.data)
+
+      return state.user_name
     },
     async postComment({commit},params){
       console.log(params)
