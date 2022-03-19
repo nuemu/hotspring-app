@@ -7,6 +7,8 @@ class Hotspring < ApplicationRecord
   has_many :articles, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  enum status: { 'unexplored': 0, 'not_exist': 1, 'prohibit': 2, 'open': 3 }
+
   def self.permit(status)
     if status.zero?
       where(status: 'open')

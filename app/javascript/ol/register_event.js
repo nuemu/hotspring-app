@@ -11,16 +11,27 @@ export function register(evt) {
   var tempSource = new VectorSource()
 
   evt.map.getLayers().forEach(element => {
-    if(element.get('name')=='unexplored'){
-      tempSource.addFeatures(element.getSource().getFeatures())
-    }
-    if(element.get('name')=='not_exist'){
-      let features = element.getSource().getFeatures()
+    switch(element.get('name')){
+      case 'unexplored':
+        tempSource.addFeatures(element.getSource().getFeatures())
+        break
+      case 'not_exist':
+        tempSource.addFeatures(element.getSource().getFeatures())
+        break
+      case 'prohibit':
+        tempSource.addFeatures(element.getSource().getFeatures())
+        break
+      case 'open':
+        tempSource.addFeatures(element.getSource().getFeatures())
+        break
     }
   })
-  const closest = toLonLat(tempSource.getClosestFeatureToCoordinate(coordinate).getGeometry().getCoordinates())
+  let distance = 1000
+  if(tempSource.getFeatures().length > 0){
+    const closest = toLonLat(tempSource.getClosestFeatureToCoordinate(coordinate).getGeometry().getCoordinates())
 
-  const distance = getDistance(lonlat, closest)
+    distance = getDistance(lonlat, closest)
+  }
 
   if(distance > 200){
     content.innerHTML = '<p>この地点を登録しますか？:</p><code>' + lonlat + '</code>';
