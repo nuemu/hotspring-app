@@ -1,5 +1,6 @@
 <template>
 <AuthenticationModal ref="authentication" />
+<FavoriteModal ref="favorite" />
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <router-link to="/" class="navbar-brand">App Icon Here</router-link>
@@ -16,7 +17,7 @@
             {{user_name}}
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">お気に入り</a></li>
+            <li><a class="dropdown-item" href="#" @click.prevent="$refs.favorite.modal_appearance = true">お気に入り</a></li>
             <li><a class="dropdown-item" href="#" @click="logout">ログアウト</a></li>
           </ul>
         </li>
@@ -32,16 +33,18 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import AuthenticationModal from './AuthenticationModal.vue'
+import FavoriteModal from './FavoriteModal.vue'
 
 export default{
   components:{
     AuthenticationModal,
+    FavoriteModal
   },
   computed:{
     ...mapGetters('users',['user_name'])
   },
   methods:{
     ...mapMutations('users',['logout'])
-  }
+  },
 }
 </script>

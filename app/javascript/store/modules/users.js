@@ -5,7 +5,7 @@ const users_module = {
   state(){
     return{
       user_name: '',
-      favorites: '',
+      favorites: [],
     }
   },
   getters:{
