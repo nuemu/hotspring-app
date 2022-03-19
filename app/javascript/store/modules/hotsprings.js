@@ -1,5 +1,6 @@
 import axios from '../../plugins/axios.js'
 import {cluster} from '../../ol/cluster.js'
+import status from '../../ol/hotspring_status.js'
 
 const hotsprings_module = {
   namespaced: true,
@@ -29,7 +30,7 @@ const hotsprings_module = {
     status(state){
       const array = JSON.parse(JSON.stringify(state.status))
       const max = Math.max(...array)
-      return array.indexOf(max)
+      return Object.keys(status)[array.indexOf(max)]
     },
     articles(state){
       return state.articles
@@ -54,7 +55,8 @@ const hotsprings_module = {
       state.articles.push(article)
     },
     setStatus(state, post){
-      state.status[post.status] += 1
+      const index = Object.keys(status).findIndex(element => element == post.status)
+      state.status[index] += 1
     },
   },
   actions:{
@@ -99,7 +101,6 @@ const hotsprings_module = {
     },
     async updatePost({commit}, params){
       const response = await axios.patch('posts/'+ params.id, params)
-      console.log(response)
     }
   }
 }

@@ -5,7 +5,7 @@
     <div class="text-center">
       <img :src="img" height="480">
     </div>
-    <h1 class="text-center" v-if="status!==0">
+    <h1 class="text-center" v-if="status!=='unexplored'">
       <StatusIcons :status="status"/>
       {{hot.name}}
       <Star :hotspring_id="hot.id"/>
@@ -27,8 +27,8 @@
     <div class="status wrapper container">
       <div class="container-sm text-center">
         投票：
-        <div class="form-check form-check-inline" v-for="(st, index) in Object.keys(status_all)" :key="st">
-          <input @change="StatusSubmit" class="form-check-input" v-model="check" name="status" type="radio" id="radio" :value="index">
+        <div class="form-check form-check-inline" v-for="st in Object.keys(status_all)" :key="st">
+          <input @change="StatusSubmit" class="form-check-input" v-model="check" name="status" type="radio" id="radio" :value="st">
           <label class="form-check-label" for="radio">{{status_all[st]}}</label>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default{
       new_comment: '',
       new_url: '',
       status_all: status,
-      posted: 0,
+      posted: -1,
       check: 0
     }
   },
@@ -152,7 +152,7 @@ export default{
     StatusSubmit() {
       // サーバーイジメ？
       const params = {'id':this.posted, 'hotspring_id':this.hot.id, 'status':this.check}
-      if(this.posted == 0){
+      if(this.posted == -1){
         this.postPost(params)
       }else{
         this.updatePost(params)
