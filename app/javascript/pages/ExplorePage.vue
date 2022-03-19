@@ -11,14 +11,14 @@
     <div id="popup-content" ref="popup"></div>
     <p></p>
     <div class="mb-3">
-      <Form @submit="register">
+      <Form @submit="DescriptionSubmit">
         <div class="input-group">
           <Field v-model="description" v-slot="{ field }" name="description" rules="present">
-            <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" @keydown.enter.shift="CommentSubmit" placeholder="登録理由等記入"></textarea>
+            <button class="btn">+</button>
+            <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="登録理由等記入"></textarea>
           </Field>
         </div>
         <ErrorMessage name="description" style="color:red;" as="p" />
-        <button class="btn btn-secondary">登録</button>
       </Form>
     </div>
   </div>
@@ -51,7 +51,7 @@ export default{
     return{
       longtitude: '',
       latitude: '',
-      memo: '',
+      description: '',
     }
   },
   computed:{
@@ -76,10 +76,11 @@ export default{
   },
   methods:{
     ...mapActions('hotsprings', ['postHotspring','fetchHotsprings']),
-    register(){
+    DescriptionSubmit(){
       const latlon = this.$refs.popup.children[1].innerText.split(',')
-      const params = {'description':this.memo ,'latitude': latlon[1],'longtitude': latlon[0]}
+      const params = {'description':this.description ,'latitude': latlon[1],'longtitude': latlon[0]}
       this.postHotspring(params)
+        .then(() => document.getElementById('popup-closer').click())
     },
   }
 }
@@ -106,5 +107,10 @@ export default{
 }
 textarea{
   resize: none;
+  box-shadow:none !important;
+  border-color: white !important;
+}
+.btn{
+  box-shadow:none !important;
 }
 </style>
