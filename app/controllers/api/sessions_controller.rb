@@ -14,7 +14,7 @@ class Api::SessionsController < Api::BaseController
   end
 
   def me
-    user_json = UserSerializer.new(current_user, { include: [:favorites] })
+    user_json = UserSerializer.new(current_user, { include: [:favorites, :posts] })
     render json: user_json
   end
 end

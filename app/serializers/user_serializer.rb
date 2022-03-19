@@ -4,4 +4,5 @@ class UserSerializer
 
   has_many :comments
   has_many :favorites
+  has_many :posts
 end

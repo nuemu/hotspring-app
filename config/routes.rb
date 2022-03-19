@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
     resources :favorites, only: %w[create destroy]
     resources :comments, only: %w[create]
+    resources :posts, only: %w[create update]
 
     get 'me', to: 'sessions#me'
     get 'hotspring', to: 'hotsprings#show'

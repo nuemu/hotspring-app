@@ -5,6 +5,7 @@ const users_module = {
   state(){
     return{
       user_name: '',
+      posts: [],
       favorites: [],
     }
   },
@@ -14,6 +15,9 @@ const users_module = {
     },
     favorites(state){
       return state.favorites
+    },
+    posts(state){
+      return state.posts
     }
   },
   mutations:{
@@ -24,8 +28,11 @@ const users_module = {
       axios.defaults.headers['Authorization']='Bearer '+token
       localStorage.setItem('token', token)
     },
-    set_favorites(state, favorites){
-      state.favorites = favorites
+    set_favorites(state, favorite){
+      state.favorites.push(favorite)
+    },
+    setPosts(state, post){
+      state.posts.push(post)
     },
     logout(state){
       state.user_name = '',
@@ -51,7 +58,17 @@ const users_module = {
       commit('set_token', localStorage.token)
 
       const response = await axios.get('me')
-      commit('set_favorites', response.data.included)
+      response.data.included.forEach(element => {
+        switch(element.type){
+          case 'favorite':
+            commit('set_favorites', element)
+            break
+          case 'post':
+            commit('setPosts', element)
+            break
+        }
+      })
+      
       commit('set_user', response.data.data.attributes.name)
 
       return state.user_name

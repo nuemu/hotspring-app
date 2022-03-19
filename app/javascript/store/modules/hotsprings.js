@@ -8,6 +8,7 @@ const hotsprings_module = {
       hotsprings: [],
       hotspring: false,
       comments: [],
+      status: [0,0,0,0],
       posts: [],
       articles: [],
     }
@@ -25,12 +26,14 @@ const hotsprings_module = {
     comments(state){
       return state.comments
     },
-    posts(state){
-      return state.posts
+    status(state){
+      const array = JSON.parse(JSON.stringify(state.status))
+      const max = Math.max(...array)
+      return array.indexOf(max)
     },
     articles(state){
       return state.articles
-    }
+    },
   },
   mutations:{
     setHotsprings(state, data){
@@ -49,7 +52,10 @@ const hotsprings_module = {
     },
     setArticle(state, article){
       state.articles.push(article)
-    }
+    },
+    setStatus(state, post){
+      state.status[post.status] += 1
+    },
   },
   actions:{
     async fetchHotsprings({commit}, status){
@@ -67,6 +73,7 @@ const hotsprings_module = {
             commit('setComment', element.attributes)
             break
           case 'post':
+            commit('setStatus', element.attributes)
             break
           case 'article':
             commit('setArticle', element.attributes)
@@ -86,6 +93,13 @@ const hotsprings_module = {
     async postArticle({commit}, params){
       const response = await axios.post('articles', params)
       commit('setArticle', response.data.data.attributes)
+    },
+    async postPost({commit}, params){
+      const response = await axios.post('posts', params)
+    },
+    async updatePost({commit}, params){
+      const response = await axios.patch('posts/'+ params.id, params)
+      console.log(response)
     }
   }
 }

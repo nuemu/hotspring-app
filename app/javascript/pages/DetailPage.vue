@@ -5,8 +5,8 @@
     <div class="text-center">
       <img :src="img" height="480">
     </div>
-    <h1 class="text-center" v-if="hot.status!=='unexplored'">
-      <StatusIcons :status="hot.status"/>
+    <h1 class="text-center" v-if="status!==0">
+      <StatusIcons :status="status"/>
       {{hot.name}}
       <Star :hotspring_id="hot.id"/>
     </h1>
@@ -21,6 +21,17 @@
       <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
         lat:{{hot.latitude}}, long:{{hot.longtitude}}
       </a>
+    </div>
+    <p></p>
+
+    <div class="status wrapper container">
+      <div class="container-sm text-center">
+        投票：
+        <div class="form-check form-check-inline" v-for="(st, index) in Object.keys(status_all)" :key="st">
+          <input @change="StatusSubmit" class="form-check-input" v-model="check" name="status" type="radio" id="radio" :value="index">
+          <label class="form-check-label" for="radio">{{status_all[st]}}</label>
+        </div>
+      </div>
     </div>
     <p></p>
 
@@ -80,6 +91,7 @@ import Article from '../components/Article.vue'
 import Star from '../components/Star.vue'
 import StatusIcons from '../components/StatusIcons.vue'
 import axios from '../plugins/axios.js'
+import status from '../ol/hotspring_status.js'
 
 export default{
   data(){
@@ -87,6 +99,9 @@ export default{
       new_name: '',
       new_comment: '',
       new_url: '',
+      status_all: status,
+      posted: 0,
+      check: 0
     }
   },
   components:{
@@ -98,10 +113,10 @@ export default{
     ErrorMessage,
   },
   computed:{
-    ...mapGetters('hotsprings',['hotspring','hotsprings','comments', 'articles']),
-    ...mapGetters('users',['user_name']),
+    ...mapGetters('hotsprings',['hotspring', 'hotsprings', 'comments', 'articles', 'status']),
+    ...mapGetters('users',['user_name','posts']),
     hot(){
-      return this.hotspring ? this.hotspring : {'status':0, 'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
+      return this.hotspring ? this.hotspring : {'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
     },
     img(){
       const hotspring_icon = require('hotspring.svg')
@@ -114,15 +129,34 @@ export default{
       else return hotspring_icon
     }
   },
+  watch:{
+    hot(){
+      this.posts.forEach(post => {
+        if(post.attributes.hotspring_id == this.hot.id){
+          this.posted = post.id
+          this.check = post.attributes.status
+        }
+      })
+    }
+  },
   created(){
     this.fetchHotspring(this.$route.params.name)
       .then(() => this.new_name = this.hot.name)
   },
   methods:{
     ...mapMutations('hotsprings', ['setHotspring']),
-    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment']),
+    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'postPost','updatePost']),
     TitleSubmit() {
       this.$refs.title.blur()
+    },
+    StatusSubmit() {
+      // サーバーイジメ？
+      const params = {'id':this.posted, 'hotspring_id':this.hot.id, 'status':this.check}
+      if(this.posted == 0){
+        this.postPost(params)
+      }else{
+        this.updatePost(params)
+      }
     },
     CommentSubmit() {
       this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})

@@ -48,7 +48,7 @@ export default{
     }
   },
   computed:{
-    ...mapGetters('users', ['favorites']),
+    ...mapGetters('users', ['favorites', 'user_name']),
     ...mapGetters('hotsprings', ['hotsprings']),
   },
   mounted(){
@@ -57,17 +57,13 @@ export default{
     }
   },
   watch:{
-    hotsprings(){
+    user_name(){
       this.Favorite()
     },
-    favorites(){
-      this.Favorite()
-    }
   },
   methods:{
     ...mapActions('hotsprings',['fetchHotsprings']),
     JumpToFavorite(hotspring){
-      console.log(hotspring)
       window.location.href='/hotspring/'+hotspring.longtitude+','+hotspring.latitude
       this.modal_appearance = false
     },
