@@ -76,6 +76,7 @@ const hotsprings_module = {
       const lon = lonlat.split(',')[0]
       const lat = lonlat.split(',')[1]
       const response = await axios.get('hotspring' ,{ params: {'lat': lat, 'lon': lon}})
+      console.log(response.data)
       commit('setHotspring', response.data.data.attributes)
       response.data.included.forEach(element => {
         switch(element.type){
