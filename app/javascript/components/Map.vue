@@ -30,6 +30,8 @@ export default {
       target: 'map',
       layers: [gsi],
       view: new View({
+        maxZoom: 18,
+        minZoom: 5,
         zoom: 5,
         center: fromLonLat([140.46, 35.3]),
         constrainResolution: false,
