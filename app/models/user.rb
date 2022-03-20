@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :articles, dependent: :destroy
 
   # More authorities in the future ?
   enum admin: { 'user': 0, 'admin': 1 }
