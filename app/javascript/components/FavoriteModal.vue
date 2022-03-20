@@ -52,14 +52,22 @@ export default{
     ...mapGetters('hotsprings', ['hotsprings']),
   },
   mounted(){
-    if(this.hotsprings.length == 0){
+    if(this.hotsprings.length == 0 && this.user_name){
       this.fetchHotsprings(1)
+      this.Favorite()
     }
   },
   watch:{
     user_name(){
-      this.Favorite()
+      if(this.user_name){
+        this.Favorite()
+      }
     },
+    hotsprings(){
+      if(this.user_name){
+        this.Favorite()
+      }
+    }
   },
   methods:{
     ...mapActions('hotsprings',['fetchHotsprings']),
@@ -68,6 +76,7 @@ export default{
       this.modal_appearance = false
     },
     Favorite(){
+      console.log(this.favorites)
       let hotsprings = []
       this.favorites.forEach(element => {
         let hotspring_id = element.attributes.hotspring_id

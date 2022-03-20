@@ -34,11 +34,10 @@ export function popup(map){
     if (feature) {
       if(feature.get('features')){
         const coordinate = (toLonLat(feature.get('features')[0].get('geometry').flatCoordinates))
-        console.log(coordinate)
 
         const view = new View({
-          zoom: 10,
-          center: fromLonLat(coordinate),
+          zoom: 12,
+          center: fromLonLat([coordinate[0]+0.05,coordinate[1]+0.05]),
           constrainResolution: false,
           extent: transformExtent([110, 20, 170, 46], 'EPSG:4326', 'EPSG:3857')
         })
