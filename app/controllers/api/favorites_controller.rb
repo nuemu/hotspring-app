@@ -4,7 +4,9 @@ class Api::FavoritesController < Api::BaseController
       Hotspring
       .find(params[:hotspring_id])
       .favorites << Favorite.new(user_id: current_user.id)
-    render json: favorite
+
+    favorite_json = FavoriteSerializer.new(favorite)
+    render json: favorite_json
   end
 
   def destroy

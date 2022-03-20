@@ -44,28 +44,25 @@ export default{
   data(){
     return{
       modal_appearance: false,
-      favorite_hotsprings: [],
     }
   },
   computed:{
     ...mapGetters('users', ['favorites', 'user_name']),
     ...mapGetters('hotsprings', ['hotsprings']),
-  },
-  mounted(){
-    if(this.hotsprings.length == 0 && this.user_name){
-      this.fetchHotsprings(1)
-      this.Favorite()
+    favorite_hotsprings(){
+      let hotsprings = []
+      this.favorites.forEach(element => {
+        let hotspring_id = element.attributes.hotspring_id
+        let id = this.hotsprings.findIndex(hotspring => hotspring.id == hotspring_id)
+        hotsprings.push(this.hotsprings[id])
+      })
+      return hotsprings
     }
   },
   watch:{
     user_name(){
       if(this.user_name){
-        this.Favorite()
-      }
-    },
-    hotsprings(){
-      if(this.user_name){
-        this.Favorite()
+        this.fetchHotsprings(1)
       }
     }
   },
@@ -75,16 +72,6 @@ export default{
       window.location.href='/hotspring/'+hotspring.longtitude+','+hotspring.latitude
       this.modal_appearance = false
     },
-    Favorite(){
-      console.log(this.favorites)
-      let hotsprings = []
-      this.favorites.forEach(element => {
-        let hotspring_id = element.attributes.hotspring_id
-        let id = this.hotsprings.findIndex(hotspring => hotspring.id == hotspring_id)
-        hotsprings.push(this.hotsprings[id])
-      })
-      this.favorite_hotsprings = hotsprings
-    }
   }
 }
 </script>

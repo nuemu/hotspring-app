@@ -1,5 +1,5 @@
 class Api::ArticlesController < Api::BaseController
-  skip_before_action :authenticate
+  skip_before_action :authenticate, only: %w[show]
   require 'net/http'
 
   def show
@@ -8,8 +8,15 @@ class Api::ArticlesController < Api::BaseController
   end
 
   def create
-    articles = Hotspring.find(params[:hotspring_id]).articles << Article.new(url: params[:url])
-    article = ArticleSerializer.new(articles[-1])
-    render json: article
+    articles = current_user.articles << Article.new(hotspring_id: params[:hotspring_id], url: params[:url])
+    article_json = ArticleSerializer.new(articles[-1])
+    render json: article_json
+  end
+
+  def destroy
+    article = current_user.articles.find(params[:id])
+    article.delete
+    article_json = ArticleSerializer.new(article)
+    render json: article_json
   end
 end

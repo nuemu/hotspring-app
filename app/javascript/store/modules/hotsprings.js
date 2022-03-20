@@ -58,6 +58,10 @@ const hotsprings_module = {
     setArticle(state, article){
       state.articles.push(article)
     },
+    deleteArticle(state, id){
+      const index = state.articles.findIndex(element => element.id==id)
+      state.articles.splice(index, 1)
+    },
     setStatus(state, post){
       const index = Object.keys(status).findIndex(element => element == post.status)
       if(index !== 0) state.status[index] += 1
@@ -82,7 +86,7 @@ const hotsprings_module = {
             commit('setStatus', element.attributes)
             break
           case 'article':
-            commit('setArticle', element.attributes)
+            commit('setArticle', element)
             break
         }
       })
@@ -93,9 +97,7 @@ const hotsprings_module = {
       commit('addHotspring', response.data)
     },
     async updateHotspring({commit}, params){
-      console.log(params)
       const response = await axios.patch('hotsprings/'+params.id, params)
-      console.log(response)
     },
     async postComment({commit},params){
       const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
@@ -107,11 +109,14 @@ const hotsprings_module = {
     },
     async postArticle({commit}, params){
       const response = await axios.post('articles', params)
-      commit('setArticle', response.data.data.attributes)
+      commit('setArticle', response.data.data)
+    },
+    async deleteArticle({commit}, id){
+      const response = await axios.delete('articles/'+id)
+      commit('deleteArticle',response.data.data.id)
     },
     async postPost({commit}, params){
       const response = await axios.post('posts', params)
-      console.log(response.data)
       return response.data.id
     },
     async updatePost({commit}, params){

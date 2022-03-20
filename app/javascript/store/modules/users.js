@@ -31,6 +31,10 @@ const users_module = {
     set_favorites(state, favorite){
       state.favorites.push(favorite)
     },
+    unFav(state, id){
+      const index = state.favorites.findIndex(element => element.id == id)
+      state.favorites.splice(index, 1)
+    },
     setPosts(state, post){
       state.posts.push(post)
     },
@@ -90,10 +94,13 @@ const users_module = {
       return response.data
     },
     async Fav({commit}, hotspring_id){
-      await axios.post('favorites', {'hotspring_id': hotspring_id})
+      const response = await axios.post('favorites', {'hotspring_id': hotspring_id})
+      commit('set_favorites',response.data.data[0])
+      return true
     },
     async unFav({commit}, id){
-      await axios.delete('favorites/'+id)
+      const response = await axios.delete('favorites/'+id)
+      commit('unFav',response.data.id)
     },
     async fetchUsers(){
       const response = await axios.get('users')

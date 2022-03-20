@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :hotsprings, only: %w[index create update]
-    resource :articles, only: %w[create]
+    resources :articles, only: %w[create destroy]
     resource :sessions, only: %w[create]
     resource :registers, only: %w[create]
     resources :users, only: %w[index]

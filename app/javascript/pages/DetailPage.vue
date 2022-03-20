@@ -14,6 +14,7 @@
       <Form @submit="TitleSubmit">
         <StatusIcons :status="status"/>
         <Field ref="title" v-model="new_name" name="title" class="form" rules="present"/>
+        <button class="btn">+</button>
         <Star :hotspring_id="hot.id"/>
         <ErrorMessage name="title" style="color:red;" as="p" />
       </Form>
@@ -40,10 +41,11 @@
       <div class="lead">Description</div>
       <div class="container-sm" style="white-space: pre-line;" v-if="status!=='unexplored'">{{hot.description}}</div>
       <div class="container-sm" v-else>
-        <Form>
+        <Form @submit="DescriptionSubmit">
           <div class="input-group">
             <Field v-model="new_description" v-slot="{ field }" name="description" rules="present">
-              <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" @keydown.enter.shift="DescriptionSubmit" placeholder="詳細はShift+Enterで送信できます"></textarea>
+              <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="詳細情報欄"></textarea>
+              <button class="btn">+</button>
             </Field>
           </div>
           <ErrorMessage name="description" style="color:red;" as="p" />
@@ -83,12 +85,13 @@
         <Form @submit="UrlSubmit">
           <div class="input-group">
             <Field ref="url" name="url" v-model="new_url" class="form-control form-control-plaintext" rules="present|url" placeholder="情報提供をお願いします..."/>
+            <button class="btn">+</button>
           </div>
           <ErrorMessage name="url" style="color:red;" as="p" />
         </Form>
       </div>
-      <div class="container-sm" v-for="article in articles.reverse()" :key="article.url">
-        <Article :url="article.url" />
+      <div class="container-sm" v-for="article in articles.slice().reverse()" :key="article.attributes.url">
+        <Article :id="article.id" :url="article.attributes.url" :user="article.attributes.user.data.attributes.name"/>
         <p></p>
       </div>
     </div>

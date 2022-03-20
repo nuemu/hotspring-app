@@ -19,7 +19,7 @@ export default{
   watch:{
     hotspring_id(){
       this.fav_set()
-    }
+    },
   },
   mounted(){
     this.fav_set()
@@ -33,8 +33,8 @@ export default{
   methods:{
     ...mapActions('users',['Fav','unFav']),
     click(){
-      if(!this.fav) this.Fav(this.hotspring_id)
-      else this.unFav(this.id)
+      if(!this.fav) this.Fav(this.hotspring_id).then(() => this.fav_set())
+      else this.unFav(this.id).then(() => this.fav_set())
 
       this.fav = !this.fav
     },
