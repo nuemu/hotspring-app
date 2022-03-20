@@ -52,7 +52,7 @@ export default{
     ...mapGetters('hotsprings', ['hotsprings']),
   },
   mounted(){
-    if(this.hotsprings.length == 0){
+    if(this.hotsprings.length == 0 && this.user_name){
       this.fetchHotsprings(1)
     }
   },

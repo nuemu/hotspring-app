@@ -25,7 +25,7 @@ export default{
     ...mapGetters('users',['user_name']),
   },
   mounted(){
-    if(this.user_name !== ''){
+    if(this.user_name){
       this.fetchHotsprings(1)
       this.$refs.map.map.addControl(new VisibilityControl)
     }
@@ -37,7 +37,7 @@ export default{
       popup(this.$refs.map.map)
     },
     user_name(){
-      if(this.user_name !== '') {
+      if(this.user_name) {
         this.fetchHotsprings(1)
         this.$refs.map.map.addControl(new VisibilityControl)
       }
