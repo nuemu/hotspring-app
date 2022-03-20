@@ -44,5 +44,5 @@ export default{}
 </script>
 
 <style scoped>
-@import 'admin-lte/dist/css/adminlte.css'
+@import './adminlte.css'
 </style>
