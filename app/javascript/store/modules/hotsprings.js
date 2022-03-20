@@ -51,6 +51,10 @@ const hotsprings_module = {
     setComment(state, comment){
       state.comments.push(comment)
     },
+    deleteComment(state, id){
+      const index = state.comments.findIndex(element => element.id==id)
+      state.comments.splice(index, 1)
+    },
     setArticle(state, article){
       state.articles.push(article)
     },
@@ -72,7 +76,7 @@ const hotsprings_module = {
       response.data.included.forEach(element => {
         switch(element.type){
           case 'comment':
-            commit('setComment', element.attributes)
+            commit('setComment', element)
             break
           case 'post':
             commit('setStatus', element.attributes)
@@ -95,7 +99,11 @@ const hotsprings_module = {
     },
     async postComment({commit},params){
       const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
-      commit('setComment', response.data.data.attributes)
+      commit('setComment', response.data.data)
+    },
+    async deleteComment({commit}, id){
+      const response = await axios.delete('comments/'+id)
+      commit('deleteComment',response.data.id)
     },
     async postArticle({commit}, params){
       const response = await axios.post('articles', params)

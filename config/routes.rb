@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :users, only: %w[index]
 
     resources :favorites, only: %w[create destroy]
-    resources :comments, only: %w[create]
+    resources :comments, only: %w[create destroy]
     resources :posts, only: %w[create update]
 
     get 'me', to: 'sessions#me'

@@ -5,6 +5,12 @@ class Api::CommentsController < Api::BaseController
     render json: comment
   end
 
+  def destroy
+    comment = current_user.comments.find(params[:id])
+    comment.delete
+    render json: comment
+  end
+
   private
 
   def post_params

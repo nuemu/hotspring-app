@@ -55,20 +55,24 @@
     <div class="comment wrapper container">
       <div class="lead">Comments</div>
       <div v-if="user_name" class="container-sm">
-        <Form>
+        <Form @submit="CommentSubmit">
           <div class="input-group">
             <Field v-model="new_comment" v-slot="{ field }" name="comment" rules="present">
-              <textarea ref="comment" rows="1" v-bind="field" class="form-control form-control-plaintext" @keydown.enter.shift="CommentSubmit" placeholder="コメントはShift+Enterで送信できます"></textarea>
+              <textarea ref="comment" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="コメント欄"></textarea>
+              <button class="btn">+</button>
             </Field>
           </div>
           <ErrorMessage name="comment" style="color:red;" as="p" />
         </Form>
       </div>
-      <div class="container-sm" v-for="comment in comments.reverse()" :key="comment.id" style="white-space: pre-line;">
-        {{comment.comment}}
-        <div class="text-end">
-          {{comment.user.data.attributes.name}}
+      <div class="container-sm" v-for="comment in comments.slice().reverse()" :key="comment.id">
+        <div class="text-end comment_user">
+          投稿者：{{comment.attributes.user.data.attributes.name}}
+          <span v-if="comment.attributes.user.data.attributes.name == user_name">
+            <button class="btn" @click="deleteComment(comment.id)">x</button>
+          </span>
         </div>
+        <div class="container-sm" style="white-space: pre-line;">{{comment.attributes.comment}}</div>
       </div>
     </div>
     <p></p>
@@ -164,7 +168,7 @@ export default{
   },
   methods:{
     ...mapMutations('hotsprings', ['setHotspring']),
-    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'postPost','updatePost', 'updateHotspring']),
+    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'deleteComment', 'postPost','updatePost', 'updateHotspring']),
     TitleSubmit() {
       const params = {'name': this.new_name, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
       this.updateHotspring(params)
@@ -207,5 +211,9 @@ export default{
 }
 textarea{
   resize: none;
+}
+.comment_user{
+  display: flex;
+  align-items: center;
 }
 </style>
