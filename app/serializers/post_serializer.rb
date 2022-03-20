@@ -1,4 +1,4 @@
 class PostSerializer
   include JSONAPI::Serializer
-  attributes 
+  attributes :hotspring_id, :status, :user_id
 end

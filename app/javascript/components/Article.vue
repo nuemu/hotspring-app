@@ -1,7 +1,8 @@
 <template>
   <div @click="click" class="ratio ratio-21x9" style="outline: solid;">
-    <iframe :src="url" :srcdoc="html" sandbox scrolling="no" allow="none"></iframe>
+    <iframe :srcdoc="html" sandbox scrolling="no" loading="lazy"></iframe>
   </div>
+  <a :href="url">{{title}}</a>
 </template>
 
 <script>
@@ -11,6 +12,7 @@ export default{
   data(){
     return{
       html: '',
+      title: '',
     }
   },
   created(){
@@ -26,6 +28,7 @@ export default{
           base.href = this.url
           base.target = "_self"
           html.head.prepend(base)
+          this.title = html.title
 
           this.html = new XMLSerializer().serializeToString(html)
         })

@@ -11,8 +11,15 @@
     <div id="popup-content" ref="popup"></div>
     <p></p>
     <div class="mb-3">
-      メモ：<textarea class="form-control" placeholder="登録理由等" v-model="memo"></textarea>
-      <button class="btn btn-secondary" @click="register">登録</button>
+      <Form @submit="DescriptionSubmit">
+        <div class="input-group">
+          <Field v-model="description" v-slot="{ field }" name="description" rules="present">
+            <button class="btn">+</button>
+            <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="登録理由等記入"></textarea>
+          </Field>
+        </div>
+        <ErrorMessage name="description" style="color:red;" as="p" />
+      </Form>
     </div>
   </div>
 </template>
@@ -20,13 +27,14 @@
 <script>
 //import thermal from '../ol/thermal_layer'
 import { mapActions, mapGetters } from 'vuex'
+import { Field, Form, ErrorMessage } from 'vee-validate';
 
 import Map from '../components/Map.vue'
 import SidePanel from '../components/SidePanel.vue'
 
 import Photo from '../ol/gsi_photo_layer.js'
 import Thermal from '../ol/thermal_layer.js'
-
+import Water from '../ol/gsi_water_layer.js'
 
 import { popup } from '../ol/register_popup.js'
 import { InteractionStyle } from '../ol/interaction_style.js'
@@ -34,13 +42,16 @@ import { InteractionStyle } from '../ol/interaction_style.js'
 export default{
   components:{
     Map,
-    SidePanel
+    SidePanel,
+    Form,
+    Field,
+    ErrorMessage,
   },
   data(){
     return{
       longtitude: '',
       latitude: '',
-      memo: '',
+      description: '',
     }
   },
   computed:{
@@ -60,14 +71,16 @@ export default{
 
     this.$refs.map.map.addLayer(Thermal)
     this.$refs.map.map.addLayer(Photo)
+    this.$refs.map.map.addLayer(Water)
     this.$refs.side.normal()
   },
   methods:{
     ...mapActions('hotsprings', ['postHotspring','fetchHotsprings']),
-    register(){
+    DescriptionSubmit(){
       const latlon = this.$refs.popup.children[1].innerText.split(',')
-      const params = {'description':this.memo ,'latitude': latlon[1],'longtitude': latlon[0]}
+      const params = {'description':this.description ,'latitude': latlon[1],'longtitude': latlon[0]}
       this.postHotspring(params)
+        .then(() => document.getElementById('popup-closer').click())
     },
   }
 }
@@ -91,5 +104,13 @@ export default{
   width: 10%;
   height: 100vh;
   float: right;
+}
+textarea{
+  resize: none;
+  box-shadow:none !important;
+  border-color: white !important;
+}
+.btn{
+  box-shadow:none !important;
 }
 </style>

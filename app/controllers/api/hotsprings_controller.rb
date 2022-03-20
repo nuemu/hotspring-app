@@ -7,8 +7,10 @@ class Api::HotspringsController < Api::BaseController
   end
 
   def show
-    hotspring = Hotspring.find_by(latitude: params[:lat], longtitude: params[:lon])
-    hotspring_json = HotspringSerializer.new(hotspring)
+    hotspring = Hotspring
+                .includes(:comments, :posts, :articles, comments: :user)
+                .find_by(latitude: params[:lat], longtitude: params[:lon])
+    hotspring_json = HotspringSerializer.new(hotspring, { include: [:comments, :posts, :articles] })
     render json: hotspring_json
   end
 
@@ -18,9 +20,15 @@ class Api::HotspringsController < Api::BaseController
     render json: hotspring
   end
 
+  def update
+    hotspring = Hotspring.find_by(latitude: params[:lat], longtitude: params[:lon])
+    hotspring.update(hotspring_params)
+    render json: hotspring
+  end
+
   private
 
   def hotspring_params
-    params.permit(:latitude, :longtitude, :description)
+    params.permit(:name, :status, :latitude, :longtitude, :description)
   end
 end

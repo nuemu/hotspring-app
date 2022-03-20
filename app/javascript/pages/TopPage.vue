@@ -24,11 +24,12 @@ export default{
     ...mapGetters('hotsprings',['hotspring_icons']),
     ...mapGetters('users',['user_name']),
   },
-  created(){
+  mounted(){
     if(this.user_name !== ''){
       this.fetchHotsprings(1)
+      this.$refs.map.map.addControl(new VisibilityControl)
     }
-    this.fetchHotsprings(0)
+    else this.fetchHotsprings(0)
   },
   watch:{
     hotspring_icons(){
@@ -36,7 +37,7 @@ export default{
       popup(this.$refs.map.map)
     },
     user_name(){
-      if(this.user_name) {
+      if(this.user_name !== '') {
         this.fetchHotsprings(1)
         this.$refs.map.map.addControl(new VisibilityControl)
       }

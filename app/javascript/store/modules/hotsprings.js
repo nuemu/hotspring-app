@@ -1,12 +1,17 @@
 import axios from '../../plugins/axios.js'
 import {cluster} from '../../ol/cluster.js'
+import status from '../../ol/hotspring_status.js'
 
 const hotsprings_module = {
   namespaced: true,
   state(){
     return{
-      hotsprings:[],
-      hotspring:{},
+      hotsprings: [],
+      hotspring: false,
+      comments: [],
+      status: [0,0,0,0],
+      posts: [],
+      articles: [],
     }
   },
   getters:{
@@ -18,7 +23,18 @@ const hotsprings_module = {
     },
     hotspring_icons(state){
       return cluster(state.hotsprings)
-    }
+    },
+    comments(state){
+      return state.comments
+    },
+    status(state){
+      const array = JSON.parse(JSON.stringify(state.status))
+      const max = Math.max(...array)
+      return Object.keys(status)[array.indexOf(max)]
+    },
+    articles(state){
+      return state.articles
+    },
   },
   mutations:{
     setHotsprings(state, data){
@@ -26,7 +42,6 @@ const hotsprings_module = {
     },
     addHotspring(state, data){
       let hotsprings = state.hotsprings
-      console.log(hotsprings)
       hotsprings.push(data)
       state.hotpsrings = hotsprings
     },
@@ -34,11 +49,15 @@ const hotsprings_module = {
       state.hotspring = data
     },
     setComment(state, comment){
-      state.hotspring.comments.data.push(comment.data)
+      state.comments.push(comment)
     },
     setArticle(state, article){
-      state.hotspring.articles.data.push(article.data)
-    }
+      state.articles.push(article)
+    },
+    setStatus(state, post){
+      const index = Object.keys(status).findIndex(element => element == post.status)
+      if(index !== 0) state.status[index] += 1
+    },
   },
   actions:{
     async fetchHotsprings({commit}, status){
@@ -50,14 +69,45 @@ const hotsprings_module = {
       const lat = lonlat.split(',')[1]
       const response = await axios.get('hotspring' ,{ params: {'lat': lat, 'lon': lon}})
       commit('setHotspring', response.data.data.attributes)
+      response.data.included.forEach(element => {
+        switch(element.type){
+          case 'comment':
+            commit('setComment', element.attributes)
+            break
+          case 'post':
+            commit('setStatus', element.attributes)
+            break
+          case 'article':
+            commit('setArticle', element.attributes)
+            break
+        }
+      })
+      return response.data.data.attributes
     },
     async postHotspring({commit}, params){
       const response = await axios.post('hotsprings', params)
       commit('addHotspring', response.data)
     },
+    async updateHotspring({commit}, params){
+      console.log(params)
+      const response = await axios.patch('hotsprings/'+params.id, params)
+      console.log(response)
+    },
+    async postComment({commit},params){
+      const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
+      commit('setComment', response.data.data.attributes)
+    },
     async postArticle({commit}, params){
       const response = await axios.post('articles', params)
-      commit('setArticle', response.data)
+      commit('setArticle', response.data.data.attributes)
+    },
+    async postPost({commit}, params){
+      const response = await axios.post('posts', params)
+      console.log(response.data)
+      return response.data.id
+    },
+    async updatePost({commit}, params){
+      const response = await axios.patch('posts/'+ params.id, params)
     }
   }
 }

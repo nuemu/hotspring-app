@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "../app.vue";
 import router from '../router/router.js'
 import store from '../store/index.js'
+import '../plugins/validator.js'
 
 const app = createApp(App);
 app.use(router);

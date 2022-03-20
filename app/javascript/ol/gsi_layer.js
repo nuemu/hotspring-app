@@ -1,17 +1,14 @@
-import VectorTileLayer from 'ol/layer/VectorTile';
-import VectorTileSource from 'ol/source/VectorTile';
-import MVTFormat from 'ol/format/MVT';
+import Tile from 'ol/layer/Tile';
+import XYZ from 'ol/source/XYZ';
 
-const gsi = new VectorTileLayer({
-  source: new VectorTileSource({
-    format: new MVTFormat({
-      layers: ['coastline', 'waterarea']
-    }),
-    url: 'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf',
+const gsi = new Tile({
+  name: 'normal',
+  source: new XYZ({
+    url: "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
     attributions: [
-      '<a href="https://github.com/gsi-cyberjapan/gsimaps-vector-experiment" target="_blank" rel=”noopener noreferrer”>国土地理院</a>',
-    ],
-  })
+      "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
+    ]
+  }),
 })
 
 export default gsi
