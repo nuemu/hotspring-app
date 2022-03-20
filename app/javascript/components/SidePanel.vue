@@ -11,9 +11,9 @@
   <div class="container">
     <h5 class="lead">Click</h5>
     <ol class="list-group list-group-flush list-group-numbered">
-      <li @click="register" class="list-group-item list-group-item-action">野湯登録</li>
-      <li @click="draw" class="list-group-item list-group-item-action">囲む</li>
-      <li @click="none" class="list-group-item list-group-item-action">-</li>
+      <li @click="register" :class="'list-group-item list-group-item-action '+options[0]">野湯登録</li>
+      <li @click="draw" :class="'list-group-item list-group-item-action '+options[1]">囲む</li>
+      <li @click="none" :class="'list-group-item list-group-item-action '+options[2]">-</li>
     </ol>
   </div>
 </div>
@@ -22,10 +22,10 @@
   <div class="container">
     <h5 class="lead">Map</h5>
     <ol class="list-group list-group-flush list-group-numbered">
-      <li @click="normal" class="list-group-item list-group-item-action">標準地図</li>
-      <li @click="water" class="list-group-item list-group-item-action">水系地図</li>
-      <li @click="thermal" class="list-group-item list-group-item-action">サーマル</li>
-      <li @click="photo" class="list-group-item list-group-item-action">航空写真</li>
+      <li @click="normal" :class="'list-group-item list-group-item-action '+maps[0]">標準地図</li>
+      <li @click="water" :class="'list-group-item list-group-item-action '+maps[1]">水系地図</li>
+      <li @click="thermal" :class="'list-group-item list-group-item-action '+maps[2]">サーマル</li>
+      <li @click="photo" :class="'list-group-item list-group-item-action '+maps[3]">航空写真</li>
     </ol>
   </div>
 </div>
@@ -41,29 +41,50 @@ export default{
   components:{
     Description
   },
+  data(){
+    return{
+      option_select: 2,
+      map_select: 0
+    }
+  },
+  computed:{
+    options(){
+      let options = ['','','']
+      options[this.option_select]='list-group-item-secondary'
+      return options
+    },
+    maps(){
+      let maps = ['','','','']
+      maps[this.map_select]='list-group-item-secondary'
+      return maps
+    }
+  },
   methods:{
     description(){
       this.$refs.description.modal_appearance = true
     },
     none(){
+      this.option_select = 2
       const map = this.$parent.$refs.map.map
       Interaction(map, false)
       map.un('singleclick', register)
     },
     register(){
+      this.option_select = 0
       const map = this.$parent.$refs.map.map
       map.on('singleclick', register)
 
       Interaction(map, false)
     },
     draw(){
+      this.option_select = 1
       const map = this.$parent.$refs.map.map
       map.un('singleclick', register)
 
       Interaction(map, true)
     },
     normal(){
-      this.selected = 0
+      this.map_select = 0
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
         if(layer.get('name')=='normal'){
           layer.setVisible(true)
@@ -80,7 +101,7 @@ export default{
       })
     },
     water(){
-      this.selected = 0
+      this.map_select = 1
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
         if(layer.get('name')=='normal'){
           layer.setVisible(false)
@@ -97,7 +118,7 @@ export default{
       })
     },
     thermal(){
-      this.selected = 1
+      this.map_select = 2
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
         if(layer.get('name')=='water'){
           layer.setVisible(false)
@@ -111,7 +132,7 @@ export default{
       })
     },
     photo(){
-      this.selected = 2
+      this.map_select = 3
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
         if(layer.get('name')=='water'){
           layer.setVisible(false)
@@ -128,7 +149,7 @@ export default{
 }
 </script>
 
-<style>
+<style scoped>
 .select{
   justify-content: center;
   width:80%;

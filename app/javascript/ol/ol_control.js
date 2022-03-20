@@ -23,7 +23,6 @@ class VisibilityControl extends Control {
       checkbox_names[index].className = 'form-check-label'
       checkbox_names[index].for = status
       checkbox_names[index].innerHTML = hotspring_status[status]
-
       
       checkbox_wrappers[index].appendChild(checkbox_names[index]);
       checkbox_wrappers[index].appendChild(checkboxes[index]);
