@@ -18,6 +18,7 @@
     "ol": "^6.13.0",
     "vee-validate": "^4.5.10",
     "vue": "^3.2.31",
+    "vue-loader": "^17.0.0",
     "vue-router": "^4.0.12",
     "vue-star-rating": "^2.1.0",
     "vuex": "^4.0.2",
@@ -27,7 +28,6 @@
   "version": "0.1.0",
   "devDependencies": {
     "@vue/compiler-sfc": "^3.2.31",
-    "vue-loader": "^17.0.0",
     "webpack-dev-server": "^3"
   }
 }
