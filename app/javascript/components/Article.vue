@@ -1,6 +1,6 @@
 <template>
   <div class="text-end article_user">
-    投稿者：{{user}}{{id}}
+    投稿者：{{user}}
     <span v-if="user == user_name">
       <button class="btn" @click="deleteArticle(id)">x</button>
     </span>
