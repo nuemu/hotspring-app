@@ -20,9 +20,15 @@ class Api::HotspringsController < Api::BaseController
     render json: hotspring
   end
 
+  def update
+    hotspring = Hotspring.find_by(latitude: params[:lat], longtitude: params[:lon])
+    hotspring.update(hotspring_params)
+    render json: hotspring
+  end
+
   private
 
   def hotspring_params
-    params.permit(:latitude, :longtitude, :description)
+    params.permit(:name, :status, :latitude, :longtitude, :description)
   end
 end

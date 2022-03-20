@@ -24,7 +24,7 @@
     </div>
     <p></p>
 
-    <div class="status wrapper container">
+    <div class="status wrapper container" v-if="user_name">
       <div class="container-sm text-center">
         投票：
         <div class="form-check form-check-inline" v-for="st in Object.keys(status_all)" :key="st">
@@ -37,7 +37,17 @@
 
     <div class="description wrapper container">
       <div class="lead">Description</div>
-      <div class="container-sm" style="white-space: pre-line;">{{hot.description}}</div>
+      <div class="container-sm" style="white-space: pre-line;" v-if="status!=='unexplored'">{{hot.description}}</div>
+      <div class="container-sm" v-else>
+        <Form>
+          <div class="input-group">
+            <Field v-model="new_description" v-slot="{ field }" name="description" rules="present">
+              <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" @keydown.enter.shift="DescriptionSubmit" placeholder="詳細はShift+Enterで送信できます"></textarea>
+            </Field>
+          </div>
+          <ErrorMessage name="description" style="color:red;" as="p" />
+        </Form>
+      </div>
     </div>
     <p></p>
 
@@ -98,6 +108,7 @@ export default{
     return{
       new_name: '',
       new_comment: '',
+      new_description: '',
       new_url: '',
       status_all: status,
       posted: -1,
@@ -137,23 +148,38 @@ export default{
           this.check = post.attributes.status
         }
       })
+      if(this.hot.status !== this.status && this.user_name){
+        const params = {'id':this.hot.id, 'status':this.status, 'name':this.hot.name, 'lat':this.hot.latitude,'lon':this.hot.longtitude,'description':this.hot.description}
+        this.updateHotspring(params)
+      }
     }
   },
   created(){
     this.fetchHotspring(this.$route.params.name)
-      .then(() => this.new_name = this.hot.name)
+      .then(() => {
+        this.new_name = this.hot.name
+        this.new_description = this.hot.description
+      })
   },
   methods:{
     ...mapMutations('hotsprings', ['setHotspring']),
-    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'postPost','updatePost']),
+    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'postPost','updatePost', 'updateHotspring']),
     TitleSubmit() {
-      this.$refs.title.blur()
+      const params = {'name': this.new_name, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
+      this.updateHotspring(params)
+      alert('投稿しました')
+    },
+    DescriptionSubmit() {
+      const params = {'description': this.new_description, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
+      this.updateHotspring(params)
+      alert('投稿しました')
     },
     StatusSubmit() {
       // サーバーイジメ？
       const params = {'id':this.posted, 'hotspring_id':this.hot.id, 'status':this.check}
       if(this.posted == -1){
         this.postPost(params)
+          .then((res) => this.posted = res)
       }else{
         this.updatePost(params)
       }

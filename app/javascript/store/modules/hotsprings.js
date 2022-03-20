@@ -56,7 +56,7 @@ const hotsprings_module = {
     },
     setStatus(state, post){
       const index = Object.keys(status).findIndex(element => element == post.status)
-      state.status[index] += 1
+      if(index !== 0) state.status[index] += 1
     },
   },
   actions:{
@@ -88,6 +88,11 @@ const hotsprings_module = {
       const response = await axios.post('hotsprings', params)
       commit('addHotspring', response.data)
     },
+    async updateHotspring({commit}, params){
+      console.log(params)
+      const response = await axios.patch('hotsprings/'+params.id, params)
+      console.log(response)
+    },
     async postComment({commit},params){
       const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
       commit('setComment', response.data.data.attributes)
@@ -98,6 +103,8 @@ const hotsprings_module = {
     },
     async postPost({commit}, params){
       const response = await axios.post('posts', params)
+      console.log(response.data)
+      return response.data.id
     },
     async updatePost({commit}, params){
       const response = await axios.patch('posts/'+ params.id, params)

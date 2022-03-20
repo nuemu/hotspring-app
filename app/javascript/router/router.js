@@ -23,7 +23,8 @@ const routes = [
   },
   {
     path: '/admin',
-    component: Admin
+    component: Admin,
+    meta: { requiredAdmin: true }
   }
 ]
 
@@ -33,13 +34,24 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  store.dispatch('users/fetchAuthUser').then((authUser) => {
-    if (to.matched.some(record => record.meta.requiredAuth) && !authUser) {
-      next({ name: 'TopPage' });
-    } else {
-      next();
-    }
-  })
+  if(to.matched.some(record => record.meta.requiredAdmin)){
+    store.dispatch('users/fetchAdmin').then((admin) => {
+      if(!admin){
+        next({ name: 'TopPage' });
+      } else {
+        next();
+      }
+    })
+  }
+  else{
+    store.dispatch('users/fetchAuthUser').then((authUser) => {
+      if (to.matched.some(record => record.meta.requiredAuth) && !authUser) {
+        next({ name: 'TopPage' });
+      } else {
+        next();
+      }
+    })
+  }
 });
 
 export default router

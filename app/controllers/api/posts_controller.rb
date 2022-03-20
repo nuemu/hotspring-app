@@ -5,7 +5,7 @@ class Api::PostsController < Api::BaseController
   end
 
   def update
-    post = current_user.posts.find(params[:id])
+    post = current_user.posts.find_by(hotspring_id: params[:hotspring_id])
     post.update(post_params)
 
     render json: post
@@ -14,6 +14,6 @@ class Api::PostsController < Api::BaseController
   private
 
   def post_params
-    params.permit(:id, :hotspring_id, :status)
+    params.permit(:hotspring_id, :status)
   end
 end

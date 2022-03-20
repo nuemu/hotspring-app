@@ -73,11 +73,19 @@ const users_module = {
 
       return state.user_name
     },
+    async fetchAdmin({commit}){
+      if (!localStorage.token) return null
+
+      commit('set_token', localStorage.token)
+
+      const response = await axios.get('admin')
+      return response.data
+    },
     async Fav({commit}, hotspring_id){
-      const response = await axios.post('favorites', {'hotspring_id': hotspring_id})
+      await axios.post('favorites', {'hotspring_id': hotspring_id})
     },
     async unFav({commit}, id){
-      const response = await axios.delete('favorites/'+id)
+      await axios.delete('favorites/'+id)
     },
     async fetchUsers(){
       const response = await axios.get('users')

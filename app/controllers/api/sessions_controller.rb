@@ -17,4 +17,8 @@ class Api::SessionsController < Api::BaseController
     user_json = UserSerializer.new(current_user, { include: [:favorites, :posts] })
     render json: user_json
   end
+
+  def admin
+    render json: current_user.admin == 'admin'
+  end
 end

@@ -8,6 +8,9 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
+  # More authorities in the future ?
+  enum admin: { 'user': 0, 'admin': 1 }
+
   def post(params)
     comments << Comment.new(hotspring_id: params[:hotspring_id], comment: params[:comment]) if params[:comment]
   end
