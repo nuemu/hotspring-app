@@ -2,7 +2,9 @@
   <div 
     id="map"
     ref="map-root"
-    style="width: 100%; height: 100vh">
+    style="width: 100%; height: 100%"
+    class="flex-fill"
+  >
   </div>
 </template>
 

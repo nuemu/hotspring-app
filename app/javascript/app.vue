@@ -18,3 +18,18 @@ export default {
   },
 }
 </script>
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+}
+body {
+  display: flex;
+  flex-direction: column;
+}
+#app{
+  height:89%;
+}
+</style>
