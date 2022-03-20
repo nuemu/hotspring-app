@@ -7,9 +7,9 @@ class Api::RegistersController < Api::BaseController
     if user.save
       token = encode(user.id)
       response.header['authtoken'] = token
-      render json: user.name
+      render json: UserSerializer.new(user)
     else
-      render json: 'regsiter_failed', status: :internal_server_error
+      render json: 'failed'
     end
   end
 

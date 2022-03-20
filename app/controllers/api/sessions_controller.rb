@@ -9,7 +9,7 @@ class Api::SessionsController < Api::BaseController
       user_json = UserSerializer.new(user, { include: [:favorites] })
       render json: user_json
     else
-      render json: 'login_failed', status: :not_found
+      render json: 'failed'
     end
   end
 

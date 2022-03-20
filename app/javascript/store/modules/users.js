@@ -43,13 +43,21 @@ const users_module = {
   actions:{
     async login({commit}, user){
       const response = await axios.post('sessions',user)
+      if(response.data=='failed'){
+        return false
+      }
       commit('set_user', response.data.data.attributes.name)
       commit('set_token', response.headers['authtoken'])
+      return true
     },
     async register({commit}, user){
       const response = await axios.post('registers',user)
+      if(response.data=='failed'){
+        return false
+      }
       commit('set_user', response.data.data.attributes.name)
       commit('set_token', response.headers['authtoken'])
+      return true
     },
     async fetchAuthUser({ commit, state }) {
       if (!localStorage.token) return null

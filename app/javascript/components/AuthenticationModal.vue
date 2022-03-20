@@ -73,19 +73,19 @@ export default{
   },
   methods:{
     ...mapActions('users',['login','register']),
-    login_click(){
-      // 名前とパスワードが登録済み ->　ログイン
-      // 名前が被っている場合 -> 名前かパスワードを間違えています
-      this.login(this.user)
-        .then(() => this.modal_appearance = false)
-        .catch((res) => this.error_message='名前かパスワードを間違えています')
+    async login_click(){
+      await this.login(this.user)
+        .then((res) => {
+          if(res) location.reload()
+          else this.error_message = 'ログイン失敗しました'
+        })
     },
-    register_click(){
-      // 名前とパスワードok ->　ログイン
-      // 名前が被っている場合 -> 登録済みの名前です
-      this.register(this.user)
-        .then(() => this.modal_appearance = false)
-        .catch((res) => this.error_message='登録済みの名前です')
+    async register_click(){
+      await this.register(this.user)
+        .then((res) => {
+          if(res) location.reload()
+          else this.error_message = '登録失敗しました'
+        })
     },
   }
 }
