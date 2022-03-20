@@ -1,5 +1,5 @@
 <template>
-  <span @click="click">
+  <span @click="click" v-if="user_name">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" :class="'star ' + favorite" viewBox="0 0 16 16">
       <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
     </svg>
@@ -16,16 +16,16 @@ export default{
       id: 0
     }
   },
+  watch:{
+    hotspring_id(){
+      this.fav_set()
+    }
+  },
   mounted(){
-    this.favorites.forEach(element => {
-      if(this.hotspring_id==element.attributes.hotspring_id){
-        this.fav = true
-        this.id = element.id
-      }
-    })
+    this.fav_set()
   },
   computed:{
-    ...mapGetters('users',['favorites']),
+    ...mapGetters('users',['user_name','favorites']),
     favorite(){
       return this.fav ? 'favorite' : 'unfavorite'
     }
@@ -37,6 +37,14 @@ export default{
       else this.unFav(this.id)
 
       this.fav = !this.fav
+    },
+    fav_set(){
+      this.favorites.forEach(element => {
+        if(this.hotspring_id==element.attributes.hotspring_id){
+          this.fav = true
+          this.id = element.id
+        }
+      })
     }
   }
 }

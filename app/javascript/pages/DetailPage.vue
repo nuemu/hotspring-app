@@ -5,13 +5,14 @@
     <div class="text-center">
       <img :src="img" height="480">
     </div>
-    <h1 class="text-center" v-if="status!=='unexplored'">
+    <h1 class="text-center" v-if="status!=='unexplored' || !this.user_name">
       <StatusIcons :status="status"/>
       {{hot.name}}
       <Star :hotspring_id="hot.id"/>
     </h1>
     <h1 class="text-center" v-else>
       <Form @submit="TitleSubmit">
+        <StatusIcons :status="status"/>
         <Field ref="title" v-model="new_name" name="title" class="form" rules="present"/>
         <Star :hotspring_id="hot.id"/>
         <ErrorMessage name="title" style="color:red;" as="p" />
