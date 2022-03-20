@@ -2,6 +2,8 @@ class Hotspring < ApplicationRecord
   validates :latitude, presence: true
   validates :longtitude, presence: true
 
+  validates_uniqueness_of :latitude, scope: :longtitude
+
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :articles, dependent: :destroy
