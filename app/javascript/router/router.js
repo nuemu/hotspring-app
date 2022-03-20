@@ -25,7 +25,11 @@ const routes = [
     path: '/admin',
     component: Admin,
     meta: { requiredAdmin: true }
-  }
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    component: TopPage
+  },
 ]
 
 const router = createRouter({
