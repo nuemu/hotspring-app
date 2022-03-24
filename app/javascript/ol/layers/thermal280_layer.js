@@ -2,7 +2,7 @@ import Tile from 'ol/layer/Tile'
 import  TileWMS  from 'ol/source/TileWMS'
 
 const thermal = new Tile({
-  name: 'THERMAL',
+  name: 'サーマル(280~290K)',
   opacity: 0.4,
   source: new TileWMS({
     url: "https://services-uswest2.sentinel-hub.com/ogc/wms/dc690d7c-88fe-46be-88b1-e67bb119f0a9",

@@ -27,28 +27,23 @@
 
             <p class="error_message">{{error_message}}</p>
 
-            <div class="input-group mb-3">
-              <span class="input-group-text">@</span>
-              <input v-model="user.name" id="name" type="text" class="form-control" placeholder="Username">
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text">PW</span>
-              <input v-model="user.password" id="password" type="password" class="form-control" placeholder="Password">
-            </div>
-
-            <div class="tab-content d-grid gap-2 d-md-flex justify-content-md-end" id="nav-tabContent">
-              <div
-                :class="'tab-pane fade show '+first_tab"
-              >
-                <button type="button" class="btn btn-secondary" @click="login_click()">Login</button>
+            <Form @submit="Submit">
+              <div class="input-group mb-3">
+                <span class="input-group-text">@</span>
+                <Field v-model="user.name" name="name" type="text" class="form-control" placeholder="Username" rules="present" />
               </div>
-              <div
-                :class="'tab-pane fade show '+second_tab"
-              >
-                <button type="button" class="btn btn-secondary" @click="register_click()">Register</button>
-              </div>
-            </div>
 
+              <ErrorMessage name="name" style="color:red;" as="p" />
+              <div class="input-group mb-3">
+                <span class="input-group-text">PW</span>
+                <Field v-model="user.password" name="password" type="password" class="form-control" rules="present" placeholder="Password" />
+              </div>
+              <ErrorMessage name="password" style="color:red;" as="p" />
+
+              <div class="tab-content d-grid gap-2 d-md-flex justify-content-md-end" id="nav-tabContent">
+                <button type="button" @click="Submit" class="btn btn-secondary">Submit</button>
+              </div>
+            </Form>
           </div>
         </div>
       </div>
@@ -60,11 +55,17 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { Field, Form, ErrorMessage } from 'vee-validate';
 
 export default{
+  components:{
+    Form,
+    Field,
+    ErrorMessage,
+  },
   data(){
     return{
-      user: {'user_name': '', 'password': ''},
+      user: {'name': '', 'password': ''},
       modal_appearance: false,
       first_tab: 'active',
       second_tab: '',
@@ -73,19 +74,21 @@ export default{
   },
   methods:{
     ...mapActions('users',['login','register']),
-    async login_click(){
-      await this.login(this.user)
-        .then((res) => {
-          if(res) location.reload()
-          else this.error_message = 'ログイン失敗しました'
-        })
-    },
-    async register_click(){
-      await this.register(this.user)
-        .then((res) => {
-          if(res) location.reload()
-          else this.error_message = '登録失敗しました'
-        })
+    async Submit(){
+      if(this.first_tab=='active'){
+        await this.login(this.user)
+          .then((res) => {
+            if(res) location.reload()
+            else this.error_message = 'ログイン失敗しました'
+          })
+      }
+      else{
+        await this.register(this.user)
+          .then((res) => {
+            if(res) location.reload()
+            else this.error_message = '登録失敗しました'
+          })
+      }
     },
   }
 }

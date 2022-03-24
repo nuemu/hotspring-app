@@ -22,10 +22,7 @@
   <div class="container">
     <h5 class="lead">Map</h5>
     <ol class="list-group list-group-flush list-group-numbered">
-      <li @click="normal" :class="'list-group-item list-group-item-action '+maps[0]">標準地図</li>
-      <li @click="water" :class="'list-group-item list-group-item-action '+maps[1]">水系地図</li>
-      <li @click="thermal" :class="'list-group-item list-group-item-action '+maps[2]">サーマル</li>
-      <li @click="photo" :class="'list-group-item list-group-item-action '+maps[3]">航空写真</li>
+      <li v-for="(name, index) in names" :key="name" @click="Render(index)" :class="'list-group-item list-group-item-action '+maps[index]">{{name}}</li>
     </ol>
   </div>
 </div>
@@ -36,6 +33,7 @@ import { Interaction } from '../ol/interaction.js'
 import { register } from '../ol/register_event.js'
 
 import Description from './DescriptionModal.vue'
+import layer_names from '../ol/layers/layer_names'
 
 export default{
   components:{
@@ -44,7 +42,8 @@ export default{
   data(){
     return{
       option_select: 2,
-      map_select: 0
+      map_select: 0,
+      names: layer_names
     }
   },
   computed:{
@@ -54,7 +53,10 @@ export default{
       return options
     },
     maps(){
-      let maps = ['','','','']
+      let maps = []
+      for(let i=0; i<layer_names.length; i++){
+        maps.push('')
+      }
       maps[this.map_select]='list-group-item-secondary'
       return maps
     }
@@ -83,68 +85,23 @@ export default{
 
       Interaction(map, true)
     },
-    normal(){
-      this.map_select = 0
+    RemoveLayers(){
       this.$parent.$refs.map.map.getLayers().forEach(layer => {
-        if(layer.get('name')=='normal'){
+        if(layer.get('name')== layer_names[0]){
           layer.setVisible(true)
         }
-        if(layer.get('name')=='water'){
-          layer.setVisible(false)
-        }
-        if(layer.get('name')=='THERMAL'){
-          layer.setVisible(false)
-        }
-        if(layer.get('name')=='photo'){
-          layer.setVisible(false)
+        else if(layer_names.includes(layer.get('name'))) layer.setVisible(false)
+      })
+    },
+    Render(index){
+      this.RemoveLayers()
+      this.map_select = index
+      this.$parent.$refs.map.map.getLayers().forEach(layer => {
+        if(layer.get('name')== layer_names[index]){
+          layer.setVisible(true)
         }
       })
     },
-    water(){
-      this.map_select = 1
-      this.$parent.$refs.map.map.getLayers().forEach(layer => {
-        if(layer.get('name')=='normal'){
-          layer.setVisible(false)
-        }
-        if(layer.get('name')=='water'){
-          layer.setVisible(true)
-        }
-        if(layer.get('name')=='THERMAL'){
-          layer.setVisible(false)
-        }
-        if(layer.get('name')=='photo'){
-          layer.setVisible(false)
-        }
-      })
-    },
-    thermal(){
-      this.map_select = 2
-      this.$parent.$refs.map.map.getLayers().forEach(layer => {
-        if(layer.get('name')=='water'){
-          layer.setVisible(false)
-        }
-        if(layer.get('name')=='THERMAL'){
-          layer.setVisible(true)
-        }
-        if(layer.get('name')=='photo'){
-          layer.setVisible(false)
-        }
-      })
-    },
-    photo(){
-      this.map_select = 3
-      this.$parent.$refs.map.map.getLayers().forEach(layer => {
-        if(layer.get('name')=='water'){
-          layer.setVisible(false)
-        }
-        if(layer.get('name')=='THERMAL'){
-          layer.setVisible(false)
-        }
-        if(layer.get('name')=='photo'){
-          layer.setVisible(true)
-        }
-      })
-    }
   }
 }
 </script>

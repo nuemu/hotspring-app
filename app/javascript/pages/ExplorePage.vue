@@ -32,9 +32,8 @@ import { Field, Form, ErrorMessage } from 'vee-validate';
 import Map from '../components/Map.vue'
 import SidePanel from '../components/SidePanel.vue'
 
-import Photo from '../ol/gsi_photo_layer.js'
-import Thermal from '../ol/thermal_layer.js'
-import Water from '../ol/gsi_water_layer.js'
+import layers from '../ol/layers/layer_loader.js'
+import layer from '../ol/layers/gsi_photo_layer.js'
 
 import { popup } from '../ol/register_popup.js'
 import { InteractionStyle } from '../ol/interaction_style.js'
@@ -69,10 +68,11 @@ export default{
     popup(this.$refs.map.map)
     InteractionStyle(this.$refs.map.map)
 
-    this.$refs.map.map.addLayer(Thermal)
-    this.$refs.map.map.addLayer(Photo)
-    this.$refs.map.map.addLayer(Water)
-    this.$refs.side.normal()
+    // ol/layers内のlayerファイルを追加
+    Object.keys(layers).forEach(key => {
+      this.$refs.map.map.addLayer(layers[key])
+    })
+    this.$refs.side.Render(0)
   },
   methods:{
     ...mapActions('hotsprings', ['postHotspring','fetchHotsprings']),

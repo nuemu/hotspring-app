@@ -2,7 +2,7 @@ import Tile from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 
 const gsi = new Tile({
-  name: 'normal',
+  name: '標準地図',
   source: new XYZ({
     url: "https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
     attributions: [
