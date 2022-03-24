@@ -10,10 +10,10 @@
 <div>
   <div class="container">
     <h5 class="lead">Click</h5>
-    <ol class="list-group list-group-flush list-group-numbered">
-      <li @click="register" :class="'list-group-item list-group-item-action '+options[0]">野湯登録</li>
-      <li @click="draw" :class="'list-group-item list-group-item-action '+options[1]">囲む</li>
-      <li @click="none" :class="'list-group-item list-group-item-action '+options[2]">-</li>
+    <ol class="list-group list-group-flush ">
+      <li @click="none" :class="'text-center list-group-item list-group-item-action '+options[2]">-</li>
+      <li @click="draw" :class="'text-center list-group-item list-group-item-action '+options[1]">囲む</li>
+      <li @click="register" :class="'text-center list-group-item list-group-item-action '+options[0]">野湯登録</li>
     </ol>
   </div>
 </div>
@@ -21,8 +21,8 @@
 <div>
   <div class="container">
     <h5 class="lead">Map</h5>
-    <ol class="list-group list-group-flush list-group-numbered">
-      <li v-for="(name, index) in names" :key="name" @click="Render(index)" :class="'list-group-item list-group-item-action '+maps[index]">{{name}}</li>
+    <ol class="list-group list-group-flush">
+      <li v-for="(name, index) in names" :key="name" @click="Render(index)" :class="'text-center list-group-item list-group-item-action '+maps[index]">{{name}}</li>
     </ol>
   </div>
 </div>
