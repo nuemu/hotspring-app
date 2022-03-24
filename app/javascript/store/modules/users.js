@@ -4,7 +4,7 @@ const users_module = {
   namespaced: true,
   state(){
     return{
-      user_name: '',
+      user_name: 'Guest',
       posts: [],
       favorites: [],
     }
@@ -65,9 +65,10 @@ const users_module = {
     },
     async fetchAuthUser({ commit, state }) {
       if (!localStorage.token) return null
-      if (state.user_name) return state.user_name
+      if (state.user_name !== 'Guest') return state.user_name
 
       commit('set_token', localStorage.token)
+      console.log("token")
 
       const response = await axios.get('me')
       response.data.included.forEach(element => {

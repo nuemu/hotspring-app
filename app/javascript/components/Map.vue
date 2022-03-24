@@ -18,6 +18,8 @@ import { fromLonLat } from 'ol/proj'
 import gsi from '../ol/gsi_layer.js'
 import { transformExtent } from 'ol/proj';
 
+import {defaults} from 'ol/control'
+
 export default {
   name: 'Map',
   data(){
@@ -29,6 +31,10 @@ export default {
     this.map = new Map({
       target: 'map',
       layers: [gsi],
+      controls: defaults({
+        attribution: true,
+        zoom: false
+      }),
       view: new View({
         maxZoom: 18,
         minZoom: 5,
