@@ -1,8 +1,8 @@
 import Overlay from 'ol/Overlay';
 
-export function popup(map){
-  const container = document.getElementById('popup');
-  const closer = document.getElementById('popup-closer');
+export function register_popup(map){
+  const container = document.getElementById('register_popup');
+  const closer = document.getElementById('register_popup-closer');
 
   const overlay = new Overlay({
     name: 'register',

@@ -1,30 +1,18 @@
 import {toLonLat} from 'ol/proj';
 import {Vector as VectorSource} from 'ol/source';
-import LineString from 'ol/geom/LineString';
 import {getDistance} from 'ol/sphere'
 
+import hotspring_status from './hotspring_status.js'
+
 export function register(evt) {
-  const content = document.getElementById('popup-content');
+  const content = document.getElementById('register-popup-content');
   const coordinate = evt.coordinate;
   const lonlat = toLonLat(coordinate);
 
   var tempSource = new VectorSource()
 
   evt.map.getLayers().forEach(element => {
-    switch(element.get('name')){
-      case 'unexplored':
-        tempSource.addFeatures(element.getSource().getFeatures())
-        break
-      case 'not_exist':
-        tempSource.addFeatures(element.getSource().getFeatures())
-        break
-      case 'prohibit':
-        tempSource.addFeatures(element.getSource().getFeatures())
-        break
-      case 'open':
-        tempSource.addFeatures(element.getSource().getFeatures())
-        break
-    }
+    if(Object.keys(hotspring_status).includes(element.get('name'))) tempSource.addFeatures(element.getSource().getFeatures())
   })
   let distance = 1000
   if(tempSource.getFeatures().length > 0){

@@ -31,6 +31,7 @@
 <script>
 import { Interaction } from '../ol/interaction.js'
 import { register } from '../ol/register_event.js'
+import { detail } from '../ol/detail_event.js'
 
 import Description from './DescriptionModal.vue'
 import layer_names from '../ol/layers/layer_names'
@@ -69,11 +70,13 @@ export default{
       this.option_select = 2
       const map = this.$parent.$refs.map.map
       Interaction(map, false)
+      map.on('click', detail)
       map.un('singleclick', register)
     },
     register(){
       this.option_select = 0
       const map = this.$parent.$refs.map.map
+      map.un('click', detail)
       map.on('singleclick', register)
 
       Interaction(map, false)
@@ -81,6 +84,7 @@ export default{
     draw(){
       this.option_select = 1
       const map = this.$parent.$refs.map.map
+      map.un('click', detail)
       map.un('singleclick', register)
 
       Interaction(map, true)

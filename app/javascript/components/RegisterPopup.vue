@@ -1,7 +1,7 @@
 <template>
-<div id="popup" class="ol-popup">
-  <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-  <div id="popup-content" ref="popup"></div>
+<div id="register_popup" class="ol-popup">
+  <a href="#" id="register_popup-closer" class="ol-popup-closer"></a>
+  <div id="register-popup-content" ref="popup"></div>
   <p></p>
   <div class="mb-3">
     <Form @submit="DescriptionSubmit">

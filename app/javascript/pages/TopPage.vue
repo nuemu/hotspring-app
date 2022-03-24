@@ -1,48 +1,34 @@
 <template>
   <Map  ref="map"/>
-  <div id="popup" class="ol-popup">
-    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-    <div id="popup-content" ref="popup"></div>
-    <p></p>
-    <div class="mb-3">
-    </div>
-  </div>
+  <DetailPopup />
 </template>
 
 <script>
 import Map from '../components/Map.vue'
+import DetailPopup from '../components/DetailPopup.vue'
 import { mapActions, mapGetters } from 'vuex'
 
 import VisibilityControl from '../ol/ol_control.js'
-import { popup } from '../ol/popup.js'
+import { detail_popup } from '../ol/detail_popup.js'
 
 export default{
   components:{
-    Map
+    Map,
+    DetailPopup
   },
   computed:{
     ...mapGetters('hotsprings',['hotspring_icons']),
     ...mapGetters('users',['user_name']),
   },
   mounted(){
-    if(this.user_name){
-      this.fetchHotsprings(1)
-      this.$refs.map.map.addControl(new VisibilityControl)
-    }
-    else this.fetchHotsprings(0)
+    detail_popup(this.$refs.map.map)
+    this.$refs.map.map.addControl(new VisibilityControl)
+    this.fetchHotsprings(1)
   },
   watch:{
     hotspring_icons(){
       this.hotspring_icons.forEach(icons => this.$refs.map.map.addLayer(icons))
-      popup(this.$refs.map.map)
     },
-    user_name(){
-      if(this.user_name) {
-        this.fetchHotsprings(1)
-        this.$refs.map.map.addControl(new VisibilityControl)
-      }
-      this.fetchHotsprings(0)
-    }
   },
   methods:{
     ...mapActions('hotsprings', ['fetchHotsprings'])
