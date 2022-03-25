@@ -1,11 +1,11 @@
 class CommentSerializer
   include JSONAPI::Serializer
-  attribute :comment
+  attributes :comment
 
-  belongs_to :user
+  belongs_to :user, serializer: AssociateUserSerializer
   belongs_to :hotspring
 
   attribute :user do |obj|
-    UserSerializer.new(obj.user)
+    AssociateUserSerializer.new(obj.user)
   end
 end

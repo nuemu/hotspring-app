@@ -11,11 +11,8 @@ class Hotspring < ApplicationRecord
 
   enum status: { 'unexplored': 0, 'not_exist': 1, 'prohibit': 2, 'open': 3 }
 
-  def self.permit(status)
-    if status.zero?
-      where(status: 'open')
-    else
-      all
-    end
+  def self.find_between(lat, lon)
+    gap = 0.000000000005
+    find_by(latitude: (lat - gap)..(lat + gap), longtitude: (lon - gap)..(lon + gap))
   end
 end

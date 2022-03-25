@@ -3,9 +3,6 @@ class ArticleSerializer
   attribute :url
 
   attribute :user do |obj|
-    UserSerializer.new(obj.user)
+    AssociateUserSerializer.new(obj.user)
   end
-
-  belongs_to :hotspring
-  belongs_to :user
 end
