@@ -43,6 +43,6 @@ export function detail(evt) {
           + '<div><code>' + coordinate + '</code></div>'
           + '<div>' + '状態:' + status[response.status] + '</div>'
       })
-      .catch(() => overla.setPosition(undefined))
+      .catch((e) => {overla.setPosition(undefined); console.log(e)})
     }
   }

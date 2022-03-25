@@ -105,11 +105,11 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
-import Article from '../components/Article.vue'
-import Star from '../components/Star.vue'
-import StatusIcons from '../components/StatusIcons.vue'
-import axios from '../plugins/axios.js'
-import status from '../ol/hotspring_status.js'
+import Article from '../../components/Article.vue'
+import Star from '../../components/Star.vue'
+import StatusIcons from '../../components/StatusIcons.vue'
+import axios from '../../plugins/axios.js'
+import status from '../../ol/hotspring_status.js'
 
 export default{
   data(){

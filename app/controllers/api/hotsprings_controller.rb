@@ -8,8 +8,8 @@ class Api::HotspringsController < Api::BaseController
 
   def show
     hotspring = Hotspring
-                .includes(:comments, :posts, :articles, comments: :user)
-                .find_by(latitude: params[:lat], longtitude: params[:lon])
+                .includes(:posts, :articles, comments: :user)
+                .find_by(latitude: (params[:lat].to_f - 0.000000000005)..(params[:lat].to_f + 0.000000000005), longtitude: (params[:lon].to_f - 0.000000000005)..(params[:lon].to_f + 0.000000000005))
     hotspring_json = HotspringSerializer.new(hotspring, { include: [:comments, :posts, :articles] })
     render json: hotspring_json
   end
