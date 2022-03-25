@@ -2,7 +2,7 @@
 <transition name="fade">
   <div v-if="modal_appearance">
     <div class="modal" @click.self="modal_appearance=false">
-      <div class="modal-dialog modal-dialog-centered modal-fullscreen">
+      <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">お気に入り一覧</h5>

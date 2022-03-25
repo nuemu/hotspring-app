@@ -2,7 +2,7 @@
 <transition name="fade">
   <div v-if="modal_appearance">
     <div class="modal" @click.self="modal_appearance=false">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-body">       
             <span class="d-grid gap-2 d-md-flex justify-content-md-end">

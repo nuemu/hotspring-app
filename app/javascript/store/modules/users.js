@@ -68,7 +68,6 @@ const users_module = {
       if (state.user_name !== 'Guest') return state.user_name
 
       commit('set_token', localStorage.token)
-      console.log("token")
 
       const response = await axios.get('me')
       response.data.included.forEach(element => {
