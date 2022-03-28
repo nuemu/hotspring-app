@@ -9,10 +9,6 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :articles, dependent: :destroy
 
-  # More authorities in the future ?
+  # More authorities in the future ? Is boolean better ?
   enum admin: { 'user': 0, 'admin': 1 }
-
-  def post(params)
-    comments << Comment.new(hotspring_id: params[:hotspring_id], comment: params[:comment]) if params[:comment]
-  end
 end

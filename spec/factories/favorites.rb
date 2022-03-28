@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :post do
+  factory :favorite do
     association :user
     association :hotspring
   end
