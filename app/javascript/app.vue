@@ -30,6 +30,6 @@ body {
   flex-direction: column;
 }
 #app{
-  height:89%;
+  height:90%;
 }
 </style>
