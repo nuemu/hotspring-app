@@ -36,7 +36,7 @@
               <ErrorMessage name="name" style="color:red;" as="p" />
               <div class="input-group mb-3">
                 <span class="input-group-text">PW</span>
-                <Field v-model="user.password" name="password" type="password" class="form-control" rules="present" placeholder="Password" />
+                <Field v-model="user.password" name="password" type="password" class="form-control" rules="minimum" placeholder="Password" />
               </div>
               <ErrorMessage name="password" style="color:red;" as="p" />
 
