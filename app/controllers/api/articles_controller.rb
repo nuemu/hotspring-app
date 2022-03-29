@@ -1,5 +1,4 @@
 class Api::ArticlesController < Api::BaseController
-  skip_before_action :authenticate, only: %w[show]
   require 'net/http'
 
   def show

@@ -1,40 +1,22 @@
 <template>
+
   <p></p>
+
   <div class="container">
-    <button class="btn">情報提供</button>
-    <div class="text-center">
-      <img :src="img" height="480">
-    </div>
-    <h1 class="text-center" v-if="status!=='unexplored' || !this.user_name">
-      <StatusIcons :status="status"/>
-      {{hot.name}}
-      <Star :hotspring_id="hot.id"/>
-    </h1>
-    <h1 class="text-center" v-else>
-      <Form @submit="TitleSubmit">
-        <StatusIcons :status="status"/>
-        <Field ref="title" v-model="new_name" name="title" class="form" rules="present"/>
-        <button class="btn">+</button>
-        <Star :hotspring_id="hot.id"/>
-        <ErrorMessage name="title" style="color:red;" as="p" />
-      </Form>
-    </h1>
-    <div class="text-center">
-      <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
-        lat:{{hot.latitude}}, long:{{hot.longtitude}}
-      </a>
-    </div>
+    <a :href="google_form" class="btn">情報提供</a>
+    
+    <Title ref="title" :hot="hot"/>
 
     <p></p>
 
-    <div class="status wrapper container" v-if="user_name">
+    <div class="status wrapper container" v-if="user_name!=='Guest'">
       <Status :hot="hot" />
     </div>
 
     <p></p>
 
     <div class="description wrapper container">
-      <Description :hot="hot" />
+      <Description ref="description" :hot="hot" />
     </div>
 
     <p></p>
@@ -52,83 +34,53 @@
   </div>
 
   <p></p>
+
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
-import { Field, Form, ErrorMessage } from 'vee-validate';
 
-import Star from '../../components/Star.vue'
-import StatusIcons from '../../components/StatusIcons.vue'
-
+import Title from './Title.vue'
 import Status from './Status.vue'
 import Description from './Description.vue'
 import Comment from './Comment.vue'
 import Article from './Article.vue'
 
 export default{
-  data(){
-    return{
-      new_name: '',
-      new_url: '',
-    }
-  },
   components:{
-    Article,
-    Star,
-    StatusIcons,
-
+    Title,
     Status,
     Description,
     Comment,
-    Article,
-
-    Form,
-    Field,
-    ErrorMessage,
+    Article,  
   },
   computed:{
-    ...mapGetters('hotsprings',['hotspring', 'hotsprings', 'comments', 'articles', 'status']),
+    ...mapGetters('hotsprings',['hotspring']),
     ...mapGetters('users',['user_name','posts']),
     hot(){
       return this.hotspring ? this.hotspring : {'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
     },
-    img(){
-      const hotspring_icon = require('hotspring.svg')
-      if(this.hotspring){
-        if(this.hotspring.image_url) {
-          return "http://drive.google.com/uc?export=view&id="+this.hotspring.image_url.split('d/')[1].split('/view')[0]
-        }
-        return hotspring_icon  
-      }
-      else return hotspring_icon
+  },
+  data(){
+    return{
+      google_form: 'https://docs.google.com/forms/d/e/1FAIpQLScrmNcEZt_ATMBAmAr3woHa3TC7Uh1IsPxD89sEYUU5o_VcPQ/viewform?usp=pp_url&entry.639094191='
     }
   },
   created(){
     this.fetchHotspring(this.$route.params.name)
       .then(() => {
-        this.new_name = this.hot.name
-        this.new_description = this.hot.description
+        this.$refs.title.new_name = this.hot.name
+        this.$refs.description.new_description = this.hot.description
+        this.google_form = this.google_form + this.hot.latitude + ',' + this.hot.longtitude
       })
   },
   methods:{
-    ...mapMutations('hotsprings', ['setHotspring']),
-    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'deleteComment', 'updateHotspring']),
-    TitleSubmit() {
-      const params = {'name': this.new_name, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
-      this.updateHotspring(params)
-      alert('更新しました')
-    },
+    ...mapActions('hotsprings', ['fetchHotspring']),
   }
 }
 </script>
 
 <style scoped>
-.form{
-  border: none;
-  outline: none;
-  text-align: center;
-}
 textarea{
   resize: none;
 }

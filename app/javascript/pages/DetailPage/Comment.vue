@@ -43,7 +43,7 @@ export default{
     }
   },
   methods:{
-    ...mapActions('hotsprings',['postComment']),
+    ...mapActions('hotsprings',['postComment', 'deleteComment']),
     CommentSubmit(){
       this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})
       this.$refs.comment.blur()

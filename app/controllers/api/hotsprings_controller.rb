@@ -1,6 +1,4 @@
 class Api::HotspringsController < Api::BaseController
-  skip_before_action :authenticate, only: %w[index show]
-
   def index
     hotsprings = Hotspring.all
     render json: hotsprings

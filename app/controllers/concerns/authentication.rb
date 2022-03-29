@@ -17,13 +17,12 @@ module Authentication
   private
 
   def current_user
-    @_current_user
+    @_current_user || User.find_by(name: 'Guest')
   end
 
   def authenticate
-    authenticate_or_request_with_http_token do |token|
+    authenticate_with_http_token do |token|
       user_id = decode(token)['user_id']
-      p user_id
       @_current_user = User.find(user_id)
     end
   end
