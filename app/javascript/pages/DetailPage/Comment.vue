@@ -1,0 +1,53 @@
+<template>
+<div class="lead">Comments</div>
+<div v-if="user_name" class="container-sm">
+  <Form @submit="CommentSubmit">
+    <div class="input-group">
+      <Field v-model="new_comment" v-slot="{ field }" name="comment" rules="present">
+        <textarea ref="comment" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="コメント欄"></textarea>
+        <button class="btn">+</button>
+      </Field>
+    </div>
+    <ErrorMessage name="comment" style="color:red;" as="p" />
+  </Form>
+</div>
+<div class="container-sm" v-for="comment in comments.slice().reverse()" :key="comment.id">
+  <div class="text-start comment_user">
+    投稿者：{{comment.attributes.user.data.attributes.name}}
+    <span v-if="comment.attributes.user.data.attributes.name == user_name">
+      <button class="btn" @click="deleteComment(comment.id)">x</button>
+    </span>
+  </div>
+  <div class="container-sm" style="white-space: pre-line;">{{comment.attributes.comment}}</div>
+</div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex'
+import { Field, Form, ErrorMessage } from 'vee-validate';
+
+export default{
+  props:['hot'],
+  components:{
+    Form,
+    Field,
+    ErrorMessage,
+  },
+  computed:{
+    ...mapGetters('hotsprings', ['hotspring','comments']),
+    ...mapGetters('users', ['user_name'])
+  },
+  data(){
+    return{
+      new_comment: '',
+    }
+  },
+  methods:{
+    ...mapActions('hotsprings',['postComment']),
+    CommentSubmit(){
+      this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})
+      this.$refs.comment.blur()
+    },
+  }
+}
+</script>

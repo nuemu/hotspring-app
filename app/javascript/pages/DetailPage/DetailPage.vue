@@ -24,76 +24,29 @@
         lat:{{hot.latitude}}, long:{{hot.longtitude}}
       </a>
     </div>
+
     <p></p>
 
     <div class="status wrapper container" v-if="user_name">
-      <div class="container-sm text-center">
-        投票：
-        <div class="form-check form-check-inline" v-for="st in Object.keys(status_all)" :key="st">
-          <input @change="StatusSubmit" class="form-check-input" v-model="check" name="status" type="radio" id="radio" :value="st">
-          <label class="form-check-label" for="radio">{{status_all[st]}}</label>
-        </div>
-      </div>
+      <Status :hot="hot" />
     </div>
+
     <p></p>
 
     <div class="description wrapper container">
-      <div class="lead">Description</div>
-      <div class="container-sm" style="white-space: pre-line;" v-if="status!=='unexplored'">{{hot.description}}</div>
-      <div class="container-sm" v-else>
-        <Form @submit="DescriptionSubmit">
-          <div class="input-group">
-            <Field v-model="new_description" v-slot="{ field }" name="description" rules="present">
-              <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="詳細情報欄"></textarea>
-              <button class="btn">+</button>
-            </Field>
-          </div>
-          <ErrorMessage name="description" style="color:red;" as="p" />
-        </Form>
-      </div>
+      <Description :hot="hot" />
     </div>
+
     <p></p>
 
     <div class="comment wrapper container">
-      <div class="lead">Comments</div>
-      <div v-if="user_name" class="container-sm">
-        <Form @submit="CommentSubmit">
-          <div class="input-group">
-            <Field v-model="new_comment" v-slot="{ field }" name="comment" rules="present">
-              <textarea ref="comment" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="コメント欄"></textarea>
-              <button class="btn">+</button>
-            </Field>
-          </div>
-          <ErrorMessage name="comment" style="color:red;" as="p" />
-        </Form>
-      </div>
-      <div class="container-sm" v-for="comment in comments.slice().reverse()" :key="comment.id">
-        <div class="text-end comment_user">
-          投稿者：{{comment.attributes.user.data.attributes.name}}
-          <span v-if="comment.attributes.user.data.attributes.name == user_name">
-            <button class="btn" @click="deleteComment(comment.id)">x</button>
-          </span>
-        </div>
-        <div class="container-sm" style="white-space: pre-line;">{{comment.attributes.comment}}</div>
-      </div>
+      <Comment />
     </div>
+
     <p></p>
 
     <div class="articles wrapper container">
-      <div class="lead">Articles</div>
-      <div v-if="user_name" class="container-sm">
-        <Form @submit="UrlSubmit">
-          <div class="input-group">
-            <Field ref="url" name="url" v-model="new_url" class="form-control form-control-plaintext" rules="present|url" placeholder="情報提供をお願いします..."/>
-            <button class="btn">+</button>
-          </div>
-          <ErrorMessage name="url" style="color:red;" as="p" />
-        </Form>
-      </div>
-      <div class="container-sm" v-for="article in articles.slice().reverse()" :key="article.attributes.url">
-        <Article :id="article.id" :url="article.attributes.url" :user="article.attributes.user.data.attributes.name"/>
-        <p></p>
-      </div>
+      <Article />
     </div>
 
   </div>
@@ -105,28 +58,31 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
-import Article from '../../components/Article.vue'
 import Star from '../../components/Star.vue'
 import StatusIcons from '../../components/StatusIcons.vue'
-import axios from '../../plugins/axios.js'
-import status from '../../ol/hotspring_status.js'
+
+import Status from './Status.vue'
+import Description from './Description.vue'
+import Comment from './Comment.vue'
+import Article from './Article.vue'
 
 export default{
   data(){
     return{
       new_name: '',
-      new_comment: '',
-      new_description: '',
       new_url: '',
-      status_all: status,
-      posted: -1,
-      check: 0
     }
   },
   components:{
     Article,
     Star,
     StatusIcons,
+
+    Status,
+    Description,
+    Comment,
+    Article,
+
     Form,
     Field,
     ErrorMessage,
@@ -148,20 +104,6 @@ export default{
       else return hotspring_icon
     }
   },
-  watch:{
-    hot(){
-      this.posts.forEach(post => {
-        if(post.attributes.hotspring_id == this.hot.id){
-          this.posted = post.id
-          this.check = post.attributes.status
-        }
-      })
-      if(this.hot.status !== this.status && this.user_name){
-        const params = {'id':this.hot.id, 'status':this.status, 'name':this.hot.name, 'lat':this.hot.latitude,'lon':this.hot.longtitude,'description':this.hot.description}
-        this.updateHotspring(params)
-      }
-    }
-  },
   created(){
     this.fetchHotspring(this.$route.params.name)
       .then(() => {
@@ -171,36 +113,11 @@ export default{
   },
   methods:{
     ...mapMutations('hotsprings', ['setHotspring']),
-    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'deleteComment', 'postPost','updatePost', 'updateHotspring']),
+    ...mapActions('hotsprings', ['fetchHotspring', 'postArticle', 'postComment', 'deleteComment', 'updateHotspring']),
     TitleSubmit() {
       const params = {'name': this.new_name, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
       this.updateHotspring(params)
-      alert('投稿しました')
-    },
-    DescriptionSubmit() {
-      const params = {'description': this.new_description, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
-      this.updateHotspring(params)
-      alert('投稿しました')
-    },
-    StatusSubmit() {
-      // サーバーイジメ？
-      const params = {'id':this.posted, 'hotspring_id':this.hot.id, 'status':this.check}
-      if(this.posted == -1){
-        this.postPost(params)
-          .then((res) => this.posted = res)
-      }else{
-        this.updatePost(params)
-      }
-    },
-    CommentSubmit() {
-      this.postComment({'hotspring_id':this.hotspring.id, 'comment':this.new_comment})
-      this.$refs.comment.blur()
-    },
-    async UrlSubmit() {
-      await axios.get('article', {params:{'url': this.new_url}})
-        .then(() => {
-          this.postArticle({'hotspring_id':this.hotspring.id, 'url':this.new_url})
-        })
+      alert('更新しました')
     },
   }
 }
