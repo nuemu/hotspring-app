@@ -1,16 +1,16 @@
 <template>
 <transition name="fade">
   <div v-if="modal_appearance">
-    <div class="modal" @click.self="modal_appearance=false">
+    <div class="modal" @click.self="closeEvent">
       <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-body">       
-            <span class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button type="button" class="btn-close" @click="modal_appearance=false"></button>
+            <span v-if="!initial" class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="button" class="btn-close" @click="closeEvent"></button>
             </span>
             <div class="policy">
               <h1>利用規約</h1>
-              <p>この利用規約（以下，「本規約」といいます。）は，＿＿＿＿＿（以下，「運営者」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。</p>
+              <p>この利用規約（以下，「本規約」といいます。）は、湯tellite運営（以下，「運営者」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。</p>
 
               <h2>第1条（適用）</h2>
               <ol>
@@ -124,10 +124,13 @@
               <li>本サービスに関して紛争が生じた場合には，運営者の本店所在地を管轄する裁判所を専属的合意管轄とします。</li>
               </ol>
 
-              <p class="tR">以上</p>
-
+              <p>以上</p>
 
               </div>
+
+            <span v-if="initial" class="d-grid gap-2 d-md-flex justify-content-md-center">
+              <button class="btn btn-outline-secondary" @click="accept">同意</button>
+            </span>
           </div>
         </div>
       </div>
@@ -141,7 +144,24 @@
 export default{
   data(){
     return{
-      modal_appearance: false,
+      modal_appearance: true,
+      initial: true,
+    }
+  },
+  created(){
+    if(localStorage.getItem('initial') == 'done'){
+      this.modal_appearance = false
+      this.initial = false
+    }
+  },
+  methods:{
+    accept(){
+      localStorage.setItem('initial', 'done')
+      this.modal_appearance = false
+      this.initial = false
+    },
+    closeEvent(){
+      if(!this.initial) this.modal_appearance=false
     }
   }
 }
