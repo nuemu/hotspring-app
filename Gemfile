@@ -7,7 +7,6 @@ gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'puma', '~> 5.0'
 gem 'jbuilder', '~> 2.7'
-gem 'dotenv'
 
 # DB:postgresql
 gem 'pg', '~> 1.1'
@@ -26,8 +25,10 @@ gem 'webpacker', '~> 5.0'
 group :development, :test do
   #debug tool
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  #test tool
+  #test tools
   gem 'rspec-rails', '~> 5.0.0'
+  gem 'capybara'
+  gem 'webdrivers'
   gem 'factory_bot_rails'
 
   #Lint

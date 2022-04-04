@@ -1,5 +1,4 @@
 import { defineRule } from 'vee-validate'
-import axios from './axios.js'
 
 defineRule('present', value => {
   if (!value) {
@@ -10,7 +9,6 @@ defineRule('present', value => {
 })
 
 defineRule('minimum', value => {
-  console.log(value, value.length)
   if (value.length < 3) {
     return '三文字以上入力してください';
   }

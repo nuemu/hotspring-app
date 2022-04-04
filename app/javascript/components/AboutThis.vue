@@ -10,7 +10,7 @@
               <div class="col-md-5 p-lg-5 mx-auto my-5">
                 <h1 class="display-4 font-weight-normal fadeLeft">湯tellite</h1>
                 <p class="lead font-weight-normal fadeRight">野湯探しのお供に...</p>
-                <a :class="'btn btn-outline-secondary ' + first_appearance" href="#" @click="Initial">始める♨︎</a>
+                <a class="btn btn-outline-secondary fadeIn" href="#" @click="Initial">始める♨︎</a>
               </div>
             </div>
 
@@ -37,7 +37,7 @@
 
             <div :class="'position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center text-white bg-dark ' + first_appearance">
               <p class="lead font-weight-normalt">野湯探索は時に非常に危険な活動となり得ます。</p>
-              <p class="lead font-weight-normalt">探索される場合は、十分な下調べ、準備、訓練を行なってください</p>
+              <p class="lead font-weight-normalt">現地を探索される場合は、十分な下調べ、準備、訓練を行なってください</p>
               <p class="lead font-weight-normalt">なお、本サービスに起因してユーザーに生じたあらゆる損害について、一才の責任を負いません。</p>
               <p class="lead font-weight-normalt">
                 <a :class="'btn btn-outline-light ' + first_appearance" href="#" @click="Initial">始める♨︎</a>
