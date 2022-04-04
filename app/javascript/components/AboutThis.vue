@@ -73,10 +73,6 @@ export default{
       if(this.first_loaded > 1) return 'fadeIn'
       return 'invisible'
     },
-    top_size(){
-      if(this.first_appearance == 'invisible') return 'height: 95%;'
-      return ''
-    },
     modal_size(){
       if(!this.initial) return 'modal-xl'
       return 'modal-fullscreen'
