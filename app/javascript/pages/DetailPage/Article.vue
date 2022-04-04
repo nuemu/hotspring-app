@@ -9,9 +9,11 @@
     <ErrorMessage name="url" style="color:red;" as="p" />
   </Form>
 </div>
-<div class="container-sm" v-for="article in articles.slice().reverse()" :key="article.attributes.url">
-  <Article :id="article.id" :url="article.attributes.url" :user="article.attributes.user.data.attributes.name"/>
-  <p></p>
+<div class="container-sm row">
+  <div class="col-sm-6" v-for="article in articles.slice().reverse()" :key="article.attributes.url">
+    <Article :id="article.id" :url="article.attributes.url" :user="article.attributes.user.data.attributes.name"/>
+    <p></p>
+  </div>
 </div>
 </template>
 

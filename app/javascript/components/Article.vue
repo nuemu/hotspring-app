@@ -2,13 +2,18 @@
   <div class="text-end article_user">
     投稿者：{{user}}
     <span v-if="user == user_name">
-      <button class="btn" @click="deleteArticle(id)">x</button>
+      &emsp;<a href="#" class="link-dark" @click.prevent="deleteArticle(id)">x</a>
     </span>
   </div>
-  <div @click="click" class="ratio ratio-21x9" style="outline: solid;">
-    <iframe :srcdoc="html" sandbox scrolling="no" loading="lazy"></iframe>
+  <div class="article" @click="click">
+    <div class="card" style="min-width: 18rem; height:100%;">
+      <img :src="img" class="card-img-top" style="height: 150px;">
+      <div class="card-body">
+        <h5 class="card-title">{{edit_title}}</h5>
+        <p class="card-text">{{edit_description}}</p>
+      </div>
+    </div>
   </div>
-  <a :href="url">{{title}}</a>
 </template>
 
 <script>
@@ -18,30 +23,48 @@ export default{
   props:['id','url', 'user'],
   data(){
     return{
-      html: '',
+      img: '',
       title: '',
+      description: '',
     }
   },
   computed:{
-    ...mapGetters('users',['user_name'])
+    ...mapGetters('users',['user_name']),
+    edit_description(){
+      if(this.description.length > 60) return this.description.substr(0, 60) + '...'
+      return this.description
+    },
+    edit_title(){
+      if(this.title.length > 30) return this.title.substr(0, 30) + '...'
+      return this.title
+    }
   },
   created(){
     if(this.url !== 'loading...') this.getDom()
   },
   methods:{
     ...mapActions('hotsprings',['deleteArticle']),
-    async getDom(){
+    getDom(){
       // CORS対策
-      await axios.get('article', {params:{'url': this.url}})
+      axios.get('article', {params:{'url': this.url}})
         .then(response => {
           const html = new DOMParser().parseFromString(response.data, 'text/html');
-          const base = document.createElement('base')
-          base.href = this.url
-          base.target = "_self"
-          html.head.prepend(base)
-          this.title = html.title
-
-          this.html = new XMLSerializer().serializeToString(html)
+          const headEls = (html.head.children)
+          Array.from(headEls).map(v => {
+              const prop = v.getAttribute('property')
+              if (!prop) return;
+              switch(prop){
+                case 'og:image':
+                  this.img = v.getAttribute("content")
+                  break
+                case 'og:title':
+                  this.title = v.getAttribute("content")
+                  break
+                case 'og:description':
+                  this.description = v.getAttribute("content")
+                  break
+              } 
+          })
         })
     },
     click(){
@@ -52,11 +75,11 @@ export default{
 </script>
 
 <style scoped>
-iframe{
-  pointer-events:none;
-}
 .article_user{
   display: flex;
   align-items: center;
+}
+a{
+  text-decoration: none;
 }
 </style>

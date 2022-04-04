@@ -39,7 +39,7 @@ const users_module = {
       state.posts.push(post)
     },
     logout(state){
-      state.user_name = '',
+      state.user_name = 'Guest',
       axios.defaults.headers['Authorization']='Bearer ',
       localStorage.removeItem('token')
     },

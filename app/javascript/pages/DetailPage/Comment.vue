@@ -15,7 +15,7 @@
   <div class="text-start comment_user">
     投稿者：{{comment.attributes.user.data.attributes.name}}
     <span v-if="comment.attributes.user.data.attributes.name == user_name">
-      <button class="btn" @click="deleteComment(comment.id)">x</button>
+      &emsp;<a href="#" class="link-dark" @click.prevent="deleteComment(comment.id)">x</a>
     </span>
   </div>
   <div class="container-sm" style="white-space: pre-line;">{{comment.attributes.comment}}</div>
@@ -51,3 +51,9 @@ export default{
   }
 }
 </script>
+
+<style scoped>
+a{
+  text-decoration: none;
+}
+</style>
