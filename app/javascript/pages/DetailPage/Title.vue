@@ -1,7 +1,4 @@
 <template>
-<div class="text-center">
-  <img :src="img" height="480">
-</div>
 <h1 class="text-center" v-if="status!=='unexplored' || !this.user_name">
   <StatusIcons :status="status"/>
   {{hot.name}}

@@ -4,6 +4,8 @@
 
   <div class="container">
     <a :href="google_form" class="btn">情報提供</a>
+
+    <Image />
     
     <Title ref="title" :hot="hot"/>
 
@@ -40,6 +42,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
+import Image from './Image.vue'
 import Title from './Title.vue'
 import Status from './Status.vue'
 import Description from './Description.vue'
@@ -48,6 +51,7 @@ import Article from './Article.vue'
 
 export default{
   components:{
+    Image,
     Title,
     Status,
     Description,
