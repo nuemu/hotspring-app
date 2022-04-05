@@ -35,7 +35,7 @@ export function detail(evt) {
         overla.setPosition(fromLonLat(coordinate));
         map.setView(view)
         let image
-        if(response.image_url) image = '<img src=http://drive.google.com/uc?export=view&id='+response.image_url.split('d/')[1].split('/view')[0] + " height='240'>"
+        if(response.image_url) image = "<img src=response.image_url height='240'>"
         else image = 'no image'
         content.innerHTML
           = '<h4><a href=/hotspring/' + coordinate + " class='link-dark'>" + name + '</a></h4>'   
