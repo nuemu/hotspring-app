@@ -31,8 +31,13 @@ module Authentication
 
   def google_drive_initializer
     scope = 'https://www.googleapis.com/auth/drive'
+
+    f = File.new('tmp/service.json', 'w+')
+    f.write(ENV['GOOGLE_DRIVE'])
+    f.close
+
     authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
-      json_key_io: File.open(Rails.root.to_s+'/service.json'),
+      json_key_io: File.open('tmp/service.json'),
       scope: scope
     )
     authorizer.fetch_access_token!

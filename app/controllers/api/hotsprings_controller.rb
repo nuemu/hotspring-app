@@ -25,10 +25,29 @@ class Api::HotspringsController < Api::BaseController
   end
 
   def image
-    google_drive_initializer
+    upload_file_name = params[:title]
+    upload_file_path = Rails.root.join('tmp') + upload_file_name
+    File.binwrite(upload_file_path, params[:image].read)
+    lanlon = params[:title].split(',')
+    @hotspring = Hotspring.find_between(lanlon[0].to_f, lanlon[1].to_f)
+    delete_image if @hotspring.image_url
+    upload_image(upload_file_name, upload_file_path)
+  end
 
-    metadata = Google::Apis::DriveV3::File.new(name: 'test.txt', parents: ['1qWEppiYVbIN6dAoNoJUBLJgjXUT6nZtJ'])
-    @drive.create_file(metadata, upload_source: params[image].path, content_type: 'text/plain')
+  def upload_image(title, path)
+    google_drive_initializer
+    metadata = Google::Apis::DriveV3::File.new(name: title, parents: [ENV['GOOGLE_DRIVE_ID']])
+    metadata = @drive.create_file(metadata, upload_source: path.to_s, content_type: 'image/jpeg')
+    metadata.name.split(',')
+    url = 'http://drive.google.com/uc?export=view&id=' + metadata.id
+    @hotspring.update(image_url: url)
+  end
+
+  def delete_image
+    google_drive_initializer
+    id = @hotspring.image_url.split('id=')[1]
+    puts id
+    @drive.delete_file(id)
   end
 
   private

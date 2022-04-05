@@ -8,6 +8,14 @@ defineRule('present', value => {
   return true;
 })
 
+defineRule('file_present', value => {
+  if (!value) {
+    return 'ファイルを選択してください';
+  }
+  if(!value[0].type.match(/image\//)) return 'このファイル形式は利用できません'
+  return true;
+})
+
 defineRule('minimum', value => {
   if (value.length < 3) {
     return '三文字以上入力してください';
