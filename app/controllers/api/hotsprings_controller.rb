@@ -39,7 +39,7 @@ class Api::HotspringsController < Api::BaseController
     metadata = Google::Apis::DriveV3::File.new(name: title, parents: [ENV['GOOGLE_DRIVE_ID']])
     metadata = @drive.create_file(metadata, upload_source: path.to_s, content_type: 'image/jpeg')
     metadata.name.split(',')
-    url = 'http://drive.google.com/uc?export=view&id=' + metadata.id
+    url = 'https://drive.google.com/uc?export=view&id=' + metadata.id
     @hotspring.update(image_url: url)
   end
 
