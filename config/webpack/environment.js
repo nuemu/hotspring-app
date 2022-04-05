@@ -22,3 +22,22 @@ environment.plugins.prepend(
     __VUE_PROD_DEVTOOLS__: false
   })
 )
+
+const { EnvironmentPlugin } = require('webpack')
+const dotenv = require('dotenv')
+const dotenvFiles = [
+  '.env',
+  '.env.development',
+  '.env.test'
+]
+dotenvFiles.forEach((dotenvFile) => {
+  dotenv.config({ path: dotenvFile, silent: true })
+})
+
+environment.plugins.prepend(
+  'Environment',
+  new EnvironmentPlugin(
+    JSON.parse(JSON.stringify(process.env))
+  )
+)
+module.exports = environment
