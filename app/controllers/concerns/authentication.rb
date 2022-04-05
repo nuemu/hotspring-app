@@ -1,6 +1,8 @@
 module Authentication
   include ActionController::HttpAuthentication::Token::ControllerMethods
   require 'jwt'
+  require 'google/apis/drive_v3'
+  require 'googleauth'
 
   KEY = Rails.application.credentials.secret_key_base
 
@@ -25,5 +27,17 @@ module Authentication
       user_id = decode(token)['user_id']
       @_current_user = User.find(user_id)
     end
+  end
+
+  def google_drive_initializer
+    scope = 'https://www.googleapis.com/auth/drive'
+    authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
+      json_key_io: File.open(Rails.root.to_s+'/service.json'),
+      scope: scope
+    )
+    authorizer.fetch_access_token!
+
+    @drive = Google::Apis::DriveV3::DriveService.new
+    @drive.authorization = authorizer
   end
 end

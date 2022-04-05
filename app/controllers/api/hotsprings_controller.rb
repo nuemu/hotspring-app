@@ -24,6 +24,13 @@ class Api::HotspringsController < Api::BaseController
     render json: hotspring
   end
 
+  def image
+    google_drive_initializer
+
+    metadata = Google::Apis::DriveV3::File.new(name: 'test.txt', parents: ['1qWEppiYVbIN6dAoNoJUBLJgjXUT6nZtJ'])
+    @drive.create_file(metadata, upload_source: params[image].path, content_type: 'text/plain')
+  end
+
   private
 
   def hotspring_params

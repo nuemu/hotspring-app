@@ -14,6 +14,9 @@ gem 'dotenv'
 gem 'pg', '~> 1.1'
 gem 'jsonapi-serializer'
 
+gem 'google-apis-drive_v3'
+gem 'googleauth'
+
 #Authentication
 gem 'sorcery'
 gem 'jwt'

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     get 'admin', to: 'sessions#admin'
     get 'hotspring', to: 'hotsprings#show'
     get 'article', to: 'articles#show'
+    post 'image', to: 'hotsprings#image'
   end
 
   get '*path', to: 'static_pages#index'
