@@ -1,36 +1,62 @@
 <template>
-<div class="lead">Articles</div>
-<div v-if="user_name" class="container-sm">
-  <Form @submit="UrlSubmit">
-    <div class="input-group">
-      <Field ref="url" name="url" v-model="new_url" class="form-control form-control-plaintext" rules="present|url" placeholder="情報提供をお願いします..."/>
-      <button class="btn">+</button>
-    </div>
-    <ErrorMessage name="url" style="color:red;" as="p" />
-  </Form>
-</div>
-<div class="container-sm row">
-  <div class="col-sm-6" v-for="article in articles.slice().reverse()" :key="article.attributes.url">
-    <Article :id="article.id" :url="article.attributes.url" :user="article.attributes.user.data.attributes.name"/>
-    <p></p>
+  <div class="lead">
+    Articles
   </div>
-</div>
+  <div
+    v-if="user_name"
+    class="container-sm"
+  >
+    <Form @submit="UrlSubmit">
+      <div class="input-group">
+        <Field
+          ref="url"
+          v-model="new_url"
+          name="url"
+          class="form-control form-control-plaintext"
+          rules="present|url"
+          placeholder="情報提供をお願いします..."
+        />
+        <button class="btn">
+          +
+        </button>
+      </div>
+      <ErrorMessage
+        name="url"
+        style="color:red;"
+        as="p"
+      />
+    </Form>
+  </div>
+  <div class="container-sm row">
+    <div
+      v-for="article in articles.slice().reverse()"
+      :key="article.attributes.url"
+      class="col-sm-6"
+    >
+      <Article
+        :id="article.id"
+        :url="article.attributes.url"
+        :user="article.attributes.user.data.attributes.name"
+      />
+      <p />
+    </div>
+  </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { Field, Form, ErrorMessage } from 'vee-validate';
-import Article from '../../components/Article.vue'
+import Article from '../../components/TheArticle.vue'
 import axios from '../../plugins/axios.js'
 
 export default{
-  props:['hot'],
   components:{
     Article,
     Form,
     Field,
     ErrorMessage,
   },
+  props:['hot'],
   data(){
     return{
       new_url: '',

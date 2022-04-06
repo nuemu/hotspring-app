@@ -1,9 +1,9 @@
 <template>
   <div class="map">
-    <Map ref="map"/>
+    <Map ref="map" />
   </div>
   <div class="sidepanel">
-    <SidePanel ref="side"/>
+    <SidePanel ref="side" />
   </div>
 
   <DetailPopup />
@@ -13,7 +13,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 
-import Map from '../components/Map.vue'
+import Map from '../components/TheMap.vue'
 import SidePanel from '../components/SidePanel.vue'
 import RegisterPopup from '../components/RegisterPopup.vue'
 import DetailPopup from '../components/DetailPopup.vue'

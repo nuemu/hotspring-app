@@ -1,6 +1,10 @@
 {
   "name": "hotspring-app",
   "private": true,
+  "scripts": {
+    "lint": "eslint --ext .js,.vue app/javascript",
+    "lint-fix": "eslint --fix --ext .js,.vue app/javascript"
+  },
   "dependencies": {
     "@popperjs/core": "^2.11.4",
     "@rails/actioncable": "^6.0.0",

@@ -1,34 +1,56 @@
 <template>
-<h1 class="text-center" v-if="status!=='unexplored' || !this.user_name">
-  <StatusIcons :status="status"/>
-  {{hot.name}}
-  <Star :hotspring_id="hot.id"/>
-</h1>
-<h1 class="text-center" v-else>
-  <Form @submit="TitleSubmit">
-    <StatusIcons :status="status"/>
-    <Field ref="title" v-model="new_name" name="title" class="form" rules="present"/>
-    <button class="btn">+</button>
-    <Star :hotspring_id="hot.id"/>
-    <ErrorMessage name="title" style="color:red;" as="p" />
-  </Form>
-</h1>
-<div class="text-center">
-  <a :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude" class="link-dark" target="_blank" rel="noopener noreferrer">
-    lat:{{hot.latitude}}, long:{{hot.longtitude}}
-  </a>
-</div>
+  <h1
+    v-if="status!=='unexplored' || !user_name"
+    class="text-center"
+  >
+    <StatusIcons :status="status" />
+    {{ hot.name }}
+    <Star :hotspring_id="hot.id" />
+  </h1>
+  <h1
+    v-else
+    class="text-center"
+  >
+    <Form @submit="TitleSubmit">
+      <StatusIcons :status="status" />
+      <Field
+        ref="title"
+        v-model="new_name"
+        name="title"
+        class="form"
+        rules="present"
+      />
+      <button class="btn">
+        +
+      </button>
+      <Star :hotspring_id="hot.id" />
+      <ErrorMessage
+        name="title"
+        style="color:red;"
+        as="p"
+      />
+    </Form>
+  </h1>
+  <div class="text-center">
+    <a
+      :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude"
+      class="link-dark"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      lat:{{ hot.latitude }}, long:{{ hot.longtitude }}
+    </a>
+  </div>
 </template>
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
-import Star from '../../components/Star.vue'
+import Star from '../../components/TheStar.vue'
 import StatusIcons from '../../components/StatusIcons.vue'
 
 export default{
-  props:['hot'],
   components:{
     Star,
     StatusIcons,
@@ -36,6 +58,7 @@ export default{
     Field,
     ErrorMessage,
   },
+  props:['hot'],
   computed:{
     ...mapGetters('hotsprings', ['hotspring', 'status']),
     ...mapGetters('users', ['user_name']),

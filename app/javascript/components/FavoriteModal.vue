@@ -1,41 +1,56 @@
 <template>
-<transition name="fade">
-  <div v-if="modal_appearance">
-    <div class="modal" @click.self="modal_appearance=false">
-      <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">お気に入り一覧</h5>
-            <button type="button" @click="modal_appearance=false" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">     
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>名称</th>
-                  <th>緯度</th>
-                  <th>経度</th>
-                  <th>詳細</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr @click="JumpToFavorite(hotspring)" v-for="hotspring in favorite_hotsprings" :key="hotspring.id">
-                  <td>{{hotspring.id}}</td>
-                  <td>{{hotspring.name}}</td>
-                  <td>{{hotspring.latitude}}</td>
-                  <td>{{hotspring.longtitude}}</td>
-                  <td>{{hotspring.description}}</td>
-                </tr>
-              </tbody>
-            </table>
+  <transition name="fade">
+    <div v-if="modal_appearance">
+      <div
+        class="modal"
+        @click.self="modal_appearance=false"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                お気に入り一覧
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                @click="modal_appearance=false"
+              />
+            </div>
+            <div class="modal-body">     
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>名称</th>
+                    <th>緯度</th>
+                    <th>経度</th>
+                    <th>詳細</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="hotspring in favorite_hotsprings"
+                    :key="hotspring.id"
+                    @click="JumpToFavorite(hotspring)"
+                  >
+                    <td>{{ hotspring.id }}</td>
+                    <td>{{ hotspring.name }}</td>
+                    <td>{{ hotspring.latitude }}</td>
+                    <td>{{ hotspring.longtitude }}</td>
+                    <td>{{ hotspring.description }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+      <div class="modal-backdrop show" />
     </div>
-    <div class="modal-backdrop show"></div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script>

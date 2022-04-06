@@ -1,17 +1,41 @@
 <template>
-<div class="text-center">
-  <Form @submit="uploadImage" v-if="status=='unexplored'">
-    <label>
-      <img :src="img" class="img-fluid" style="max-height: 400px;">
-      <Field type="file" style="display:none" @change="uploadFile" name="image" rules="file_present|file_size" />
-    </label>
-    <p v-if="url">
-      これはプレビューです。<button class="btn">+</button>
-    </p>
-    <ErrorMessage name="image" style="color:red;" as="p" />
-  </Form>
-  <img v-else :src="img" class="img-fluid" style="max-height: 400px;">
-</div>
+  <div class="text-center">
+    <Form
+      v-if="status=='unexplored'"
+      @submit="uploadImage"
+    >
+      <label>
+        <img
+          :src="img"
+          class="img-fluid"
+          style="max-height: 400px;"
+        >
+        <Field
+          type="file"
+          style="display:none"
+          name="image"
+          rules="file_present|file_size"
+          @change="uploadFile"
+        />
+      </label>
+      <p v-if="url">
+        これはプレビューです。<button class="btn">
+          +
+        </button>
+      </p>
+      <ErrorMessage
+        name="image"
+        style="color:red;"
+        as="p"
+      />
+    </Form>
+    <img
+      v-else
+      :src="img"
+      class="img-fluid"
+      style="max-height: 400px;"
+    >
+  </div>
 </template>
 
 <script>

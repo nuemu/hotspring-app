@@ -22,7 +22,7 @@
                 <iframe
                   class="ratio ratio-1x1"
                   style="height:600px;"
-                  src="https://kiyac.app/privacypolicy/dzGXXWWOb33BaPHG4JP4"
+                  src="https://kiyac.app/termsOfService/o4xPtYnY7l9DT56Xwyxo"
                 />
               </div>
 
@@ -60,6 +60,7 @@ export default{
   },
   methods:{
     accept(){
+      localStorage.setItem('initial', 'done')
       this.modal_appearance = false
       this.initial = false
     },

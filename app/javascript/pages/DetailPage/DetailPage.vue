@@ -1,42 +1,51 @@
 <template>
-
-  <p></p>
+  <p />
 
   <div class="container">
-    <a :href="google_form" class="btn">情報提供</a>
+    <a
+      :href="google_form"
+      class="btn"
+    >情報提供</a>
 
     <Image />
     
-    <Title ref="title" :hot="hot"/>
+    <Title
+      ref="title"
+      :hot="hot"
+    />
 
-    <p></p>
+    <p />
 
-    <div class="status wrapper container" v-if="user_name!=='Guest'">
+    <div
+      v-if="user_name!=='Guest'"
+      class="status wrapper container"
+    >
       <Status :hot="hot" />
     </div>
 
-    <p></p>
+    <p />
 
     <div class="description wrapper container">
-      <Description ref="description" :hot="hot" />
+      <Description
+        ref="description"
+        :hot="hot"
+      />
     </div>
 
-    <p></p>
+    <p />
 
     <div class="comment wrapper container">
       <Comment />
     </div>
 
-    <p></p>
+    <p />
 
     <div class="articles wrapper container">
       <Article />
     </div>
-
   </div>
 
-  <p></p>
-
+  <p />
 </template>
 
 <script>

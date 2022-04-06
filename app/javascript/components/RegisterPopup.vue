@@ -1,20 +1,47 @@
 <template>
-<div id="register_popup" class="ol-popup">
-  <a href="#" id="register_popup-closer" class="ol-popup-closer"></a>
-  <div id="register-popup-content" ref="popup"></div>
-  <p></p>
-  <div class="mb-3">
-    <Form @submit="DescriptionSubmit">
-      <div class="input-group">
-        <Field v-model="description" v-slot="{ field }" name="description" rules="present">
-          <button class="btn">+</button>
-          <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="登録理由等記入"></textarea>
-        </Field>
-      </div>
-      <ErrorMessage name="description" style="color:red;" as="p" />
-    </Form>
+  <div
+    id="register_popup"
+    class="ol-popup"
+  >
+    <a
+      id="register_popup-closer"
+      href="#"
+      class="ol-popup-closer"
+    />
+    <div
+      id="register-popup-content"
+      ref="popup"
+    />
+    <p />
+    <div class="mb-3">
+      <Form @submit="DescriptionSubmit">
+        <div class="input-group">
+          <Field
+            v-slot="{ field }"
+            v-model="description"
+            name="description"
+            rules="present"
+          >
+            <button class="btn">
+              +
+            </button>
+            <textarea
+              ref="description"
+              rows="1"
+              v-bind="field"
+              class="form-control form-control-plaintext"
+              placeholder="登録理由等記入"
+            />
+          </Field>
+        </div>
+        <ErrorMessage
+          name="description"
+          style="color:red;"
+          as="p"
+        />
+      </Form>
+    </div>
   </div>
-</div>
 </template>
 
 <script>

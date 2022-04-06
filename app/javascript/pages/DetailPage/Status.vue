@@ -1,11 +1,26 @@
 <template>
-<div class="container-sm text-center">
-  投票：
-  <div class="form-check form-check-inline" v-for="st in Object.keys(status_all)" :key="st">
-    <input @change="StatusSubmit" class="form-check-input" v-model="check" name="status" type="radio" id="radio" :value="st">
-    <label class="form-check-label" for="radio">{{status_all[st]}}</label>
+  <div class="container-sm text-center">
+    投票：
+    <div
+      v-for="st in Object.keys(status_all)"
+      :key="st"
+      class="form-check form-check-inline"
+    >
+      <input
+        v-model="check"
+        class="form-check-input"
+        id="radio"
+        name="status"
+        type="radio"
+        :value="st"
+        @change="StatusSubmit"
+      >
+      <label
+        class="form-check-label"
+        for="radio"
+      >{{ status_all[st] }}</label>
+    </div>
   </div>
-</div>
 </template>
 
 <script>

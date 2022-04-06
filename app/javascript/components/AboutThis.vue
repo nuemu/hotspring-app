@@ -1,56 +1,94 @@
 <template>
-<transition name="fade">
-  <div v-if="modal_appearance">
-    <div class="modal" @click.self="closeEvent">
-      <div :class="'modal-dialog modal-dialog-centered modal-dialog-scrollable ' + modal_size">
-        <div class="modal-content">
-          <div class="modal-body">
-
-            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-              <div class="col-md-5 p-lg-5 mx-auto my-5">
-                <h1 class="display-4 font-weight-normal fadeLeft">湯tellite</h1>
-                <p class="lead font-weight-normal fadeRight">野湯探しのお供に...</p>
-                <a class="btn btn-outline-secondary fadeIn" href="#" @click="Initial">始める♨︎</a>
-              </div>
-            </div>
-
-            <div :class="'d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 ' + first_appearance">
-              <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                <div class="my-3 py-3">
-                  <h2 class="display-5">衛星画像で</h2>
-                  <img @load="first_loaded+=1" src="https://drive.google.com/uc?id=1SHVf5Rsnz0hbVihXRkbSX30jQg8xuBPx" class="img-fluid">
+  <transition name="fade">
+    <div v-if="modal_appearance">
+      <div
+        class="modal"
+        @click.self="closeEvent"
+      >
+        <div :class="'modal-dialog modal-dialog-centered modal-dialog-scrollable ' + modal_size">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
+                <div class="col-md-5 p-lg-5 mx-auto my-5">
+                  <h1 class="display-4 font-weight-normal fadeLeft">
+                    湯tellite
+                  </h1>
+                  <p class="lead font-weight-normal fadeRight">
+                    野湯探しのお供に...
+                  </p>
+                  <a
+                    class="btn btn-outline-secondary fadeIn"
+                    href="#"
+                    @click="Initial"
+                  >始める♨︎</a>
                 </div>
               </div>
-              <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-                <div class="my-3 p-3">
-                  <h2 class="display-5">航空写真で</h2>
-                  <img @load="first_loaded+=1" src="https://drive.google.com/uc?id=1UJnJJ8nV9pr-exqFVvPJTUMuI8P6CMIu" class="img-fluid">
+
+              <div :class="'d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 ' + first_appearance">
+                <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+                  <div class="my-3 py-3">
+                    <h2 class="display-5">
+                      衛星画像で
+                    </h2>
+                    <img
+                      src="https://drive.google.com/uc?id=1SHVf5Rsnz0hbVihXRkbSX30jQg8xuBPx"
+                      class="img-fluid"
+                      @load="first_loaded+=1"
+                    >
+                  </div>
+                </div>
+                <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                  <div class="my-3 p-3">
+                    <h2 class="display-5">
+                      航空写真で
+                    </h2>
+                    <img
+                      src="https://drive.google.com/uc?id=1UJnJJ8nV9pr-exqFVvPJTUMuI8P6CMIu"
+                      class="img-fluid"
+                      @load="first_loaded+=1"
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div :class="'position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light ' + first_appearance">
-              <p class="lead font-weight-normal fadeRight">野湯の候補地を探しましょう！ </p>
-              <p class="lead font-weight-normal fadeRight">発見があるかも...</p>
-              <img src="https://drive.google.com/uc?id=1EE2K67IQtZj0TYb4PWk5e1V7MKuXBWXO" class="card-img">
-            </div>
+              <div :class="'position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light ' + first_appearance">
+                <p class="lead font-weight-normal fadeRight">
+                  野湯の候補地を探しましょう！
+                </p>
+                <p class="lead font-weight-normal fadeRight">
+                  発見があるかも...
+                </p>
+                <img
+                  src="https://drive.google.com/uc?id=1EE2K67IQtZj0TYb4PWk5e1V7MKuXBWXO"
+                  class="card-img"
+                >
+              </div>
 
-            <div :class="'position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center text-white bg-dark ' + first_appearance">
-              <p class="lead font-weight-normalt">野湯探索は時に非常に危険な活動となり得ます。</p>
-              <p class="lead font-weight-normalt">現地を探索される場合は、十分な下調べ、準備、訓練を行なってください</p>
-              <p class="lead font-weight-normalt">なお、本サービスに起因してユーザーに生じたあらゆる損害について、一才の責任を負いません。</p>
-              <p class="lead font-weight-normalt">
-                <a :class="'btn btn-outline-light ' + first_appearance" href="#" @click="Initial">始める♨︎</a>
-              </p>
+              <div :class="'position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center text-white bg-dark ' + first_appearance">
+                <p class="lead font-weight-normalt">
+                  野湯探索は時に非常に危険な活動となり得ます。
+                </p>
+                <p class="lead font-weight-normalt">
+                  現地を探索される場合は、十分な下調べ、準備、訓練を行なってください
+                </p>
+                <p class="lead font-weight-normalt">
+                  なお、本サービスに起因してユーザーに生じたあらゆる損害について、一才の責任を負いません。
+                </p>
+                <p class="lead font-weight-normalt">
+                  <a
+                    :class="'btn btn-outline-light ' + first_appearance"
+                    href="#"
+                    @click="Initial"
+                  >始める♨︎</a>
+                </p>
+              </div>
             </div>
-
           </div>
         </div>
       </div>
+      <div class="modal-backdrop show" />
     </div>
-    <div class="modal-backdrop show"></div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script>
@@ -62,12 +100,6 @@ export default{
       first_loaded: 0,
     }
   },
-  created(){
-    if(localStorage.getItem('initial')=='done'){
-      this.initial = false
-      this.modal_appearance = false
-    }
-  },
   computed:{
     first_appearance(){
       if(this.first_loaded > 1) return 'fadeIn'
@@ -76,6 +108,12 @@ export default{
     modal_size(){
       if(!this.initial) return 'modal-xl'
       return 'modal-fullscreen'
+    }
+  },
+  created(){
+    if(localStorage.getItem('initial')=='done'){
+      this.initial = false
+      this.modal_appearance = false
     }
   },
   methods:{

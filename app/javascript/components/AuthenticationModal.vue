@@ -1,56 +1,100 @@
 <template>
-<transition name="fade">
-  <div v-if="modal_appearance">
-    <div class="modal" @click.self="modal_appearance=false">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-body">       
-            <span class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button type="button" class="btn-close" @click="modal_appearance=false"></button>
-            </span>
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+  <transition name="fade">
+    <div v-if="modal_appearance">
+      <div
+        class="modal"
+        @click.self="modal_appearance=false"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">       
+              <span class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button
-                  :class="'nav-link '+first_tab"
-                  @click="first_tab='active';second_tab=''"
+                  type="button"
+                  class="btn-close"
+                  @click="modal_appearance=false"
+                />
+              </span>
+              <nav>
+                <div
+                  id="nav-tab"
+                  class="nav nav-tabs"
+                  role="tablist"
                 >
-                  ログイン
-                </button>
-                <button
-                  :class="'nav-link '+second_tab"
-                  @click="second_tab='active';first_tab=''"
+                  <button
+                    :class="'nav-link '+first_tab"
+                    @click="first_tab='active';second_tab=''"
+                  >
+                    ログイン
+                  </button>
+                  <button
+                    :class="'nav-link '+second_tab"
+                    @click="second_tab='active';first_tab=''"
+                  >
+                    新規登録
+                  </button>
+                </div>
+              </nav>
+
+              <p class="error_message">
+                {{ error_message }}
+              </p>
+
+              <Form @submit="Submit">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">@</span>
+                  <Field
+                    v-model="user.name"
+                    name="name"
+                    type="text"
+                    class="form-control"
+                    placeholder="Username"
+                    rules="present"
+                  />
+                </div>
+
+                <ErrorMessage
+                  name="name"
+                  style="color:red;"
+                  as="p"
+                />
+                <div class="input-group mb-3">
+                  <span class="input-group-text">PW</span>
+                  <Field
+                    v-model="user.password"
+                    name="password"
+                    type="password"
+                    class="form-control"
+                    rules="minimum"
+                    placeholder="Password"
+                  />
+                </div>
+                <ErrorMessage
+                  name="password"
+                  style="color:red;"
+                  as="p"
+                />
+
+                <div
+                  id="nav-tabContent"
+                  class="tab-content d-grid gap-2 d-md-flex justify-content-md-end"
                 >
-                  新規登録
-                </button>
-              </div>
-            </nav>
-
-            <p class="error_message">{{error_message}}</p>
-
-            <Form @submit="Submit">
-              <div class="input-group mb-3">
-                <span class="input-group-text">@</span>
-                <Field v-model="user.name" name="name" type="text" class="form-control" placeholder="Username" rules="present" />
-              </div>
-
-              <ErrorMessage name="name" style="color:red;" as="p" />
-              <div class="input-group mb-3">
-                <span class="input-group-text">PW</span>
-                <Field v-model="user.password" name="password" type="password" class="form-control" rules="minimum" placeholder="Password" />
-              </div>
-              <ErrorMessage name="password" style="color:red;" as="p" />
-
-              <div class="tab-content d-grid gap-2 d-md-flex justify-content-md-end" id="nav-tabContent">
-                <button type="button" @click="Submit" class="btn btn-secondary">Submit</button>
-              </div>
-            </Form>
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="Submit"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </Form>
+            </div>
           </div>
         </div>
       </div>
+      <div class="modal-backdrop show" />
     </div>
-    <div class="modal-backdrop show"></div>
-  </div>
-</transition>
+  </transition>
 </template>
 
 <script>

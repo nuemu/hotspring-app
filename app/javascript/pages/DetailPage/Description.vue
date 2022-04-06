@@ -1,15 +1,43 @@
 <template>
-<div class="lead">Description</div>
-  <div class="container-sm" style="white-space: pre-line;" v-if="status!=='unexplored'">{{hot.description}}</div>
-  <div class="container-sm" v-else>
+  <div class="lead">
+    Description
+  </div>
+  <div
+    v-if="status!=='unexplored'"
+    class="container-sm"
+    style="white-space: pre-line;"
+  >
+    {{ hot.description }}
+  </div>
+  <div
+    v-else
+    class="container-sm"
+  >
     <Form @submit="DescriptionSubmit">
       <div class="input-group">
-        <Field v-model="new_description" v-slot="{ field }" name="description" rules="present">
-          <textarea ref="description" rows="1" v-bind="field" class="form-control form-control-plaintext" placeholder="詳細情報欄"></textarea>
-          <button class="btn">+</button>
+        <Field
+          v-slot="{ field }"
+          v-model="new_description"
+          name="description"
+          rules="present"
+        >
+          <textarea
+            ref="description"
+            rows="1"
+            v-bind="field"
+            class="form-control form-control-plaintext"
+            placeholder="詳細情報欄"
+          />
+          <button class="btn">
+            +
+          </button>
         </Field>
       </div>
-      <ErrorMessage name="description" style="color:red;" as="p" />
+      <ErrorMessage
+        name="description"
+        style="color:red;"
+        as="p"
+      />
     </Form>
   </div>
 </template>
@@ -19,12 +47,12 @@ import { mapActions, mapGetters } from 'vuex'
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
 export default{
-  props:['hot'],
   components:{
     Form,
     Field,
     ErrorMessage,
   },
+  props:['hot'],
   data(){
     return{
       new_description: '',
