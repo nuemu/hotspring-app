@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="toppage_wrapper">
     <div class="map">
       <Map ref="map" />
     </div>
@@ -69,6 +69,10 @@ export default{
 
 <style>
 @import '../ol/visibility_control.css';
+.toppage_wrapper{
+  height:100%;
+  width: 100%;
+}
 .map {
   position:relative;
   z-index: 0;

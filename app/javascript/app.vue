@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app_wrapper">
     <Header />
     <router-view />
     <Footer />
@@ -32,5 +32,8 @@ body {
 }
 #app{
   height:90%;
+}
+.app_wrapper{
+  height:100%;
 }
 </style>
