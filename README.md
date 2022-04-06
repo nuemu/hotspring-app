@@ -101,6 +101,7 @@ end
 
 ## 今後の予定
 - Backendリファクタリング(特にGoogleDrive周りがFat Controller化している。修正後rubocopを通す予定。)
+- hotspringの距離によるvalidation
 - Frontendリファクタリング(とりあえずESLintのerrorを回避しただけで、warningには対応できていない。また無駄なdivなどが溢れかえっているので整備。)
 - 独自ドメイン(yutellite.comを確保済み)
 
