@@ -2,10 +2,40 @@
 工事中...
 
 衛星画像を用いて野湯探索を補助するサービスです。
+サーマル
 <img width="1512" alt="スクリーンショット 2022-04-06 15 24 53" src="https://user-images.githubusercontent.com/94281527/161909161-f8a9e901-e32a-48a0-b50b-3770522ab2f9.png">
+航空写真
+<img width="1512" alt="スクリーンショット 2022-04-06 16 14 11" src="https://user-images.githubusercontent.com/94281527/161917018-2fc9cbd2-84f7-438b-94c6-0224865cad7d.png">
+を切り替えながら、気になる地点を登録して、探索の価値がありそうな地点を絞り込むのが主機能です。
+
+また、各野湯について情報を投稿できる詳細ページも実装されています。
+<img width="1512" alt="スクリーンショット 2022-04-06 16 12 30" src="https://user-images.githubusercontent.com/94281527/161917083-8db47b29-af0a-41da-9070-c249f204aaf5.png">
+
+
 衛星画像を利用するという手法については、以下のサイト・文献の影響を受けています。
 - [前人未到温泉](https://tori-kara.hatenablog.com/)
 - [衛星画像で読み解く　日本の温泉82](https://www.nippyo.co.jp/shop/book/7835.html)
+
+## 利用技術
+- Frontend
+  - Vue3 (Vuex/Vee-validate)
+  - Openlayers
+  - Bootstrap
+  - AdminLTE
+- Backend
+  - Rails 6
+  - Gem
+    1. Sorcery
+    2. jwt
+    3. jsonapi-serializer
+    4. google-auth/google-apis-drive_v3
+- Infra
+  - Heroku
+  - GoogleDrive
+- 他
+  - RSpec
+  - ESLint
+  - Rubocop
 
 ## Versions
 - Ruby v2.7.4
@@ -66,13 +96,3 @@ function setup() {
   }
 }
 ```
-
-## 利用技術
-- Frontend
-  - Vue3
-  - Openlayers
-- Backend
-  - Rails 6
-- Infra
-  - Heroku
-  - GoogleDriveApi
