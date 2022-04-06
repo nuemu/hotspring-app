@@ -9,7 +9,9 @@
     fill="white"
     width="512px"
     height="512px"
-viewBox="0 0 512 512" style="width: 24px; height: 24px; opacity: 1;" xml:space="preserve"
+    viewBox="0 0 512 512"
+    style="width: 24px; height: 24px; opacity: 1;"
+    xml:space="preserve"
   >
     <g color="red">
       <path

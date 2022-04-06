@@ -1,45 +1,47 @@
 <template>
-  <h1
-    v-if="status!=='unexplored' || !user_name"
-    class="text-center"
-  >
-    <StatusIcons :status="status" />
-    {{ hot.name }}
-    <Star :hotspring_id="hot.id" />
-  </h1>
-  <h1
-    v-else
-    class="text-center"
-  >
-    <Form @submit="TitleSubmit">
-      <StatusIcons :status="status" />
-      <Field
-        ref="title"
-        v-model="new_name"
-        name="title"
-        class="form"
-        rules="present"
-      />
-      <button class="btn">
-        +
-      </button>
-      <Star :hotspring_id="hot.id" />
-      <ErrorMessage
-        name="title"
-        style="color:red;"
-        as="p"
-      />
-    </Form>
-  </h1>
-  <div class="text-center">
-    <a
-      :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude"
-      class="link-dark"
-      target="_blank"
-      rel="noopener noreferrer"
+  <div>
+    <h1
+      v-if="status!=='unexplored' || !user_name"
+      class="text-center"
     >
-      lat:{{ hot.latitude }}, long:{{ hot.longtitude }}
-    </a>
+      <StatusIcons :status="status" />
+      {{ hot.name }}
+      <Star :hotspring_id="hot.id" />
+    </h1>
+    <h1
+      v-else
+      class="text-center"
+    >
+      <Form @submit="TitleSubmit">
+        <StatusIcons :status="status" />
+        <Field
+          ref="title"
+          v-model="new_name"
+          name="title"
+          class="form"
+          rules="present"
+        />
+        <button class="btn">
+          +
+        </button>
+        <Star :hotspring_id="hot.id" />
+        <ErrorMessage
+          name="title"
+          style="color:red;"
+          as="p"
+        />
+      </Form>
+    </h1>
+    <div class="text-center">
+      <a
+        :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude"
+        class="link-dark"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        lat:{{ hot.latitude }}, long:{{ hot.longtitude }}
+      </a>
+    </div>
   </div>
 </template>
 

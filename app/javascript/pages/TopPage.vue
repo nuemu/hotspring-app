@@ -1,13 +1,15 @@
 <template>
-  <div class="map">
-    <Map ref="map" />
-  </div>
-  <div class="sidepanel">
-    <SidePanel ref="side" />
-  </div>
+  <div>
+    <div class="map">
+      <Map ref="map" />
+    </div>
+    <div class="sidepanel">
+      <SidePanel ref="side" />
+    </div>
 
-  <DetailPopup />
-  <RegisterPopup />
+    <DetailPopup />
+    <RegisterPopup />
+  </div>
 </template>
 
 <script>

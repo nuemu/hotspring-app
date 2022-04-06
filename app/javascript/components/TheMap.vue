@@ -20,7 +20,6 @@ import { transformExtent } from 'ol/proj';
 import {defaults} from 'ol/control'
 
 export default {
-  name: 'Map',
   data(){
     return{
       map:{},

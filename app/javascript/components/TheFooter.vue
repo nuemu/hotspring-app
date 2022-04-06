@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Policy from './Policy .vue'
+import Policy from './ThePolicy .vue'
 import About from './AboutThis.vue'
 import Privacy from './PrivacyPolicy.vue'
 

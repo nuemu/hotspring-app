@@ -23,9 +23,9 @@
 </template>
 
 <script>
-import Sidebar from './Sidebar.vue'
-import Hotspring from './Hotspring.vue'
-import User from './User.vue'
+import Sidebar from './AdminSidebar.vue'
+import Hotspring from './HotspringList.vue'
+import User from './UserList.vue'
 
 export default {
   components:{

@@ -1,62 +1,64 @@
 <template>
-  <p />
-
-  <div class="container">
-    <a
-      :href="google_form"
-      class="btn"
-    >情報提供</a>
-
-    <Image />
-    
-    <Title
-      ref="title"
-      :hot="hot"
-    />
-
+  <div>
     <p />
 
-    <div
-      v-if="user_name!=='Guest'"
-      class="status wrapper container"
-    >
-      <Status :hot="hot" />
-    </div>
+    <div class="container">
+      <a
+        :href="google_form"
+        class="btn"
+      >情報提供</a>
 
-    <p />
-
-    <div class="description wrapper container">
-      <Description
-        ref="description"
+      <Image />
+      
+      <Title
+        ref="title"
         :hot="hot"
       />
+
+      <p />
+
+      <div
+        v-if="user_name!=='Guest'"
+        class="status wrapper container"
+      >
+        <Status :hot="hot" />
+      </div>
+
+      <p />
+
+      <div class="description wrapper container">
+        <Description
+          ref="description"
+          :hot="hot"
+        />
+      </div>
+
+      <p />
+
+      <div class="comment wrapper container">
+        <Comment />
+      </div>
+
+      <p />
+
+      <div class="articles wrapper container">
+        <Article />
+      </div>
     </div>
 
     <p />
-
-    <div class="comment wrapper container">
-      <Comment />
-    </div>
-
-    <p />
-
-    <div class="articles wrapper container">
-      <Article />
-    </div>
   </div>
-
-  <p />
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex'
 
-import Image from './Image.vue'
-import Title from './Title.vue'
-import Status from './Status.vue'
-import Description from './Description.vue'
-import Comment from './Comment.vue'
-import Article from './Article.vue'
+import Image from './ImageComponent.vue'
+import Title from './TitleComponent.vue'
+import Status from './StatusComponent.vue'
+import Description from './DescriptionComponent.vue'
+import Comment from './CommentComponent.vue'
+import Article from './ArticleComponent.vue'
 
 export default{
   components:{

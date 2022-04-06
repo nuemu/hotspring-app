@@ -1,34 +1,36 @@
 <template>
-  <div class="text-end article_user">
-    投稿者：{{ user }}
-    <span v-if="user == user_name">
-      &emsp;<a
-        href="#"
-        class="link-dark"
-        @click.prevent="deleteArticle(id)"
-      >x</a>
-    </span>
-  </div>
-  <div
-    class="article"
-    @click="click"
-  >
+  <div>
+    <div class="text-end article_user">
+      投稿者：{{ user }}
+      <span v-if="user == user_name">
+        &emsp;<a
+          href="#"
+          class="link-dark"
+          @click.prevent="deleteArticle(id)"
+        >x</a>
+      </span>
+    </div>
     <div
-      class="card"
-      style="min-width: 18rem; height:100%;"
+      class="article"
+      @click="click"
     >
-      <img
-        :src="img"
-        class="card-img-top"
-        style="height: 150px;"
+      <div
+        class="card"
+        style="min-width: 18rem; height:100%;"
       >
-      <div class="card-body">
-        <h5 class="card-title">
-          {{ edit_title }}
-        </h5>
-        <p class="card-text">
-          {{ edit_description }}
-        </p>
+        <img
+          :src="img"
+          class="card-img-top"
+          style="height: 150px;"
+        >
+        <div class="card-body">
+          <h5 class="card-title">
+            {{ edit_title }}
+          </h5>
+          <p class="card-text">
+            {{ edit_description }}
+          </p>
+        </div>
       </div>
     </div>
   </div>

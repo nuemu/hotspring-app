@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import TopPage from '../pages/TopPage.vue'
 import DetailPage from '../pages/DetailPage/DetailPage.vue'
-import Admin from '../admin/Admin.vue'
+import Admin from '../admin/AdminPage.vue'
 import store from '../store/index'
 
 const routes = [
