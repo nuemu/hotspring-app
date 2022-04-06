@@ -70,8 +70,34 @@ const files = require.context('.', false, /(.*)layer\.js$/)
 
 **記事のOGP表示**
 
-ogpを他サイトから取得するために、fetchAPIやaxiosは、CORSの制約が原因で用いられないので、サーバー経由で情報取得するようになっている。
-ogpはそこまで更新頻度が高い情報ではないと思うので、保存しても問題ないと思うが、現状はリアルタイムで取得。
+ogpを他サイトから取得するために、fetchAPIは、CORSの制約が原因で用いられないので、サーバー経由で情報取得するようにしました。
+フロントからのリクエストに対して、`app/controllers/api/articles_controller.rb`で
+```
+require 'net/http'
+
+def show
+  html = Net::HTTP.get(URI.parse(params[:url]))
+  render json: html
+end
+```
+となっています。ogpはそこまで更新頻度が高い情報ではないと思うので、保存しても問題ないと思いますが、現状はリアルタイムで取得するようになっています。
+
+**アイコンクリック時の挙動**
+
+詳細ページのリンクを'/hotspring/:hotspring_id'にするのは、リンクの意味がよくわからなくなるので避けたく、(温泉の名前がuniqueかも定かでないため、)座標を用いることにしました。
+マップ上のアイコンをクリックした際、そのアイコンの座標を用いて、`hotspring#show`にデータをリクエストする仕様になっていますが、
+'''
+find_by(lat: params[:lat], lon: params[:lon])
+'''
+とすると、読み込めないページが生じたので、調査したところ、登録されている座標とリクエストされる座標の間に誤差が生じているのが判明しました。
+誤差の原因はOpenlayersの仕様にあると思うが、これは目下調査中ですが、幸いなことに、座標のずれは(経験上)軽微なので、hotspring modelに
+```
+def self.find_between(lat, lon)
+  gap = 0.000000000005
+  find_by(latitude: (lat - gap)..(lat + gap), longtitude: (lon - gap)..(lon + gap))
+end
+```
+というメソッドを定義して回避するようにしました。
 
 ## 今後の予定
 - Backendリファクタリング(特にGoogleDrive周りがFat Controller化している。修正後rubocopを通す予定。)
