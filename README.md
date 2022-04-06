@@ -17,10 +17,13 @@
 1. git clone
 ```
 ```
-2. npm install
+2. bundle install
 ```
 ```
-3. .env sampleの設定を.env.developmentに修正、変数については次の見出しを参照
+3. npm install
+```
+```
+4. .env sampleの設定を.env.developmentに修正、変数については次の見出しを参照
 ```
 
 ## .envの変数について
