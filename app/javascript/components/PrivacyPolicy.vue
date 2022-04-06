@@ -9,7 +9,7 @@
               <button type="button" class="btn-close" @click="closeEvent"></button>
             </span>
             <div class="policy">
-              <iframe class="ratio ratio-1x1" style="height:600px;" src="https://kiyac.app/termsOfService/o4xPtYnY7l9DT56Xwyxo"></iframe>
+              <iframe class="ratio ratio-1x1" style="height:600px;" src="https://kiyac.app/privacypolicy/dzGXXWWOb33BaPHG4JP4"></iframe>
             </div>
 
             <span v-if="initial" class="d-grid gap-2 d-md-flex justify-content-md-center">
@@ -40,7 +40,6 @@ export default{
   },
   methods:{
     accept(){
-      localStorage.setItem('initial', 'done')
       this.modal_appearance = false
       this.initial = false
     },

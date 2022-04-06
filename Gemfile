@@ -9,6 +9,7 @@ gem 'puma', '~> 5.0'
 gem 'jbuilder', '~> 2.7'
 
 gem 'dotenv-rails'
+gem 'rack-cors'
 
 # DB:postgresql
 gem 'pg', '~> 1.1'

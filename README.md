@@ -1,56 +1,66 @@
-# 野湯探索アプリ
-
+# 湯tellite
+工事中
 ## サービス概要
-野湯(のゆ・やとう)に行きたい人向けの
-情報共有、候補地選定機能を提供するサービス
+衛星画像(現状はサーマルのみ)を用いて野湯探索を補助するサービスです。
 
-### メインのターゲットユーザー
-- 野湯愛好家
-- 登山家
+## Versions
+Ruby v2.7.4
+Rails v6.1.4.6
+Node v16.13.1
 
-### ユーザーが抱える課題
-野湯を探すのが困難。
-見つけても情報が集めにくい。
+## Setup
+```
+1. git clone
+```
 
-### 解決方法
-衛星画像や地名を用いて候補地探索を補助
-野湯に訪問した人から情報を収集(提供)させてもらう
+```
+2. npm install
+```
 
-### 実装予定の機能
-RUNTEQ内リリース(MVP)
-- 候補地の絞り込み
-  - landsatの衛星画像表示(True Color, Thermo, False Color)
-  - 野湯候補地のエリア指定、ピン留め
-  - 同一地点でGoogleMapの衛星画像と切り替え
-- 野湯情報の投稿
-  - 野湯地図表示/候補地地図表示
-  - 各野湯の情報CRUD
-  - 関連しそうなTweetの取得
+```
+3. .env sampleの設定を.env.developmentに修正
+- baseURL: apiのリクエスト先(標準のdevelopment環境であればhttp://localhost:3000/api)
+- THERMAL_xxx: [SentinelHub Dashboard Configuration Utility](https://www.sentinel-hub.com/develop/custom-scripts/)のid(CustomScriptに関しては以下の例を参照)
+- GOOGLE_DRIVE: google apiのServiceAccountのjson
+- GOOGLE_DRIVE_ID: ファイルを保管したいドライブ(内のフォルダ)のID
+```
 
-本リリース
-- 候補地の定量分析
-- 地域・温泉名称から関連するブログ記事等の取得
-考慮中
-- 地名検索(硫黄・湯を名に含む沢や谷など)
-- 地図記号検索(温泉・噴気孔)
-- 周囲の遭難・熊出没情報
+## SentinelHub CustomScriptの例（VUE_APP_THERMAL270）
+```
+//VERSION=3
+let minVal = 270;
+let maxVal = 280;
 
-### 使用予定技術
-- SentinelHub API
-- GoogleMap API
-- Twitter API
+let viz = ColorGradientVisualizer.createBlueRed(minVal, maxVal);
 
-### なぜこのサービスを作りたいのか？
-野湯の情報を得るにはTwitterや個人ブログを漁り続けるしかないのが現状で、それでも有名所の情報が断片的に見つかるばかり。野湯を自力で探索しない限り、趣味として底が浅くなるのに困っていたので、野湯探索方法の勉強をしていた。それを基に候補地を探そうとしたが、複数のツールをまたぐ必要があり、煩わしく思ったので、このサービスを開発をしようと思った。さらには、様々なトラブル回避という点でも、情報は積極的に共有すべきという思いからこのサービスを開発したいと考えた。
+function evaluatePixel(samples) {
+    let val = samples.B10;
+    val = viz.process(val);
+    val.push(samples.dataMask);
+    return val;
+}
 
-### 画面遷移図
-[figma](https://www.figma.com/file/2Upm8KbJLHW5ZmP9sXq475/Wild-Hot-Spring-App?node-id=0%3A1)
+function setup() {
+  return {
+    input: [{
+      bands: [
+        "B10",
+        "dataMask"
+      ]
+    }],
+    output: {
+      bands: 4
+    }
+  }
+}
+```
 
-### ER図
-[ER図](https://drive.google.com/file/d/1Oz5Tdxkgh-ORyFEaVLM6PKczE9Gj3OvS/view?usp=sharing)
-
-### スケジュール
-- README〜ER図作成：2/15〆切
-- メイン機能実装：2/15 - 3/11
-- β版をRUNTEQ内リリース（MVP）：3/11〆切
-- 本リリース：3/20
+## 利用技術
+- Frontend
+  - Vue3
+  - Openlayers
+- Backend
+  - Rails 6
+- Infra
+  - Heroku
+  - GoogleDriveApi
