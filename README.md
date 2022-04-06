@@ -8,9 +8,9 @@
 - [衛星画像で読み解く　日本の温泉82](https://www.nippyo.co.jp/shop/book/7835.html)
 
 ## Versions
-Ruby v2.7.4
-Rails v6.1.4.6
-Node v16.13.1
+- Ruby v2.7.4
+- Rails v6.1.4.6
+- Node v16.13.1
 
 ## Setup
 ```
