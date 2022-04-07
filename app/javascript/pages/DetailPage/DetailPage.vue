@@ -69,17 +69,17 @@ export default{
     Comment,
     Article,  
   },
+  data(){
+    return{
+      google_form: 'https://docs.google.com/forms/d/e/1FAIpQLScrmNcEZt_ATMBAmAr3woHa3TC7Uh1IsPxD89sEYUU5o_VcPQ/viewform?usp=pp_url&entry.639094191='
+    }
+  },
   computed:{
     ...mapGetters('hotsprings',['hotspring']),
     ...mapGetters('users',['user_name','posts']),
     hot(){
       return this.hotspring ? this.hotspring : {'id':0, 'name':'loading...','latitude':'loading...','longtitude':'loading...','description':'loading...'}
     },
-  },
-  data(){
-    return{
-      google_form: 'https://docs.google.com/forms/d/e/1FAIpQLScrmNcEZt_ATMBAmAr3woHa3TC7Uh1IsPxD89sEYUU5o_VcPQ/viewform?usp=pp_url&entry.639094191='
-    }
   },
   created(){
     this.fetchHotspring(this.$route.params.name)

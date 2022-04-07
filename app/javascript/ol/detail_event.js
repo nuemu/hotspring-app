@@ -1,5 +1,5 @@
 import {toLonLat, fromLonLat, transformExtent} from 'ol/proj';
-import { getCenter } from 'ol/extent';
+import { getCenter, boundingExtent } from 'ol/extent';
 import View from 'ol/View'
 import Feature from 'ol/Feature';
 
@@ -11,38 +11,51 @@ export function detail(evt) {
   let map = evt.map
   const feature = map.forEachFeatureAtPixel(evt.pixel, function (feature) {
     return feature;
-  });
-  if (feature instanceof Feature) {
-    const coordinate = toLonLat(getCenter(feature.getGeometry().getExtent()))
+  })
 
-    let zoom = map.getView().getZoom()
-    if(zoom <= 10) zoom = 10
+  if(feature instanceof Feature){
+    const features = feature.get('features');
+    if (features.length > 1) {
+      const extent = boundingExtent(
+        features.map((r) => r.getGeometry().getCoordinates())
+      );
+      map.getView().fit(extent, {duration: 500, padding: [100, 100, 100, 100]});
+    }
+    if (features.length == 1) {
+      const coordinate = toLonLat(getCenter(feature.getGeometry().getExtent()))
 
-    const view = new View({
-      maxZoom: 18,
-      minZoom: 5,
-      zoom: zoom,
-      center: fromLonLat([coordinate[0],coordinate[1]]),
-      constrainResolution: false,
-      extent: transformExtent([110, 20, 170, 46], 'EPSG:4326', 'EPSG:3857')
-    })
+      let zoom = map.getView().getZoom()
+      if(zoom <= 12) zoom = 12
 
-    const name = feature.values_.features[0].values_.name
-    let overla
-    map.getOverlays().forEach(over => {if(over.options.name == 'detail') overla = over})
-    store.dispatch('hotsprings/fetchHotspring',coordinate.join(','))
-      .then((response) => {
-        overla.setPosition(fromLonLat(coordinate));
-        map.setView(view)
-        let image
-        if(response.image_url) image = '<img src=' + response.image_url +" height='240'>"
-        else image = 'no image'
-        content.innerHTML
-          = '<h4><a href=/hotspring/' + coordinate + " class='link-dark'>" + name + '</a></h4>'   
-          + image
-          + '<div><code>' + coordinate + '</code></div>'
-          + '<div>' + '状態:' + status[response.status] + '</div>'
+      const view = new View({
+        maxZoom: 18,
+        minZoom: 5,
+        zoom: zoom,
+        center: fromLonLat([coordinate[0],coordinate[1]]),
+        constrainResolution: false,
+        extent: transformExtent([110, 20, 170, 46], 'EPSG:4326', 'EPSG:3857')
       })
-      .catch((e) => {overla.setPosition(undefined); console.log(e)})
+
+      const name = feature.values_.features[0].values_.name
+      let overla
+      map.getOverlays().forEach(over => {if(over.options.name == 'detail') overla = over})
+      store.dispatch('hotsprings/fetchHotspring',coordinate.join(','))
+        .then((response) => {
+          overla.setPosition(fromLonLat(coordinate));
+          const extent = boundingExtent(
+            features.map((r) => r.getGeometry().getCoordinates())
+          );
+          map.getView().fit(extent, {duration: 500, maxZoom: zoom});
+          let image
+          if(response.image_url) image = '<img src=' + response.image_url +" height='240'>"
+          else image = 'no image'
+          content.innerHTML
+            = '<h4><a href=/hotspring/' + coordinate + " class='link-dark'>" + name + '</a></h4>'   
+            + image
+            + '<div><code>' + coordinate + '</code></div>'
+            + '<div>' + '状態:' + status[response.status] + '</div>'
+        })
+        .catch((e) => {overla.setPosition(undefined); console.log(e)})
+      }
     }
   }

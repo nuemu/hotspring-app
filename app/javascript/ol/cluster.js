@@ -67,6 +67,21 @@ function generate_features(hotsprings){
 
 function generate_clusters(clusterSource, status){
   const styleCache = {};
+  let stroke_color = '#fff'
+  let fill_color = '#3399CC'
+  switch(status){
+    case 'unexplored':
+      break
+    case 'not_exist':
+      fill_color = 'grey'
+      break
+    case 'prohibit':
+      fill_color = 'red'
+      break
+    case 'open':
+      fill_color = 'green'
+      break
+  }
   const clusters = new VectorLayer({
     name: status,
     source: clusterSource,
@@ -78,10 +93,10 @@ function generate_clusters(clusterSource, status){
           image: new CircleStyle({
             radius: 10,
             stroke: new Stroke({
-              color: '#fff',
+              color: stroke_color,
             }),
             fill: new Fill({
-              color: '#3399CC',
+              color: fill_color,
             }),
           }),
           text: new Text({

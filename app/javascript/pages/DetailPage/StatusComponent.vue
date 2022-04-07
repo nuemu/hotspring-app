@@ -39,7 +39,8 @@ export default{
     }
   },
   computed:{
-    ...mapGetters('users', ['posts'])
+    ...mapGetters('users', ['posts']),
+    ...mapGetters('hotsprings', ['status'])
   },
   watch:{
     hot(){
@@ -49,14 +50,14 @@ export default{
           this.check = post.attributes.status
         }
       })
-      if(this.hot.status !== this.status && this.user_name){
+      if(this.hot.status !== this.status){
         const params = {'id':this.hot.id, 'status':this.status, 'name':this.hot.name, 'lat':this.hot.latitude,'lon':this.hot.longtitude,'description':this.hot.description}
         this.updateHotspring(params)
       }
     }
   },
   methods:{
-    ...mapActions('hotsprings', ['postPost','updatePost']),
+    ...mapActions('hotsprings', ['postPost','updatePost','updateHotspring']),
     StatusSubmit() {
       // サーバーイジメ？
       const params = {'id':this.posted, 'hotspring_id':this.hot.id, 'status':this.check}

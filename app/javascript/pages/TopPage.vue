@@ -41,6 +41,9 @@ export default{
   watch:{
     hotspring_icons(){
       this.hotspring_icons.forEach(icons => this.$refs.map.map.addLayer(icons))
+      this.$refs.map.map.getLayers().forEach(layer => {
+        if(layer.get('name') == 'not_exist') layer.setVisible(false)
+      })
     },
   },
   created(){
@@ -52,7 +55,6 @@ export default{
     InteractionStyle(this.$refs.map.map)
 
     this.$refs.map.map.addControl(new VisibilityControl)
-    this.fetchHotsprings(1)
 
     // ol/layers内のlayerファイルを追加
     Object.keys(layers).forEach(key => {
