@@ -18,13 +18,28 @@
                   @click="closeEvent"
                 />
               </span>
-              <div class="policy">
-                <iframe
-                  class="ratio ratio-1x1"
-                  style="height:600px;"
-                  src="https://kiyac.app/termsOfService/o4xPtYnY7l9DT56Xwyxo"
-                />
-              </div>
+
+              <h3>規約</h3>
+              このサービスの利用にあたって、以下の利用規約及び、プライバシーポリシーに同意して頂く必要があります。
+
+              <ul>
+                <li>
+                  <a
+                    href="https://kiyac.app/termsOfService/o4xPtYnY7l9DT56Xwyxo"
+                    class="link-dark"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >利用規約</a>
+                </li>
+                <li>
+                  <a
+                    href="https://kiyac.app/privacypolicy/dzGXXWWOb33BaPHG4JP4"
+                    class="link-dark"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >プライバシーポリシー</a>
+                </li>
+              </ul>
 
               <span
                 v-if="initial"

@@ -1,7 +1,6 @@
 <template>
   <div>
-    <Policy ref="policy" />
-    <Privacy ref="privacy" />
+    <Policies ref="policy" />
     <About ref="about" />
     <footer class="footer bg-light">
       <div class="container">
@@ -15,12 +14,7 @@
             class="col-md-auto text-decoration-none link-secondary"
             href=""
             @click.prevent="$refs.policy.modal_appearance=true"
-          >利用規約</a>
-          <a
-            class="col-md-auto text-decoration-none link-secondary"
-            href=""
-            @click.prevent="$refs.privacy.modal_appearance=true"
-          >プライバシーポリシー
+          >利用規約・プライバシーポリシー
           </a>
           <a
             class="col-md-auto text-decoration-none link-secondary"
@@ -33,15 +27,13 @@
 </template>
 
 <script>
-import Policy from './ThePolicy .vue'
 import About from './AboutThis.vue'
-import Privacy from './PrivacyPolicy.vue'
+import Policies from './ThePolicies.vue'
 
 export default{
   components:{
-    Policy,
+    Policies,
     About,
-    Privacy,
   },
   data(){
     return{

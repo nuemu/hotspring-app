@@ -5,7 +5,7 @@ import {
   Style,
   Text,
 } from 'ol/style';
-import {Cluster, OSM, Vector as VectorSource} from 'ol/source';
+import {Cluster, Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
 
 import Feature from 'ol/Feature';
