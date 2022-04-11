@@ -3,7 +3,7 @@
     <div class="map">
       <Map ref="map" />
     </div>
-    <div class="sidepanel">
+    <div class="sidepanel d-flex flex-column flex-shrink-0">
       <SidePanel ref="side" />
     </div>
 
@@ -89,6 +89,7 @@ export default{
   width: 10%;
   height: 100%;
   float: right;
+  overflow: scroll;
 }
 textarea{
   resize: none;

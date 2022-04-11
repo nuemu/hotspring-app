@@ -23,19 +23,25 @@
             :class="'text-center list-group-item list-group-item-action '+options[2]"
             @click="none"
           >
+          <a ref="popover" data-bs-toggle="popover" data-bs-trigger="focus" :data-bs-content="message" data-bs-html="true">
             -
+          </a>
           </li>
           <li
             :class="'text-center list-group-item list-group-item-action '+options[1]"
             @click="draw"
           >
+          <a ref="popover" data-bs-toggle="popover" data-bs-trigger="focus" :data-bs-content="message" data-bs-html="true">
             囲む
+          </a>
           </li>
           <li
             :class="'text-center list-group-item list-group-item-action '+options[0]"
             @click="register"
           >
+          <a ref="popover" data-bs-toggle="popover" data-bs-trigger="focus" :data-bs-content="message" data-bs-html="true">
             野湯登録
+          </a>
           </li>
         </ol>
       </div>
@@ -69,6 +75,7 @@ import { detail } from '../ol/detail_event.js'
 import Description from './DescriptionModal.vue'
 import layer_names from '../ol/layers/layer_names'
 
+
 export default{
   components:{
     Description
@@ -77,7 +84,9 @@ export default{
     return{
       option_select: 2,
       map_select: 0,
-      names: layer_names
+      names: layer_names,
+      title: 'title',
+      message: "aa<a id='sample' class='link-dark'>aasdewq</a>",
     }
   },
   computed:{
@@ -94,6 +103,9 @@ export default{
       maps[this.map_select]='list-group-item-secondary'
       return maps
     }
+  },
+  mounted(){
+    
   },
   methods:{
     description(){
