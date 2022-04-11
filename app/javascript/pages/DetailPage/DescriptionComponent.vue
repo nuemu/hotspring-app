@@ -28,6 +28,7 @@
               v-bind="field"
               class="form-control form-control-plaintext"
               placeholder="詳細情報欄"
+              @input="resizeTextarea"
             />
             <button class="btn">
               +
@@ -70,6 +71,17 @@ export default{
       this.updateHotspring(params)
       alert('更新しました')
     },
+    resizeTextarea(){
+      const PADDING_Y = 20;
+      const textarea = this.$refs.description
+      console.log(textarea)
+      
+      let lineHeight = getComputedStyle(textarea).lineHeight
+      lineHeight = lineHeight.replace(/[^-\d\.]/g, '')
+
+      const lines = (textarea.value + '\n').match(/\n/g).length
+      textarea.style.height = lineHeight * lines + PADDING_Y + 'px'
+    }
   }
 }
 </script>

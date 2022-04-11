@@ -31,6 +31,7 @@
               v-bind="field"
               class="form-control form-control-plaintext"
               placeholder="登録理由等記入"
+              @input="resizeTextarea"
             />
           </Field>
         </div>
@@ -69,10 +70,23 @@ export default{
       this.postHotspring(params)
         .then(() => document.getElementById('register_popup-closer').click())
     },
+    resizeTextarea(){
+      const PADDING_Y = 20;
+      const textarea = this.$refs.description
+      
+      let lineHeight = getComputedStyle(textarea).lineHeight
+      lineHeight = lineHeight.replace(/[^-\d\.]/g, '')
+
+      const lines = (textarea.value + '\n').match(/\n/g).length
+      if(lines < 9) textarea.style.height = lineHeight * lines + PADDING_Y + 'px'
+    }
   }
 }
 </script>
 
 <style scoped>
 @import '../ol/popup.css';
+#register_popup{
+  overflow: scroll;
+}
 </style>

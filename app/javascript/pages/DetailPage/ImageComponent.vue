@@ -8,7 +8,7 @@
         <img
           :src="img"
           class="img-fluid"
-          style="max-height: 400px;"
+          style="max-height: 300px;"
         >
         <Field
           type="file"
@@ -33,7 +33,7 @@
       v-else
       :src="img"
       class="img-fluid"
-      style="max-height: 400px;"
+      style="max-height: 300px;"
     >
   </div>
 </template>
