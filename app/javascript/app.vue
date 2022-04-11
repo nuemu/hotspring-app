@@ -31,7 +31,7 @@ body {
   flex-direction: column;
 }
 #app{
-  height:90%;
+  height:100%;
 }
 .app_wrapper{
   height:100%;

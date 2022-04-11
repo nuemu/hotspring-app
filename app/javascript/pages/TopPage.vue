@@ -72,7 +72,7 @@ export default{
 <style>
 @import '../ol/visibility_control.css';
 .toppage_wrapper{
-  height:100%;
+  height: 90%;
   width: 100%;
 }
 .map {
