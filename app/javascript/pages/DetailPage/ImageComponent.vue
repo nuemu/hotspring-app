@@ -2,7 +2,7 @@
   <div class="text-center">
     <Form
       v-if="status=='unexplored'"
-      @submit="uploadImage"
+      @submit="upload"
     >
       <label>
         <img
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import axios from '../../plugins/axios.js'
 
@@ -67,6 +67,7 @@ export default{
     }
   },
   methods:{
+    ...mapActions('hotsprings', ['uploadImage']),
     Click(){
       this.$refs.file.click()
     },
@@ -74,15 +75,13 @@ export default{
       this.file = e.target.files[0]
       this.url = URL.createObjectURL(this.file)
     },
-    uploadImage(){
+    upload(){
       let formData = new FormData();
-      formData.append("title", this.hotspring.latitude + ',' + this.hotspring.longtitude);
       if (this.file !== null) {
         formData.append("image", this.file);
       }
-      axios.post('image',formData , { "content-type": "multipart/form-data" })
-        .then(() => alert('画像が投稿されました。'))
-        .catch(() => alert('投稿失敗しました。'))
+      const params = {'id': this.hotspring.id, 'image': formData}
+      this.uploadImage(params)
     }
   }
 }

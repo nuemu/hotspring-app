@@ -15,8 +15,8 @@ gem 'rack-cors'
 gem 'pg', '~> 1.1'
 gem 'jsonapi-serializer'
 
-gem 'google-apis-drive_v3'
-gem 'googleauth'
+gem "image_processing", ">= 1.2"
+gem "aws-sdk-s3", require: false
 
 #Authentication
 gem 'sorcery'

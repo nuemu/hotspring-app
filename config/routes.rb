@@ -19,5 +19,7 @@ Rails.application.routes.draw do
     post 'image', to: 'hotsprings#image'
   end
 
-  get '*path', to: 'static_pages#index'
+  get '*path', to: 'static_pages#index', constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
 end

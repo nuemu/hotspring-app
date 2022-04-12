@@ -1,4 +1,6 @@
 class Hotspring < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   validates :latitude, presence: true
   validates :longtitude, presence: true
 
@@ -8,6 +10,12 @@ class Hotspring < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :favorites, dependent: :destroy
+
+  has_one_attached :image
+
+  def image_url
+    image.attached? ? url_for(image) : nil
+  end
 
   enum status: { 'unexplored': 0, 'not_exist': 1, 'prohibit': 2, 'open': 3 }
 

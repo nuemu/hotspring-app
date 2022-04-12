@@ -101,6 +101,9 @@ const hotsprings_module = {
     async updateHotspring({commit}, params){
       const response = await axios.patch('hotsprings/'+params.id, params)
     },
+    async uploadImage({commit}, params){
+      const response = await axios.patch('hotsprings/'+params.id, params.image, { "content-type": "multipart/form-data" })
+    },
     async postComment({commit},params){
       const response = await axios.post('comments', {'hotspring_id':params.hotspring_id, 'comment':params.comment})
       commit('setComment', response.data.data)
