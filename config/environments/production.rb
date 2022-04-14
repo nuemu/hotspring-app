@@ -1,6 +1,6 @@
 require "active_support/core_ext/integer/time"
 
-Rails.application.routes.default_url_options[:host] = Rails.application.routes.url_helpers.root_url(protocol: 'https')
+Rails.application.routes.default_url_options[:host] = ENV['BASE_URL']
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
