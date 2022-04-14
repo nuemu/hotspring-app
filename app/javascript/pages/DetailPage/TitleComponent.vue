@@ -83,7 +83,7 @@ export default{
     ...mapMutations('hotsprings', ['setHotspring']),
     ...mapActions('hotsprings', ['updateHotspring']),
     TitleSubmit() {
-      const params = {'name': this.new_name, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
+      const params = {'name': this.new_name, 'id':this.hot.id}
       this.updateHotspring(params)
       alert('更新しました')
     },

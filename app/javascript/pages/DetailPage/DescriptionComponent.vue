@@ -24,7 +24,6 @@
           >
             <textarea
               ref="description"
-              rows="1"
               v-bind="field"
               class="form-control form-control-plaintext"
               placeholder="詳細情報欄"
@@ -61,8 +60,14 @@ export default{
       new_description: '',
     }
   },
-  mounted(){
-    this.resizeTextarea()
+  watch:{
+    hot:{
+      handler(){
+        this.new_description = this.hot.description 
+        this.resizeTextarea()
+      },
+      deep:true
+    }
   },
   computed:{
     ...mapGetters('hotsprings', ['status'])
@@ -70,19 +75,18 @@ export default{
   methods:{
     ...mapActions('hotsprings', ['updateHotspring']),
     DescriptionSubmit(){
-      const params = {'description': this.new_description, 'lat':this.hot.latitude,'lon':this.hot.longtitude}
+      const params = {'description': this.new_description, 'id':this.hot.id}
       this.updateHotspring(params)
       alert('更新しました')
     },
     resizeTextarea(){
       const PADDING_Y = 20;
       const textarea = this.$refs.description
-      console.log(textarea)
       
       let lineHeight = getComputedStyle(textarea).lineHeight
       lineHeight = lineHeight.replace(/[^-\d\.]/g, '')
 
-      const lines = (textarea.value + '\n').match(/\n/g).length
+      const lines = (this.new_description + '\n').match(/\n/g).length
       textarea.style.height = lineHeight * lines + PADDING_Y + 'px'
     }
   }
