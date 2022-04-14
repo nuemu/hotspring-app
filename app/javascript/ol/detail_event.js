@@ -47,7 +47,7 @@ export function detail(evt) {
           );
           map.getView().fit(extent, {duration: 500, maxZoom: zoom});
           let image
-          if(response.image_url) image = '<img src=' + response.image_url +" height='240'>"
+          if(response.image_url) image = '<img src=' + response.image_url +" height='200'>"
           else image = 'no image'
           content.innerHTML
             = '<h4><a href=/hotspring/' + coordinate + " class='link-dark'>" + name + '</a></h4>'   
