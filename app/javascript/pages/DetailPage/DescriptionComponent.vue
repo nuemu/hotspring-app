@@ -61,6 +61,9 @@ export default{
       new_description: '',
     }
   },
+  mounted(){
+    this.resizeTextarea()
+  },
   computed:{
     ...mapGetters('hotsprings', ['status'])
   },

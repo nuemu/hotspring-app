@@ -68,7 +68,10 @@ export default{
       const latlon = this.$refs.popup.children[1].innerText.split(',')
       const params = {'description':this.description ,'latitude': latlon[1],'longtitude': latlon[0]}
       this.postHotspring(params)
-        .then(() => document.getElementById('register_popup-closer').click())
+        .then(() => {
+          document.getElementById('register_popup-closer').click()
+          this.description=''
+        })
     },
     resizeTextarea(){
       const PADDING_Y = 20;
