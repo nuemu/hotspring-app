@@ -78,6 +78,7 @@ const hotsprings_module = {
       const lat = lonlat.split(',')[1]
       const response = await axios.get('hotspring' ,{ params: {'lat': lat, 'lon': lon}})
       axios.defaults.headers.common['X-CSRF-Token'] = response.headers['x-csrf-token']
+      console.log(response.headers['x-csrf-token'])
       commit('setHotspring', response.data.data.attributes)
       response.data.included.forEach(element => {
         switch(element.type){
