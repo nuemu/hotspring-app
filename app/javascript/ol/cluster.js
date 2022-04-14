@@ -73,13 +73,16 @@ function generate_clusters(clusterSource, status){
     case 'unexplored':
       break
     case 'not_exist':
-      fill_color = 'grey'
+      fill_color = 'black'
       break
     case 'prohibit':
       fill_color = 'red'
       break
     case 'open':
       fill_color = 'green'
+      break
+    case 'others':
+      fill_color = 'grey'
       break
   }
   const clusters = new VectorLayer({

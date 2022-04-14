@@ -54,6 +54,7 @@ export function detail(evt) {
             + image
             + '<div><code>' + coordinate + '</code></div>'
             + '<div>' + '状態:' + status[response.status] + '</div>'
+            + "<div style='white-space: pre-line;'>" + response.description + '</div>'
         })
         .catch((e) => {overla.setPosition(undefined); console.log(e)})
       }
