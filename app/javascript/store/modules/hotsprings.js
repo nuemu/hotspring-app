@@ -9,7 +9,7 @@ const hotsprings_module = {
       hotsprings: [],
       hotspring: false,
       comments: [],
-      status: [0,0,0,0],
+      status: [0,0,0,0,0],
       posts: [],
       articles: [],
     }

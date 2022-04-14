@@ -17,7 +17,7 @@ class Hotspring < ApplicationRecord
     image.attached? ? url_for(image) : nil
   end
 
-  enum status: { 'unexplored': 0, 'not_exist': 1, 'prohibit': 2, 'open': 3 }
+  enum status: { 'unexplored': 0, 'not_exist': 1, 'prohibit': 2, 'open': 3, 'others': 4 }
 
   def self.find_between(lat, lon)
     gap = 0.000000000005
