@@ -129,7 +129,7 @@ export default{
   left: -50%;
 }
 .arrow:before{
-  opacity: 30%;
+  opacity: 0.3;
   content: '';
   width: 20px;
   height: 20px;
@@ -145,7 +145,7 @@ export default{
   margin-top: -4px;
 }
 .arrow:hover:before{
-  opacity: 100%;
+  opacity: 1;
 }
 .second{
   height:100vh;

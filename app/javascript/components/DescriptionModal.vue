@@ -68,7 +68,7 @@ export default{
   },
   mounted(){
     window.addEventListener("resize", ()=>{
-      this.positionSet()
+      if(this.modal_appearance) this.positionSet()
     })
   },
   beforeUnmount(){
