@@ -45,6 +45,9 @@
                 </tbody>
               </table>
             </div>
+            <div class="modal-footer">
+              <a class="btn btn-secondary" :href="DownloadURL" :download="FileName">CSV出力</a>
+            </div>
           </div>
         </div>
       </div>
@@ -72,6 +75,29 @@ export default{
         hotsprings.push(this.hotsprings[id])
       })
       return hotsprings
+    },
+    DownloadURL(){
+      var data = '名称,緯度,経度,状況,説明\n'
+      this.favorite_hotsprings.forEach(hotspring => {
+        data += hotspring.name+','
+        data += hotspring.latitude+','
+        data += hotspring.longtitude+','
+        data += hotspring.status+','
+        data += hotspring.description+'\n'
+      })
+      const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
+      const blob = new Blob([bom, data], { type: "text/csv" })
+
+      return (window.URL || window.webkitURL).createObjectURL(blob);
+    },
+    FileName(){
+      let today = new Date();
+ 
+      let year = today.getFullYear()
+      let month = today.getMonth() + 1
+      let date = today.getDate()
+
+      return "お気に入り_" + year + '/' + month + '/' + date + ".csv"
     }
   },
   watch:{
