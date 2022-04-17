@@ -4,7 +4,6 @@ import View from 'ol/View'
 import Feature from 'ol/Feature';
 
 import store from '../store/index.js'
-import status from './hotspring_status.js'
 
 export function detail(evt) {
   const content = document.getElementById('detail-popup-content');
@@ -40,21 +39,12 @@ export function detail(evt) {
       let overla
       map.getOverlays().forEach(over => {if(over.options.name == 'detail') overla = over})
       store.dispatch('hotsprings/fetchHotspring',coordinate.join(','))
-        .then((response) => {
-          overla.setPosition(fromLonLat(coordinate));
+        .then(() => {
+          overla.setPosition(fromLonLat([coordinate[0],coordinate[1]]));
           const extent = boundingExtent(
             features.map((r) => r.getGeometry().getCoordinates())
           );
           map.getView().fit(extent, {duration: 500, maxZoom: zoom});
-          let image
-          if(response.image_url) image = '<img src=' + response.image_url +" height='200'>"
-          else image = 'no image'
-          content.innerHTML
-            = '<h4><a href=/hotspring/' + coordinate + " class='link-dark'>" + name + '</a></h4>'   
-            + image
-            + '<div><code>' + coordinate + '</code></div>'
-            + '<div>' + '状態:' + status[response.status] + '</div>'
-            + "<div style='white-space: pre-line;'>" + response.description + '</div>'
         })
         .catch((e) => {overla.setPosition(undefined); console.log(e)})
       }

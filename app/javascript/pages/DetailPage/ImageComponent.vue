@@ -82,6 +82,7 @@ export default{
       }
       const params = {'id': this.hotspring.id, 'image': formData}
       this.uploadImage(params)
+        .then(() => alert('更新しました'))
     }
   }
 }

@@ -2,33 +2,33 @@
   <transition name="fade">
     <div v-if="modal_appearance">
       <div
-        class="modal"
-        @click.self="close"
+        class="modal overflow-hidden"
+        @click.self="modal_appearance=false"
       >
-        <div v-if="index==-1" class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-          <div class="modal-content">
-            <div class="modal-body">       
-              <span class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <div
+          :class="modal_class"
+          :style="modal_position"
+        >
+          <div class="modal-left-arrow" v-if="index!==0 && index!==1" />
+          <div class="modal-right-arrow" v-if="index==1" />
+          <div class="modal-content border border-0">
+            <div
+              ref="modal"
+              class="modal-body"
+            >
+              <div class="d-grid gap-2 d-md-flex justify-content-between">
+                <span class="lead">説明{{index+1}}/{{description_number+1}}</span>
                 <button
                   type="button"
                   class="btn-close"
                   @click="modal_appearance=false"
                 />
-              </span>
-
-              <h3 class="text-center">
-                使い方(1/x)
-              </h3>
-
-              <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-                <h3 class="font-weight-normal">
-                  湯telliteをご利用いただきありがとうございます。
-                </h3>
-                <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-end">
-                  次へ
-                </div>
               </div>
-
+              <div style="white-space: pre-wrap;">{{description[index]}}</div>
+              <div class="d-grid gap-2 d-md-flex justify-content-between">
+                <a href="" @click.prevent="previous">前へ</a>
+                <a href="" @click.prevent="next">次へ</a>
+              </div>
             </div>
           </div>
         </div>
@@ -39,44 +39,75 @@
 </template>
 
 <script>
+import description from './Tutorials.js'
 
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js'
 export default{
   data(){
     return{
-      index: -1,
+      index: 0,
+      description_number: 9,
       modal_appearance: false,
-      popovers: null,
+      target_position: [0,0],
+      description: description
+    }
+  },
+  computed:{
+    modal_position(){
+      if(this.index == 0) return ''
+      return 'left:'+this.target_position[0]+'px;'+'top:'+this.target_position[1]+'px;'
+    },
+    modal_class(){
+      if(this.index == 0) return 'modal-dialog modal-dialog-centered'
+      return 'modal-dialog modal-sm position-absolute modal-scrollable m-0 p-0'
     }
   },
   watch:{
-    modal_appearance(){
-      if(this.modal_appearance == true ){
-        if(this.index >= 0) this.popovers[this.index].show()
-      }
-    },
     index(){
-      console.log(document.getElementById('sample'))
-      console.log(this.index)
-      if(this.index !== -1) document.getElementById('sample').addEventListener('click', () => this.close())
+      if(this.index !== 0) this.positionSet()
     }
   },
   mounted(){
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    this.popovers = popoverTriggerList.map(function (popoverTriggerEl) {
-      return new bootstrap.Popover(popoverTriggerEl)
+    window.addEventListener("resize", ()=>{
+      this.positionSet()
     })
   },
+  beforeUnmount(){
+    window.removeEventListener("resize")
+  }, 
   methods:{
-    close(){
-      if(this.index >= 0) this.popovers[this.index].hide()
-      if(this.popovers.length - 1 > this.index) this.index = this.index + 1
-      else this.index = -1
-      if(this.index !== -1) this.popovers[this.index].show()
+    next(){
+      this.index = this.index + 1
+      if(this.index == this.description_number + 1) this.index = 0 
+    },
+    previous(){
+      this.index = this.index - 1
+      if(this.index == -1) this.index = this.description_number
+    },
+    positionSet(){
+      const modal = this.$refs.modal.getBoundingClientRect()
+
+      const ref = 'item'+this.index
+      var target
+
+      if(this.index == 1){
+        document.getElementById('v-control').scrollIntoView(true)
+        target = document.getElementById('v-control').getBoundingClientRect()
+        this.target_position[0] = target.left + window.pageXOffset - 320
+        this.target_position[1] = (target.top+target.bottom)/2 + window.pageYOffset - 85
+      }
+      else{
+        if(this.index > 6){
+          this.$parent.$refs[ref][0].scrollIntoView(true)
+          target = this.$parent.$refs[ref][0].getBoundingClientRect()
+        }
+        else{
+          this.$parent.$refs[ref].scrollIntoView(true)
+          target = this.$parent.$refs[ref].getBoundingClientRect()
+        }
+
+        this.target_position[0] = target.right + window.pageXOffset+30
+        this.target_position[1] = (target.top+target.bottom)/2 + window.pageYOffset - 85
+      }
     }
   }
 }
@@ -99,5 +130,36 @@ export default{
    width: inherit;
    z-index: 1;
    left: 17px;
+}
+.modal-left-arrow {
+  content: "";
+  display: block;
+  position: relative;
+  top: 50px;
+  left: -7%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 25px 35px 25px 0;
+  border-color: transparent #ffffff transparent transparent;
+}
+.modal-right-arrow {
+  content: "";
+  display: block;
+  position: relative;
+  top: 50px;
+  right: -93%;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 25px 35px 25px 0;
+  border-color: transparent #ffffff transparent transparent;
+  transform: rotate(180deg);
+}
+.modal-content{
+  top: -50px;
+}
+a{
+  color:black;
 }
 </style>

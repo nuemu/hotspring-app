@@ -7,7 +7,7 @@ class Api::HotspringsController < Api::BaseController
   def show
     hotspring = Hotspring
                 .includes(:posts, articles: :user, comments: :user)
-                .find_nearby(params[:lat].to_f, params[:lon].to_f, GAP)
+                .find_nearby(params[:lat].to_f, params[:lon].to_f, nil)[0]
     hotspring_json = HotspringSerializer.new(hotspring, { include: [:posts, :articles, :comments] })
     render json: hotspring_json
   end

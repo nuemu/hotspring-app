@@ -30,6 +30,7 @@ class VisibilityControl extends Control {
 
     const element = document.createElement('div');
     element.className = 'ol-selectable ol-control visibility';
+    element.id = 'v-control'
 
 
     Object.keys(hotspring_status).forEach((status, index) =>{

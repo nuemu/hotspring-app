@@ -15,33 +15,30 @@
     <p />
     <div>
       <div class="container">
-        <h5 class="lead">
+        <h5 ref="item2" class="lead">
           Click
         </h5>
         <ol class="list-group list-group-flush ">
           <li
+            ref="item3"
             :class="'text-center list-group-item list-group-item-action '+options[2]"
             @click="none"
           >
-          <a ref="popover" data-bs-toggle="popover" data-bs-trigger="focus" :data-bs-content="message" data-bs-html="true">
             -
-          </a>
           </li>
           <li
+            ref="item4"
             :class="'text-center list-group-item list-group-item-action '+options[1]"
             @click="draw"
           >
-          <a ref="popover" data-bs-toggle="popover" data-bs-trigger="focus" :data-bs-content="message" data-bs-html="true">
             囲む
-          </a>
           </li>
           <li
+            ref="item5"
             :class="'text-center list-group-item list-group-item-action '+options[0]"
             @click="register"
           >
-          <a ref="popover" data-bs-toggle="popover" data-bs-trigger="focus" :data-bs-content="message" data-bs-html="true">
             野湯登録
-          </a>
           </li>
         </ol>
       </div>
@@ -49,7 +46,7 @@
     <p />
     <div>
       <div class="container">
-        <h5 class="lead">
+        <h5 class="lead" ref="item6">
           Map
         </h5>
         <ol class="list-group list-group-flush">
@@ -58,6 +55,7 @@
             :key="name"
             :class="'text-center list-group-item list-group-item-action '+maps[index]"
             @click="Render(index)"
+            :ref="ref(index)"
           >
             {{ name }}
           </li>
@@ -86,7 +84,7 @@ export default{
       map_select: 0,
       names: layer_names,
       title: 'title',
-      message: "aa<a id='sample' class='link-dark'>aasdewq</a>",
+      message: "sample<div id='sample'></div>",
     }
   },
   computed:{
@@ -104,10 +102,11 @@ export default{
       return maps
     }
   },
-  mounted(){
-    
-  },
   methods:{
+    ref(index){
+      const num = index+7
+      return 'item' + num
+    },
     description(){
       this.$refs.description.modal_appearance = true
     },
