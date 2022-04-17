@@ -54,7 +54,7 @@ export default{
     register_popup(this.$refs.map.map)
     InteractionStyle(this.$refs.map.map)
 
-    //this.$refs.map.map.addControl(new VisibilityControl)
+    this.$refs.map.map.addControl(new VisibilityControl)
 
     // ol/layers内のlayerファイルを追加
     Object.keys(layers).forEach(key => {

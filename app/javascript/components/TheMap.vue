@@ -17,7 +17,7 @@ import { fromLonLat } from 'ol/proj'
 import gsi from '../ol/gsi_layer.js'
 import { transformExtent } from 'ol/proj';
 
-import {defaults, FullScreen} from 'ol/control'
+import {defaults} from 'ol/control'
 
 export default {
   data(){
@@ -32,7 +32,7 @@ export default {
       controls: defaults({
         attribution: false,
         zoom: false
-      }).extend([new FullScreen({})]),
+      }),
       view: new View({
         maxZoom: 18,
         minZoom: 5,
