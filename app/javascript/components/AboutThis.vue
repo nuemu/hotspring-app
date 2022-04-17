@@ -51,9 +51,9 @@
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center flex-grow-1">
                     <div class="swiper">
                       <div class="swiper-wrapper">
-                        <img src="~normal.png" class="img-fluid swiper-slide">
-                        <img src="~thermal.png" class="img-fluid swiper-slide">
-                        <img src="~air.png" class="img-fluid swiper-slide">
+                        <img src="~normal.jpg" class="img-fluid swiper-slide">
+                        <img src="~thermal.jpg" class="img-fluid swiper-slide">
+                        <img src="~air.jpg" class="img-fluid swiper-slide">
                       </div>
                     </div>
                   </div>
