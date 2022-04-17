@@ -5,83 +5,62 @@
         class="modal"
         @click.self="closeEvent"
       >
-        <div :class="'modal-dialog modal-dialog-centered modal-dialog-scrollable ' + modal_size">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable full modal-fullscreen">
           <div class="modal-content">
-            <div class="modal-body">
-              <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-                <div class="col-md-5 p-lg-5 mx-auto my-5">
+            <div class="modal-body bg-dark p-0 position-absolute h-100 w-100">
+              <div class="text-center bg-light top d-flex">
+                <div class="col-md-5 p-lg-5 mx-auto my-5 text-light align-self-center">
                   <h1 class="display-4 font-weight-normal fadeLeft">
                     湯tellite
                   </h1>
                   <p class="lead font-weight-normal fadeRight">
-                    野湯探しのお供に...
+                    衛星画像を用いて野湯を探してみましょう。
                   </p>
                   <a
-                    class="btn btn-outline-secondary fadeIn"
+                    class="btn btn-outline-light fadeIn"
                     href="#"
                     @click="Initial"
-                  >始める♨︎</a>
+                  >
+                    始める♨︎
+                  </a>
                 </div>
+                <a href="" class="arrow" @click.prevent="next" />
               </div>
 
-              <div :class="'d-md-flex flex-md-equal w-100 my-md-3 pl-md-3 ' + first_appearance">
-                <div class="bg-dark mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-                  <div class="my-3 py-3">
-                    <h2 class="display-5">
-                      衛星画像で
-                    </h2>
-                    <img
-                      src="https://drive.google.com/uc?id=1SHVf5Rsnz0hbVihXRkbSX30jQg8xuBPx"
-                      class="img-fluid"
-                      @load="first_loaded+=1"
-                    >
+              <div class="second text-light" ref="1">
+                <div class="d-flex justify-content-center w-100 h-100">
+                  <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
+                    <h1 class="display-4 font-weight-normal fadeLeft">
+                      湯telliteでできること
+                    </h1>
+                    <ul class="list-group list-group-flush">
+                      <li v-for="(about,index) in abouts" :key="about" class="list-group-item bg-dark border-light text-light">
+                        <div v-if="selecting==index" class="container">
+                          <a class="link-light link" href="" @click.prevent="select(index)">{{about.title}}</a>
+                          <div class="container-sm" style="white-space: pre-wrap;">
+                            {{about.description}}
+                          </div>
+                        </div>
+                        <div v-else class="container">
+                          <a class="link-secondary link" href="" @click.prevent="select(index)">{{about.title}}</a>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
-                </div>
-                <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-                  <div class="my-3 p-3">
-                    <h2 class="display-5">
-                      航空写真で
-                    </h2>
-                    <img
-                      src="https://drive.google.com/uc?id=1UJnJJ8nV9pr-exqFVvPJTUMuI8P6CMIu"
-                      class="img-fluid"
-                      @load="first_loaded+=1"
-                    >
+
+                  <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center flex-grow-1">
+                    <div class="swiper">
+                      <div class="swiper-wrapper">
+                        <img src="~normal.png" class="img-fluid swiper-slide">
+                        <img src="~thermal.png" class="img-fluid swiper-slide">
+                        <img src="~air.png" class="img-fluid swiper-slide">
+                      </div>
+                    </div>
                   </div>
+
                 </div>
               </div>
 
-              <div :class="'position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light ' + first_appearance">
-                <p class="lead font-weight-normal fadeRight">
-                  野湯の候補地を探しましょう！
-                </p>
-                <p class="lead font-weight-normal fadeRight">
-                  発見があるかも...
-                </p>
-                <img
-                  src="https://drive.google.com/uc?id=1EE2K67IQtZj0TYb4PWk5e1V7MKuXBWXO"
-                  class="card-img"
-                >
-              </div>
-
-              <div :class="'position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center text-white bg-dark ' + first_appearance">
-                <p class="lead font-weight-normalt">
-                  野湯探索は時に非常に危険な活動となり得ます。
-                </p>
-                <p class="lead font-weight-normalt">
-                  現地を探索される場合は、十分な下調べ、準備、訓練を行なってください
-                </p>
-                <p class="lead font-weight-normalt">
-                  なお、本サービスに起因してユーザーに生じたあらゆる損害について、一才の責任を負いません。
-                </p>
-                <p class="lead font-weight-normalt">
-                  <a
-                    :class="'btn btn-outline-light ' + first_appearance"
-                    href="#"
-                    @click="Initial"
-                  >始める♨︎</a>
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -92,12 +71,19 @@
 </template>
 
 <script>
+import Swiper from 'swiper/swiper-bundle';
+import 'swiper/swiper-bundle.css';
+import abouts from './Abouts.js'
+
 export default{
   data(){
     return{
       initial: true,
       modal_appearance: true,
       first_loaded: 0,
+      abouts: abouts,
+      selecting: 0,
+      swiper: null,
     }
   },
   computed:{
@@ -105,16 +91,18 @@ export default{
       if(this.first_loaded > 1) return 'fadeIn'
       return 'invisible'
     },
-    modal_size(){
-      if(!this.initial) return 'modal-xl'
-      return 'modal-fullscreen'
-    }
   },
   created(){
     if(localStorage.getItem('initial')=='done'){
       this.initial = false
       this.modal_appearance = false
     }
+  },
+  mounted(){
+    this.swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: true,
+    })
   },
   methods:{
     Initial(){
@@ -123,12 +111,60 @@ export default{
     },
     closeEvent(){
       if(!this.initial) this.modal_appearance=false
+    },
+    next(){
+      this.$refs[1].scrollIntoView({behavior: "smooth"})
+    },
+    select(index){
+      this.selecting = index
     }
   }
 }
 </script>
 
 <style scoped>
+.arrow{
+  position: relative;
+  display: inline-block;
+  left: -50%;
+}
+.arrow:before{
+  opacity: 30%;
+  content: '';
+  width: 20px;
+  height: 20px;
+  border: 0px;
+  border-top: solid 2px #FFF;
+  border-right: solid 2px #FFF;
+  -ms-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  position: absolute;
+  top: 90%;
+  left: -50%;
+  margin-top: -4px;
+}
+.arrow:hover:before{
+  opacity: 100%;
+}
+.second{
+  height:100vh;
+  height: 100%;
+  width: 100%;
+}
+.link{
+  text-decoration: none;
+}
+.top{
+  background: linear-gradient(rgba(0, 0, 0, .4),  rgba(0, 0, 0, .4)),  url("https://www.nasa.gov/sites/default/files/ldcm.jpg"); 
+  /* 画像の位置やサイズの調整 */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height:100vh;
+  height: 100%;
+  width: 100%;
+}
 .modal {
   display: block;
 }
