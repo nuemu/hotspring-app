@@ -21,35 +21,36 @@
 
               <h3>規約</h3>
               このサービスの利用にあたって、以下の利用規約及び、プライバシーポリシーに同意して頂く必要があります。
+              <div class="container">
+                <ul>
+                  <li>
+                    <a
+                      href="https://kiyac.app/termsOfService/o4xPtYnY7l9DT56Xwyxo"
+                      class="link-dark"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >利用規約</a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://kiyac.app/privacypolicy/dzGXXWWOb33BaPHG4JP4"
+                      class="link-dark"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >プライバシーポリシー</a>
+                  </li>
+                </ul>
 
-              <ul>
-                <li>
-                  <a
-                    href="https://kiyac.app/termsOfService/o4xPtYnY7l9DT56Xwyxo"
-                    class="link-dark"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >利用規約</a>
-                </li>
-                <li>
-                  <a
-                    href="https://kiyac.app/privacypolicy/dzGXXWWOb33BaPHG4JP4"
-                    class="link-dark"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >プライバシーポリシー</a>
-                </li>
-              </ul>
-
-              <span
-                v-if="initial"
-                class="d-grid gap-2 d-md-flex justify-content-md-center"
-              >
-                <button
-                  class="btn btn-outline-secondary"
-                  @click="accept"
-                >同意</button>
-              </span>
+                <span
+                  v-if="initial"
+                  class="d-grid gap-2 d-md-flex justify-content-md-center"
+                >
+                  <button
+                    class="btn btn-outline-secondary"
+                    @click="accept"
+                  >同意</button>
+                </span>
+              </div>
             </div>
           </div>
         </div>

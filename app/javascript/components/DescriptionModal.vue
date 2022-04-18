@@ -11,21 +11,25 @@
         >
           <div class="modal-left-arrow" v-if="index!==0 && index!==1" />
           <div class="modal-right-arrow" v-if="index==1" />
-          <div class="modal-content border border-0">
+          <div class="modal-content border border-0" :style="modal_style">
             <div
               ref="modal"
               class="modal-body"
             >
               <div class="d-grid gap-2 d-md-flex justify-content-between">
-                <span class="lead">説明{{index+1}}/{{description_number+1}}</span>
+                <span class="lead">機能説明{{index+1}}/{{description_number+1}}</span>
                 <button
                   type="button"
                   class="btn-close"
                   @click="modal_appearance=false"
                 />
               </div>
-              <div style="white-space: pre-wrap;">{{description[index]}}</div>
-              <div class="d-grid gap-2 d-md-flex justify-content-between">
+              <p />
+              <div class="container" style="white-space: pre-wrap;">
+                {{description[index]}}
+              </div>
+              <p />
+              <div class="container d-grid gap-2 d-md-flex justify-content-between">
                 <a href="" @click.prevent="previous">前へ</a>
                 <a href="" @click.prevent="next">次へ</a>
               </div>
@@ -46,7 +50,7 @@ export default{
     return{
       index: 0,
       description_number: 9,
-      modal_appearance: false,
+      modal_appearance: true,
       target_position: [0,0],
       description: description
     }
@@ -59,11 +63,21 @@ export default{
     modal_class(){
       if(this.index == 0) return 'modal-dialog modal-dialog-centered'
       return 'modal-dialog modal-sm position-absolute modal-scrollable m-0 p-0'
+    },
+    modal_style(){
+      if(this.index !== 0) return 'top: -50px;'
+      return ''
     }
   },
   watch:{
     index(){
       if(this.index !== 0) this.positionSet()
+    }
+  },
+  created(){
+    if(localStorage.getItem('initial')=='done'){
+      this.initial = false
+      this.modal_appearance = false
     }
   },
   mounted(){
@@ -155,9 +169,6 @@ export default{
   border-width: 25px 35px 25px 0;
   border-color: transparent #ffffff transparent transparent;
   transform: rotate(180deg);
-}
-.modal-content{
-  top: -50px;
 }
 a{
   color:black;
