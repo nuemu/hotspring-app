@@ -28,6 +28,8 @@ import { InteractionStyle } from '../ol/interaction_style.js'
 
 import VisibilityControl from '../ol/ol_control.js'
 
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
+
 export default{
   components:{
     Map,
@@ -56,6 +58,13 @@ export default{
 
     this.$refs.map.map.addControl(new VisibilityControl)
 
+    this.$nextTick(() => {
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
+    })
+
     // ol/layers内のlayerファイルを追加
     Object.keys(layers).forEach(key => {
       this.$refs.map.map.addLayer(layers[key])
@@ -78,7 +87,7 @@ export default{
 .map {
   position:relative;
   z-index: 0;
-  width: 90%;
+  width: 95%;
   height: 100%;
   float: right;
 }
@@ -86,7 +95,7 @@ export default{
   background-color: #ffff;
   position:relative;
   z-index: 100;
-  width: 10%;
+  width: 5%;
   height: 100%;
   float: right;
   overflow: scroll;

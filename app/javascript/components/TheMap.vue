@@ -35,9 +35,9 @@ export default {
       }),
       view: new View({
         maxZoom: 18,
-        minZoom: 5,
-        zoom: 5,
-        center: fromLonLat([140.46, 35.3]),
+        minZoom: 5.5,
+        zoom: 5.5,
+        center: fromLonLat([142, 40]),
         constrainResolution: false,
         extent: transformExtent([110, 20, 170, 46], 'EPSG:4326', 'EPSG:3857')
       }),

@@ -10,6 +10,23 @@ class VisibilityControl extends Control {
     let checkbox_names = []
 
     Object.keys(hotspring_status).forEach((status, index) =>{
+      let color = '#3399CC'
+      switch(status){
+        case 'unexplored':
+          break
+        case 'not_exist':
+          color = 'black'
+          break
+        case 'prohibit':
+          color = 'red'
+          break
+        case 'open':
+          color = 'green'
+          break
+        case 'others':
+          color = 'grey'
+          break
+      }
       checkbox_wrappers.push(document.createElement('div'));
       checkbox_wrappers[index].className = 'form-check';
 
@@ -23,6 +40,7 @@ class VisibilityControl extends Control {
       checkbox_names[index].className = 'form-check-label'
       checkbox_names[index].for = status
       checkbox_names[index].innerHTML = hotspring_status[status]
+      checkbox_names[index].style = 'color:'+color+';'
       
       checkbox_wrappers[index].appendChild(checkbox_names[index]);
       checkbox_wrappers[index].appendChild(checkboxes[index]);
@@ -30,8 +48,10 @@ class VisibilityControl extends Control {
 
     const element = document.createElement('div');
     element.className = 'ol-selectable ol-control visibility';
-    element.id = 'v-control'
-
+    element.id = 'v-control';
+    element.setAttribute('data-bs-toggle', 'tooltip')
+    element.setAttribute('data-bs-placement', 'left')
+    element.setAttribute('title', '地図上に表示する温泉の状態を選択できます。')
 
     Object.keys(hotspring_status).forEach((status, index) =>{
       element.appendChild(checkbox_wrappers[index])

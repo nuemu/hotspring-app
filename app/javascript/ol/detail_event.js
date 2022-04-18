@@ -28,7 +28,7 @@ export function detail(evt) {
 
       const view = new View({
         maxZoom: 18,
-        minZoom: 5,
+        minZoom: 5.5,
         zoom: zoom,
         center: fromLonLat([coordinate[0],coordinate[1]]),
         constrainResolution: false,
