@@ -30,7 +30,7 @@ export default {
       target: 'map',
       layers: [gsi],
       controls: defaults({
-        attribution: false,
+        attribution: true,
         zoom: false
       }),
       view: new View({

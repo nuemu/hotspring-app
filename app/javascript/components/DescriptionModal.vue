@@ -9,15 +9,14 @@
           :class="modal_class"
           :style="modal_position"
         >
-          <div class="modal-left-arrow" v-if="index!==0 && index!==1" />
-          <div class="modal-right-arrow" v-if="index==1" />
+          <div class="modal-left-arrow" v-if="description[index].ref!=='center'" />
           <div class="modal-content border border-0" :style="modal_style">
             <div
               ref="modal"
               class="modal-body"
             >
               <div class="d-grid gap-2 d-md-flex justify-content-between">
-                <span class="lead">機能説明{{index+1}}/{{description_number+1}}</span>
+                <span class="lead">温泉の探し方{{index+1}}/{{description_number+1}}</span>
                 <button
                   type="button"
                   class="btn-close"
@@ -25,9 +24,11 @@
                 />
               </div>
               <p />
-              <div class="container" style="white-space: pre-wrap;">
-                {{description[index]}}
-              </div>
+              <div
+                class="container"
+                style="white-space: pre-wrap;"
+                v-html="description[index].description"
+              />
               <p />
               <div class="container d-grid gap-2 d-md-flex justify-content-between">
                 <a href="" @click.prevent="previous">前へ</a>
@@ -49,7 +50,7 @@ export default{
   data(){
     return{
       index: 0,
-      description_number: 9,
+      description_number: 8,
       modal_appearance: true,
       target_position: [0,0],
       description: description
@@ -57,21 +58,21 @@ export default{
   },
   computed:{
     modal_position(){
-      if(this.index == 0) return ''
+      if(this.description[this.index].ref == 'center') return ''
       return 'left:'+this.target_position[0]+'px;'+'top:'+this.target_position[1]+'px;'
     },
     modal_class(){
-      if(this.index == 0) return 'modal-dialog modal-dialog-centered'
+      if(this.description[this.index].ref == 'center') return 'modal-dialog modal-dialog-centered'
       return 'modal-dialog modal-sm position-absolute modal-scrollable m-0 p-0'
     },
     modal_style(){
-      if(this.index !== 0) return 'top: -50px;'
+      if(this.description[this.index].ref == 'center') return 'top: -50px;'
       return ''
     }
   },
   watch:{
     index(){
-      if(this.index !== 0) this.positionSet()
+      if(this.description[this.index].ref !== 'center') this.positionSet()
     }
   },
   created(){
@@ -98,23 +99,14 @@ export default{
       if(this.index == -1) this.index = this.description_number
     },
     positionSet(){
-      const modal = this.$refs.modal.getBoundingClientRect()
+      const ref = this.description[this.index].ref
 
-      const ref = 'item'+this.index
-      var target
-
-      if(this.index == 1){
-        document.getElementById('v-control').scrollIntoView(true)
-        target = document.getElementById('v-control').getBoundingClientRect()
-        this.target_position[0] = target.left + window.pageXOffset - 320
-        this.target_position[1] = (target.top+target.bottom)/2 + window.pageYOffset - 85
-      }
-      else{
-        if(this.index > 6){
+      if(ref !== 'center'){
+        var target
+        if(ref !== 'pencil' && ref !== 'pin'){
           this.$parent.$refs[ref][0].scrollIntoView(true)
           target = this.$parent.$refs[ref][0].getBoundingClientRect()
-        }
-        else{
+        }else{
           this.$parent.$refs[ref].scrollIntoView(true)
           target = this.$parent.$refs[ref].getBoundingClientRect()
         }
