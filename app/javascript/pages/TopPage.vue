@@ -30,8 +30,6 @@ import { detail_popup } from '../ol/detail_popup.js'
 import { register_popup } from '../ol/register_popup.js'
 import { InteractionStyle } from '../ol/interaction_style.js'
 
-//import VisibilityControl from '../ol/ol_control.js'
-
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 export default{
@@ -60,8 +58,6 @@ export default{
     detail_popup(this.$refs.map.map)
     register_popup(this.$refs.map.map)
     InteractionStyle(this.$refs.map.map)
-
-    //this.$refs.map.map.addControl(new VisibilityControl)
 
     this.$nextTick(() => {
       var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -110,7 +106,7 @@ export default{
   position: absolute;
   right:0;
   z-index: 10;
-  width: 60px;
+  width: 100px;
   height: 90%;
   float: left;
   overflow: visible scroll;

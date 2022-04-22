@@ -15,6 +15,7 @@ import { fromLonLat } from 'ol/proj'
 
 import hotspring_status from './hotspring_status.js'
 import status_icons from './status_icons/icon_loader'
+import { scale } from 'ol/size';
 
 export function cluster(hotsprings){
   // require elements of hotsprings have .longtitude .latitude .name .status
@@ -96,7 +97,7 @@ function generate_clusters(clusterSource, status){
 
       const icon = new Icon({
         src: status_icons[status],
-        size: [20,20],
+        scale: 1.25,
       });
 
       if (!style) {
@@ -121,7 +122,7 @@ function generate_clusters(clusterSource, status){
         }
         else{
           style = new Style({
-            image: icon
+            image: icon,
           });
         }
         styleCache[size] = style;
