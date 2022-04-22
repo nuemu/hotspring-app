@@ -1,10 +1,13 @@
 <template>
-  <div class="toppage_wrapper">
+  <div class="toppage_wrapper d-flex">
     <div class="map">
       <Map ref="map" />
     </div>
-    <div class="sidepanel d-flex flex-column flex-shrink-0">
+    <div class="sidepanel">
       <SidePanel ref="side" />
+    </div>
+    <div class="visibility-controll">
+      <Visibility ref="visibility" />
     </div>
 
     <DetailPopup />
@@ -17,6 +20,7 @@ import { mapActions, mapGetters } from 'vuex'
 
 import Map from '../components/TheMap.vue'
 import SidePanel from '../components/SidePanel.vue'
+import Visibility from '../components/VisibilityController.vue'
 import RegisterPopup from '../components/RegisterPopup.vue'
 import DetailPopup from '../components/DetailPopup.vue'
 
@@ -26,7 +30,7 @@ import { detail_popup } from '../ol/detail_popup.js'
 import { register_popup } from '../ol/register_popup.js'
 import { InteractionStyle } from '../ol/interaction_style.js'
 
-import VisibilityControl from '../ol/ol_control.js'
+//import VisibilityControl from '../ol/ol_control.js'
 
 import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
@@ -34,6 +38,7 @@ export default{
   components:{
     Map,
     SidePanel,
+    Visibility,
     RegisterPopup,
     DetailPopup,
   },
@@ -56,7 +61,7 @@ export default{
     register_popup(this.$refs.map.map)
     InteractionStyle(this.$refs.map.map)
 
-    this.$refs.map.map.addControl(new VisibilityControl)
+    //this.$refs.map.map.addControl(new VisibilityControl)
 
     this.$nextTick(() => {
       var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -87,18 +92,28 @@ export default{
 .map {
   position:relative;
   z-index: 0;
-  width: 95%;
+  width: 100%;
   height: 100%;
   float: right;
 }
 .sidepanel {
-  background-color: #ffff;
-  position:relative;
+  opacity: 1;
+  position:absolute;
   z-index: 100;
-  width: 5%;
-  height: 100%;
+  width: 60px;
+  height: 90%;
   float: right;
-  overflow: scroll;
+  overflow: visible scroll;
+}
+.visibility-controll{
+  opacity: 1;
+  position: absolute;
+  right:0;
+  z-index: 10;
+  width: 60px;
+  height: 90%;
+  float: left;
+  overflow: visible scroll;
 }
 textarea{
   resize: none;

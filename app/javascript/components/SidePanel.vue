@@ -1,38 +1,35 @@
 <template>
-  <div>
+  <div class="container">
     <Description ref="description" />
     <p />
-    <div class="container">
-      <ul class="list-group list-group-flush">
-        <li
-          class="list-group-item list-group-item-action text-center"
-          @click="$refs.description.modal_appearance=true"
-          data-bs-toggle="tooltip"
-          data-bs-placement="right"
-          title="温泉の探し方"
-        >
-          <img :src="icons['question']">
-        </li>
-      </ul>
-    </div>
+      <button
+        class="btn btn-warning rounded-circle"
+        @click="$refs.description.modal_appearance=true"
+        data-bs-toggle="tooltip"
+        data-bs-placement="right"
+        title="温泉の探し方"
+        ref="info"
+      >
+        <img :src="icons['question']">
+      </button>
     <p />
     <div>
-      <div class="container text-center">
+      <div class="text-center">
         <h5 class="lead">
           Click
         </h5>
-        <ol class="list-group list-group-flush ">
-          <li
-            :class="'text-center list-group-item list-group-item-action '+options[2]"
+          <button 
+            :class="'btn rounded-circle '+options[2]"
             @click="none"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             title="アイコンをクリックする"
           >
             <img :src="icons['hand']">
-          </li>
-          <li
-            :class="'text-center list-group-item list-group-item-action '+options[1]"
+          </button>
+          <p />
+          <button
+            :class="'btn rounded-circle '+options[1]"
             @click="draw"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
@@ -40,9 +37,10 @@
             ref="pencil"
           >
             <img :src="icons['pencil']">
-          </li>
-          <li
-            :class="'text-center list-group-item list-group-item-action '+options[0]"
+          </button>
+          <p />
+          <button
+            :class="'btn rounded-circle '+options[0]"
             @click="register"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
@@ -50,21 +48,21 @@
             ref="pin"
           >
             <img :src="icons['pin']">
-          </li>
-        </ol>
+          </button>
       </div>
     </div>
     <p />
     <div>
-      <div class="container text-center">
+      <div class="text-center">
         <h5 class="lead">
           Map
         </h5>
-        <ol class="list-group list-group-flush">
-          <li
-            v-for="(name, index) in names"
-            :key="name"
-            :class="'text-center list-group-item list-group-item-action '+maps[index]"
+        <div
+          v-for="(name, index) in names"
+          :key="name"
+        >
+          <button
+            :class="'btn rounded-circle '+maps[index]"
             @click="Render(index)"
             :ref="name.layer"
             @mouseover="Mouseover"
@@ -74,8 +72,9 @@
             :title="name.description"
           >
             <img :src="icons[name.layer]">
-          </li>
-        </ol>
+          </button>
+          <p />
+        </div>
       </div>
     </div>
   </div>
@@ -108,16 +107,19 @@ export default{
   },
   computed:{
     options(){
-      let options = ['','','']
-      options[this.option_select]='list-group-item-secondary'
+      let options = []
+      for(let i=0; i<3; i++){
+        options.push('btn-warning')
+      }
+      options[this.option_select]='btn-danger'
       return options
     },
     maps(){
       let maps = []
       for(let i=0; i<layer_names.length; i++){
-        maps.push('')
+        maps.push('btn-warning')
       }
-      maps[this.map_select]='list-group-item-secondary'
+      maps[this.map_select]='btn-danger'
       return maps
     },
     layers(){

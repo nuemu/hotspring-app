@@ -49,9 +49,6 @@ class VisibilityControl extends Control {
     const element = document.createElement('div');
     element.className = 'ol-selectable ol-control visibility';
     element.id = 'v-control';
-    element.setAttribute('data-bs-toggle', 'tooltip')
-    element.setAttribute('data-bs-placement', 'left')
-    element.setAttribute('title', '地図上に表示する温泉の状態を選択できます。')
 
     Object.keys(hotspring_status).forEach((status, index) =>{
       element.appendChild(checkbox_wrappers[index])

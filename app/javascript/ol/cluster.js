@@ -4,6 +4,7 @@ import {
   Stroke,
   Style,
   Text,
+  Icon,
 } from 'ol/style';
 import {Cluster, Vector as VectorSource} from 'ol/source';
 import {Vector as VectorLayer} from 'ol/layer';
@@ -13,6 +14,7 @@ import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
 
 import hotspring_status from './hotspring_status.js'
+import status_icons from './status_icons/icon_loader'
 
 export function cluster(hotsprings){
   // require elements of hotsprings have .longtitude .latitude .name .status
@@ -73,7 +75,7 @@ function generate_clusters(clusterSource, status){
     case 'unexplored':
       break
     case 'not_exist':
-      fill_color = 'black'
+      fill_color = 'grey'
       break
     case 'prohibit':
       fill_color = 'red'
@@ -82,7 +84,7 @@ function generate_clusters(clusterSource, status){
       fill_color = 'green'
       break
     case 'others':
-      fill_color = 'grey'
+      fill_color = 'black'
       break
   }
   const clusters = new VectorLayer({
@@ -91,24 +93,37 @@ function generate_clusters(clusterSource, status){
     style: function (feature) {
       const size = feature.get('features').length;
       let style = styleCache[size];
+
+      const icon = new Icon({
+        src: status_icons[status],
+        size: [20,20],
+      });
+
       if (!style) {
-        style = new Style({
-          image: new CircleStyle({
-            radius: 10,
-            stroke: new Stroke({
-              color: stroke_color,
+        if(size > 1){
+          style = new Style({
+            image: new CircleStyle({
+              radius: 10,
+              stroke: new Stroke({
+                color: stroke_color,
+              }),
+              fill: new Fill({
+                color: fill_color,
+              }),
             }),
-            fill: new Fill({
-              color: fill_color,
+            text: new Text({
+              text: size.toString(),
+              fill: new Fill({
+                color: '#fff',
+              }),
             }),
-          }),
-          text: new Text({
-            text: size.toString(),
-            fill: new Fill({
-              color: '#fff',
-            }),
-          }),
-        });
+          });
+        }
+        else{
+          style = new Style({
+            image: icon
+          });
+        }
         styleCache[size] = style;
       }
       return style;

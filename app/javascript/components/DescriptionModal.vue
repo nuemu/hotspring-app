@@ -2,7 +2,7 @@
   <transition name="fade">
     <div v-if="modal_appearance">
       <div
-        class="modal overflow-hidden"
+        class="modal"
         @click.self="modal_appearance=false"
       >
         <div
@@ -10,7 +10,7 @@
           :style="modal_position"
         >
           <div class="modal-left-arrow" v-if="description[index].ref!=='center'" />
-          <div class="modal-content border border-0" :style="modal_style">
+          <div class="modal-content overflow-scroll border border-0" :style="modal_style">
             <div
               ref="modal"
               class="modal-body"
@@ -82,6 +82,7 @@ export default{
     }
   },
   mounted(){
+    this.positionSet()
     window.addEventListener("resize", ()=>{
       if(this.modal_appearance) this.positionSet()
     })
@@ -103,7 +104,7 @@ export default{
 
       if(ref !== 'center'){
         var target
-        if(ref !== 'pencil' && ref !== 'pin'){
+        if(ref !== 'pencil' && ref !== 'pin' && ref !== 'info'){
           this.$parent.$refs[ref][0].scrollIntoView(true)
           target = this.$parent.$refs[ref][0].getBoundingClientRect()
         }else{
@@ -140,7 +141,7 @@ export default{
 .modal-left-arrow {
   content: "";
   display: block;
-  position: relative;
+  position: absolute;
   top: 50px;
   left: -7%;
   width: 0;
@@ -148,19 +149,6 @@ export default{
   border-style: solid;
   border-width: 25px 35px 25px 0;
   border-color: transparent #ffffff transparent transparent;
-}
-.modal-right-arrow {
-  content: "";
-  display: block;
-  position: relative;
-  top: 50px;
-  right: -93%;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 25px 35px 25px 0;
-  border-color: transparent #ffffff transparent transparent;
-  transform: rotate(180deg);
 }
 a{
   color:black;

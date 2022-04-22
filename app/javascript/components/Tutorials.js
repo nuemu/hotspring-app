@@ -1,7 +1,7 @@
 import icons from '../ol/layer_icons/icon_loader'
 
 export default [
-  {'description': "湯telliteをご利用いただきありがとうございます。\n画面左上の<img src='"+icons['question']+"'>マークからいつもでこの説明を表示することができます。\n各アイコン上にカーソルをのせることで簡易的な機能説明が表示されます。", 'ref': 'center'},
+  {'description': "湯telliteをご利用いただきありがとうございます。\n画面左上の<img src='"+icons['question']+"'>マークからいつもでこの説明を表示することができます。\n各アイコン上にカーソルをのせることで簡易的な機能説明が表示されます。", 'ref': 'info'},
   {'description': "まずは、温泉の湧きそうな場所に注目してみましょう。\n例えば、既に温泉のある場所の周辺(温泉街や、火山)は確率が高そうですね。", 'ref': 'center'},
   {'description': "次に、<img src='"+icons['thermal_middle']+"'>をクリックしてみましょう。\n地図が色鮮やかになりましたか？\n(もし何も表示されない場合は、衛星画像の月間利用量制限を超えているかもしれません、時間をあけての再挑戦をお願いします。)", 'ref': 'thermal_middle'},
   {'description': "赤い場所が高温、青い場所が低温を意味しています。\n全体的に赤色であれば<img src='"+icons['thermal_high']+"'>を、青色であれば<img src='"+icons['thermal_low']+"'>を押してみましょう。それぞれ青から赤で表示される温度域が異なります。", 'ref': 'thermal_middle'},
