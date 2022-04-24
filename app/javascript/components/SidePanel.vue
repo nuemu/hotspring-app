@@ -3,7 +3,7 @@
     <Description ref="description" />
     <p />
       <button
-        class="btn btn-warning rounded-circle"
+        class="btn btn-light btn-outline-warning rounded-circle"
         @click="$refs.description.modal_appearance=true"
         data-bs-toggle="tooltip"
         data-bs-placement="right"
@@ -89,8 +89,6 @@ import Description from './DescriptionModal.vue'
 import layer_names from '../ol/layers/layer_names'
 import icons from '../ol/layer_icons/icon_loader'
 
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js'
-
 export default{
   components:{
     Description,
@@ -109,28 +107,22 @@ export default{
     options(){
       let options = []
       for(let i=0; i<3; i++){
-        options.push('btn-warning')
+        options.push('btn-light btn-outline-warning')
       }
-      options[this.option_select]='btn-danger'
+      options[this.option_select]='btn-warning'
       return options
     },
     maps(){
       let maps = []
       for(let i=0; i<layer_names.length; i++){
-        maps.push('btn-warning')
+        maps.push('btn-light btn-outline-warning')
       }
-      maps[this.map_select]='btn-danger'
+      maps[this.map_select]='btn-warning'
       return maps
     },
     layers(){
       return layer_names.map(element => element.layer)
     }
-  },
-  mounted(){
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
   },
   methods:{
     ref(index){

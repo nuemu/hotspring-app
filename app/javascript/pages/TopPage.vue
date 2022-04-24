@@ -58,20 +58,18 @@ export default{
     detail_popup(this.$refs.map.map)
     register_popup(this.$refs.map.map)
     InteractionStyle(this.$refs.map.map)
-
-    this.$nextTick(() => {
-      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-      tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-      })
-    })
-
+    
     // ol/layers内のlayerファイルを追加
     Object.keys(layers).forEach(key => {
       this.$refs.map.map.addLayer(layers[key])
     })
     this.$refs.side.none()
     this.$refs.side.Render(0)
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    this.tooltip = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
   },
   methods:{
     ...mapActions('hotsprings', ['fetchHotsprings']),
@@ -106,8 +104,8 @@ export default{
   position: absolute;
   right:0;
   z-index: 10;
-  width: 100px;
-  height: 90%;
+  width: 200px;
+  height: 50%;
   float: left;
   overflow: visible scroll;
 }

@@ -97,7 +97,7 @@ function generate_clusters(clusterSource, status){
 
       const icon = new Icon({
         src: status_icons[status],
-        scale: 1.25,
+        scale: 1.2,
       });
 
       if (!style) {

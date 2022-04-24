@@ -1,21 +1,29 @@
 <template>
-  <div
-    class="container"
-    data-bs-toggle="tooltip"
-    data-bs-placement="left"
-    title="地図上に表示する温泉の状態を選択できます。"
-  >
+  <div class="container">
     <p />
-    <div v-for="(status, index) in statuses" :key="status">
-      <button
-        class="btn" 
-        @click="setVisible(status, index)"
+    <div
+      class="bg-transparent"
+      data-bs-toggle="tooltip"
+      data-bs-placement="left"
+      title="地図上のアイコン表示を切り替えられます。"
+    >
+      <div
+        v-for="(status, index) in statuses"
+        :key="status"
       >
-        <img :src="icons[status]"> :
-        <img v-if="visible[index]" :src="icons['visible']">
-        <img v-else :src="icons['invisible']">
-      </button>
-      <div />
+        <button
+          class="btn w-100 d-flex" 
+          @click="setVisible(status, index)"
+        >
+          <span class="text-start w-100">
+            <img :src="icons[status]"> : {{ t_status[status] }}
+          </span>
+          <span class="text-end">
+            <img v-if="visible[index]" :src="icons['visible']">
+            <img v-else :src="icons['invisible']">
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -27,9 +35,11 @@ import icons from '../ol/status_icons/icon_loader'
 export default{
   data(){
     return{
+      t_status: status,
       statuses: Object.keys(status),
       icons: icons,
       visible: [true, true, true, true, true],
+      tooltip: null,
     }
   },
   methods:{

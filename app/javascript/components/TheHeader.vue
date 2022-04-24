@@ -2,7 +2,7 @@
   <div>
     <AuthenticationModal ref="authentication" />
     <FavoriteModal ref="favorite" />
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-success">
       <div class="container-fluid">
         <router-link
           to="/"
