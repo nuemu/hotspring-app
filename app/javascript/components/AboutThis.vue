@@ -7,9 +7,10 @@
       >
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable full modal-fullscreen">
           <div class="modal-content">
-            <div class="modal-body bg-dark p-0 position-absolute h-100 w-100">
-              <div class="text-center bg-light top d-flex">
-                <div class="col-md-5 p-lg-5 mx-auto my-5 text-light align-self-center">
+            <div class="modal-body bg-light p-0 position-absolute h-100 w-100">
+
+              <div class="text-center d-flex w-100 h-100">
+                <div class="col-md-5 p-lg-5 mx-auto my-5 align-self-center">
                   <h1 class="display-4 font-weight-normal fadeLeft">
                     湯tellite
                   </h1>
@@ -17,20 +18,36 @@
                     衛星画像を用いて野湯を探してみましょう。
                   </p>
                   <a
-                    class="btn btn-outline-light fadeIn"
+                    class="btn btn-outline-dark fadeIn"
                     href="#"
                     @click="Initial"
                   >
-                    始める♨︎
+                    始める
                   </a>
                 </div>
                 <a href="" class="arrow" @click.prevent="next(1)" />
+                <img src="~tree1.svg" class="top tree" style="left:0%;">
+                <img src="~tree2.svg" class="top tree" style="right:0%;">
+                <img src="~cloud_l.svg" class="top cloud" style="left:0%;top:-20%;">
+                <img src="~cloud_r.svg" class="top cloud" style="right:0%;">
               </div>
 
-              <div class="text-light vh-100" ref="1">
+              <div class="vh-100" ref="1">
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
-                    <img src="~yamanjo.jpeg" class="img-fluid col-md-5">
+                    <h1 class="display-4 font-weight-normal">
+                      野湯って？
+                    </h1>
+                    <div>温泉は</div>
+                  </div>
+                  <a href="" class="arrow" @click.prevent="next(2)" />
+                </div>
+              </div>
+
+              <div class="vh-100" ref="2">
+                <div class="d-flex justify-content-center w-100 h-100">
+                  <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
+                    <img src="~adventure.svg" class="img-fluid col-md-5">
                     <p />
                     <h1 class="display-4 font-weight-normal">
                       野湯探しにお困りですか？
@@ -41,20 +58,21 @@
                     <div>観光地化への忌避感、安全への懸念...様々な思惑で野湯情報は公開されにくいものです。</div>
                     <div>この状況を踏まえ、湯telliteは単なる情報ポータルサイトとしてではなく、野湯を自らの手で探す浪漫を提供しようと開発されています。</div>
                   </div>
-                  <a href="" class="arrow" @click.prevent="next(2)" />
+                  <a href="" class="arrow" @click.prevent="next(3)" />
                 </div>
               </div>
 
-              <div class="vh-100 text-light" ref="2">
+              <div class="vh-100 text-light" ref="3">
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
                     <h1 class="display-4 font-weight-normal fadeLeft">
                       湯telliteでできること
                     </h1>
                     <ul class="list-group list-group-flush">
-                      <li v-for="(about,index) in abouts" :key="about" class="list-group-item bg-dark border-light text-light">
+                      <li v-for="(about,index) in abouts" :key="about" class="list-group-item bg-light border-dark">
                         <div v-if="selecting==index" class="container">
-                          <a class="link-light link" href="" @click.prevent="select(index)">{{about.title}}</a>
+                          <a class="link-dark link" href="" @click.prevent="select(index)">{{about.title}}</a>
+                          <p />
                           <div class="container-sm" style="white-space: pre-wrap;">
                             {{about.description}}
                           </div>
@@ -75,11 +93,11 @@
                       </div>
                     </div>
                   </div>
-                  <a href="" class="arrow" @click.prevent="next(3)" />
+                  <a href="" class="arrow" @click.prevent="next(4)" />
                 </div>
               </div>
 
-              <div class="vh-100 text-light" ref="3">
+              <div class="vh-100" ref="4">
                 <div class="d-flex justify-content-center w-100 h-100">
 
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center flex-grow-1">
@@ -95,15 +113,36 @@
                       <div>温泉の状態の投票、コメント機能、記事のリンク機能を設けています。</div>
                     </div>
                   </div>
+                  <a href="" class="arrow" @click.prevent="next(5)" />
+                </div>
+              </div>
 
-                    <a
-                      class="btn btn-outline-light align-self-end btn-init"
-                      href="#"
-                      @click="Initial"
-                    >
-                      始める♨︎
-                    </a>
+              <div class="vh-100" ref="5">
+                <div class="d-flex justify-content-center w-100 h-100">
+                  <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
+                    <h1 class="display-4 font-weight-normal fadeLeft">
+                      野湯探索は危険を伴う活動です
+                    </h1>
+                    <div class="container-sm">
+                      <div>現地調査をする場合は、十分な準備を行なって、注意深く行動するようにしてください。</div>
+                      <div>なお、当サイトで得た情報で不利益が生じた場合には、一切の責任を負いません。</div>
+                      <p />
+                      <div class="text-center">
+                        <a
+                          class="btn btn-outline-dark"
+                          href="#"
+                          @click="Initial"
+                        >
+                          始める
+                        </a>
+                      </div>
+                    </div>
+                  </div>
 
+                  <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center flex-grow-1">
+                    <img src="~danger.svg" class="img-fluid" style="width:80%;">
+                  </div>
+                  
                 </div>
               </div>
 
@@ -163,6 +202,17 @@ export default{
 </script>
 
 <style scoped>
+.top{
+  position:absolute;
+  bottom:0%;
+  z-index: 10;
+}
+.cloud{
+  width: 30%;
+}
+.tree{
+  height: 50%;
+}
 .btn-init{
   position: relative;
   bottom: 10%;
@@ -179,8 +229,8 @@ export default{
   width: 20px;
   height: 20px;
   border: 0px;
-  border-top: solid 2px #FFF;
-  border-right: solid 2px #FFF;
+  border-top: solid 2px #000;
+  border-right: solid 2px #000;
   -ms-transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
@@ -194,16 +244,6 @@ export default{
 }
 .link{
   text-decoration: none;
-}
-.top{
-  background: linear-gradient(rgba(0, 0, 0, .4),  rgba(0, 0, 0, .4)),  url("https://www.nasa.gov/sites/default/files/ldcm.jpg"); 
-  /* 画像の位置やサイズの調整 */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height:100vh;
-  height: 100%;
-  width: 100%;
 }
 .modal {
   display: block;
