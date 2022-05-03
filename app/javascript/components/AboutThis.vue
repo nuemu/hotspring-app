@@ -7,11 +7,11 @@
       >
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable full modal-fullscreen">
           <div class="modal-content">
-            <div class="modal-body bg-light p-0 position-absolute h-100 w-100">
+            <div class="modal-body bg-warning p-0 position-absolute h-100 w-100">
 
               <div class="text-center d-flex w-100 h-100">
                 <div class="col-md-5 p-lg-5 mx-auto my-5 align-self-center">
-                  <h1 class="display-4 font-weight-normal fadeLeft">
+                  <h1 class="display-1 font-weight-normal fadeLeft webfont">
                     湯tellite
                   </h1>
                   <p class="lead font-weight-normal fadeRight">
@@ -35,41 +35,53 @@
               <div class="vh-100" ref="1">
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
-                    <h1 class="display-4 font-weight-normal">
-                      野湯って？
-                    </h1>
-                    <div>温泉は</div>
+                    <img src="~flog.svg" class="img-fluid col-md-5">
                   </div>
+
+                  <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
+                    <h1 class="display-4 font-weight-normal webfont">
+                      野湯って何？
+                    </h1>
+                    <p />
+                    <div>野湯とは、自然に湧き出した人の管理下にない温泉のことを指します。</div>
+                    <div>大自然の中、静かに温泉に浸かれたら魅力的な体験になると思いませんか？</div>
+                    <p />
+                    <div>このサイトでは、そんな浪漫を追ってみたい方のために、野湯探しの手法を提供します。</div>
+                  </div>
+
                   <a href="" class="arrow" @click.prevent="next(2)" />
                 </div>
               </div>
 
               <div class="vh-100" ref="2">
                 <div class="d-flex justify-content-center w-100 h-100">
+
+                  <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
+                    <h1 class="display-4 font-weight-normal webfont">
+                      野湯ってどう探すの？
+                    </h1>
+                    <p />
+                    <div>まずは、検索してみましょう！いくらかの情報は見つかることでしょう。</div>
+                    <div>しかし、観光地化への忌避感、安全への懸念...様々な思惑で案外情報公開されていないものです。</div>
+                    <p />
+                    <div>地表面温度の衛星画像で当たりをつけて、現地調査する。</div>
+                  </div>
+
                   <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
                     <img src="~adventure.svg" class="img-fluid col-md-5">
-                    <p />
-                    <h1 class="display-4 font-weight-normal">
-                      野湯探しにお困りですか？
-                    </h1>
-                    <div>極上の温泉体験を追い求め、辿り着いたのは母なる自然。</div>
-                    <div>そんな斜め上な好事家のためのサービスです。</div>
-                    <p />
-                    <div>観光地化への忌避感、安全への懸念...様々な思惑で野湯情報は公開されにくいものです。</div>
-                    <div>この状況を踏まえ、湯telliteは単なる情報ポータルサイトとしてではなく、野湯を自らの手で探す浪漫を提供しようと開発されています。</div>
                   </div>
                   <a href="" class="arrow" @click.prevent="next(3)" />
                 </div>
               </div>
 
-              <div class="vh-100 text-light" ref="3">
+              <div class="vh-100" ref="3">
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
-                    <h1 class="display-4 font-weight-normal fadeLeft">
+                    <h1 class="display-4 font-weight-normal fadeLeft webfont">
                       湯telliteでできること
                     </h1>
                     <ul class="list-group list-group-flush">
-                      <li v-for="(about,index) in abouts" :key="about" class="list-group-item bg-light border-dark">
+                      <li v-for="(about,index) in abouts" :key="about" class="list-group-item bg-warning border-dark">
                         <div v-if="selecting==index" class="container">
                           <a class="link-dark link" href="" @click.prevent="select(index)">{{about.title}}</a>
                           <p />
@@ -97,26 +109,6 @@
                 </div>
               </div>
 
-              <div class="vh-100" ref="4">
-                <div class="d-flex justify-content-center w-100 h-100">
-
-                  <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center flex-grow-1">
-                    <img src="~desc.jpg" class="img-fluid">
-                  </div>
-
-                  <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
-                    <h1 class="display-4 font-weight-normal fadeLeft">
-                      情報共有しましょう
-                    </h1>
-                    <div class="container-sm">
-                      <div>温泉を見つけましたか？あるいは温泉が存在しないことを確認したかもしれません。もし、よろしければ、情報を提供してください。</div>
-                      <div>温泉の状態の投票、コメント機能、記事のリンク機能を設けています。</div>
-                    </div>
-                  </div>
-                  <a href="" class="arrow" @click.prevent="next(5)" />
-                </div>
-              </div>
-
               <div class="vh-100" ref="5">
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
@@ -125,7 +117,7 @@
                     </h1>
                     <div class="container-sm">
                       <div>現地調査をする場合は、十分な準備を行なって、注意深く行動するようにしてください。</div>
-                      <div>なお、当サイトで得た情報で不利益が生じた場合には、一切の責任を負いません。</div>
+                      <div>なお、当サイトで得た情報で不利益が生じた場合であっても、一切の責任を負いません。</div>
                       <p />
                       <div class="text-center">
                         <a
@@ -202,6 +194,10 @@ export default{
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
+.webfont{
+  font-family: 'Yuji Mai', serif;
+}
 .top{
   position:absolute;
   bottom:0%;
