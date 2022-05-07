@@ -20,8 +20,10 @@ class Api::HotspringsController < Api::BaseController
 
   def update
     hotspring = Hotspring.find(params[:id])
-    params[:image] ? hotspring.image.attach(params[:image]) : hotspring.update(hotspring_params)
-    render json: hotspring
+    hotspring.update(hotspring_params)
+    hotspring.image.attach(params[:image]) if params[:image]
+    hotspring_json = HotspringOnlySerializer.new(hotspring)
+    render json: hotspring_json
   end
 
   private

@@ -9,15 +9,16 @@ defineRule('present', value => {
 })
 
 defineRule('file_present', value => {
-  if (!value || !value[0]) {
-    return 'ファイルを選択してください';
+  if(value){
+    if(!value[0].type.match(/image\//)) return 'このファイル形式は利用できません'
   }
-  if(!value[0].type.match(/image\//)) return 'このファイル形式は利用できません'
   return true;
 })
 
 defineRule('file_size', value => {
-  if(!value[0].size > 1024*1024*5) return '5MB以内のファイルのみアップロードできます'
+  if(value){
+    if(!value[0].size > 1024*1024*3) return '3MB以内のファイルのみアップロードできます'
+  }
   return true;
 })
 

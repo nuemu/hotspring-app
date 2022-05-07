@@ -1,12 +1,20 @@
 <template>
   <div>
+    <Edit ref="edit" :hot="hot"/>
     <p />
 
     <div class="container">
-      <a
-        :href="google_form"
-        class="btn"
-      >情報提供</a>
+      <span class="row">
+        <a
+          :href="google_form"
+          class="btn col text-start"
+        >情報提供</a>
+
+        <a
+          class="btn col text-end"
+          @click="$refs.edit.modal_appearance=true"
+        >編集</a>
+      </span>
 
       <Image />
       
@@ -14,15 +22,6 @@
         ref="title"
         :hot="hot"
       />
-
-      <p />
-
-      <div
-        v-if="user_name!=='Guest'"
-        class="status wrapper container"
-      >
-        <Status :hot="hot" />
-      </div>
 
       <p />
 
@@ -60,6 +59,8 @@ import Description from './DescriptionComponent.vue'
 import Comment from './CommentComponent.vue'
 import Article from './ArticleComponent.vue'
 
+import Edit from './EditPage.vue'
+
 export default{
   components:{
     Image,
@@ -68,6 +69,7 @@ export default{
     Description,
     Comment,
     Article,  
+    Edit,
   },
   data(){
     return{
