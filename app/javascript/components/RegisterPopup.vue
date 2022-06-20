@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import { mapActions } from 'vuex'
 import { Field, Form, ErrorMessage } from 'vee-validate';
 
@@ -66,11 +68,14 @@ export default{
     ...mapActions('hotsprings', ['postHotspring']),
     DescriptionSubmit(){
       const latlon = this.$refs.popup.children[1].innerText.split(',')
-      const params = {'description':this.description ,'latitude': latlon[1],'longtitude': latlon[0]}
-      this.postHotspring(params)
-        .then(() => {
-          document.getElementById('register_popup-closer').click()
-          this.description=''
+      axios.get('https://aginfo.cgk.affrc.go.jp/ws/rgeocode.php?json&lat='+latlon[1]+'&lon='+latlon[0])
+        .then(response => {
+          const params = {'description':this.description ,'latitude': latlon[1],'longtitude': latlon[0], prefecture: response.data.result.prefecture.pname}
+          this.postHotspring(params)
+            .then(() => {
+              document.getElementById('register_popup-closer').click()
+              this.description=''
+            })
         })
     },
     resizeTextarea(){
