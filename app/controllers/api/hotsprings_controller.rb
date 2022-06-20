@@ -26,6 +26,11 @@ class Api::HotspringsController < Api::BaseController
     render json: hotspring_json
   end
 
+  def destroy
+    hotspring = Hotspring.find(params[:id])
+    hotspring.destroy
+  end
+
   private
 
   def hotspring_params

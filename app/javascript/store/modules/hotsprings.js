@@ -102,6 +102,9 @@ const hotsprings_module = {
       const response = await axios.patch('hotsprings/'+params.id, params)
       commit('setHotspring', response.data.data.attributes)
     },
+    async deleteHotspring({}, id){
+      const response = await axios.delete('hotsprings/'+id)
+    },
     async uploadImage({commit}, params){
       const response = await axios.patch('hotsprings/'+params.id, params.image, { "content-type": "multipart/form-data" })
     },

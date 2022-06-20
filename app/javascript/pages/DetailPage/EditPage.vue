@@ -121,15 +121,15 @@
                     />
                   </div>
 
-                  <button class="btn btn-danger">
-                    削除
-                  </button>
-
                   <button class="btn btn-primary">
                     更新
                   </button>
 
                   </Form>
+
+                  <button class="btn btn-danger" @click="deleteHot">
+                    削除
+                  </button>
 
               </div>
 
@@ -192,7 +192,7 @@ export default{
     }
   },
   methods:{
-    ...mapActions('hotsprings', ['updateHotspring']),
+    ...mapActions('hotsprings', ['updateHotspring', 'deleteHotspring']),
     ...mapActions('hotsprings', ['uploadImage']),
     Click(){
       this.$refs.file.click()
@@ -223,6 +223,10 @@ export default{
 
       const lines = (this.new_description + '\n').match(/\n/g).length
       textarea.style.height = lineHeight * lines + PADDING_Y + 'px'
+    },
+    deleteHot(){
+      this.deleteHotspring(this.hot.id)
+        .then(() => this.modal_appearance = false)
     }
   }
 }

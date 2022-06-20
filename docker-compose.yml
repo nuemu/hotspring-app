@@ -30,11 +30,15 @@ services:
   webpacker:
     depends_on: 
       - app
+    volumes:
+      - ./:/app
     build: .
     environment:
       NODE_ENV: development
       RAILS_ENV: development
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-    command: sh -c 'bin/webpack-dev-server'
+    command: ['bin/webpack-dev-server']
     ports:
       - '3035:3035'
+    tty: true
+    stdin_open: true

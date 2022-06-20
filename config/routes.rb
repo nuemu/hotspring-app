@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root to: 'static_pages#index'
 
   namespace :api do
-    resources :hotsprings, only: %w[index create update]
+    resources :hotsprings, only: %w[index create update destroy]
     resources :articles, only: %w[create destroy]
     resource :sessions, only: %w[create]
     resource :registers, only: %w[create]
