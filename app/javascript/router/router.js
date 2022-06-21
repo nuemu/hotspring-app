@@ -4,12 +4,17 @@ import ExplorePage from '../pages/ExplorePage.vue'
 import DetailPage from '../pages/DetailPage/DetailPage.vue'
 import Admin from '../admin/AdminPage.vue'
 import store from '../store/index'
+import HotspringsPage from '../pages/HotspringsPage/HotspringsPage.vue'
 
 const routes = [
   {
     path: '/',
     name: 'TopPage',
     component: TopPage
+  },
+  {
+    path: '/hotsprings',
+    component: HotspringsPage
   },
   {
     path: '/hotspring/:name',
