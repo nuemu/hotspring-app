@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: 'static_pages#index'
+
+  get 'admin_login', to: 'admin#new'
+  post 'admin_login' => "admin#create"
+  post 'admin_logout' => 'admin#destroy'
 
   namespace :api do
     resources :hotsprings, only: %w[index create update destroy]

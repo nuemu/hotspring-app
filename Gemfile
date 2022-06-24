@@ -21,6 +21,10 @@ gem "aws-sdk-s3", require: false
 gem 'sorcery'
 gem 'jwt'
 
+#Admin
+gem 'rails_admin', '~> 3.0'
+gem 'sass-rails'
+
 #time-zone
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
