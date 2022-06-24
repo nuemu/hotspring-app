@@ -42,6 +42,13 @@
                     as="p"
                   />
 
+                  <Field
+                    ref="image_url"
+                    v-model="new_image_url"
+                    name="image_url"
+                    class="form"
+                  />
+
                   <h1
                     class="text-center"
                   >
@@ -167,13 +174,14 @@ export default{
       status_all: status,
       check: 'unexplored',
       new_description: '',
+      new_image_url: '',
     }
   },
   computed:{
     ...mapGetters('hotsprings', ['hotspring', 'status']),
     img(){
       if(this.url) return this.url
-      const hotspring_icon = require('hotspring.svg')
+      const hotspring_icon = require('camera.svg')
       if(this.hotspring.image_url){
         return this.hotspring.image_url
       }
@@ -207,7 +215,13 @@ export default{
         formData.append("image", this.file);
       }
       const imageParams = {'id': this.hotspring.id, 'image': formData}
-      const params = {'status':this.check, 'description': this.new_description, 'name': this.new_name, 'id':this.hot.id }
+      const params = {
+        'status':this.check,
+        'description': this.new_description,
+        'name': this.new_name,
+        'id': this.hot.id,
+        'image_url': this.new_image_url
+      }
       this.uploadImage(imageParams)
         .then(() => {
           this.updateHotspring(params)

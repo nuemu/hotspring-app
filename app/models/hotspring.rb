@@ -15,7 +15,7 @@ class Hotspring < ApplicationRecord
 
   validate :distance_validator
 
-  def image_url
+  def generate_image_url
     image.attached? ? url_for(image) : nil
   end
 

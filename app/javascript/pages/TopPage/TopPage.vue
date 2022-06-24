@@ -1,19 +1,21 @@
 <template>
-<div class="text-center d-flex w-100 h-100">
+<div class="text-center d-flex w-100 h-100 bg-warning">
   <div class="col-md-5 p-lg-5 mx-auto my-5 align-self-center">
+    <div class="lead font-weight-normal">
+        野湯のことなら
+    </div>
     <h1 class="display-1 font-weight-normal webfont">
-      湯tellite
+      ゆtellite
     </h1>
-    <p class="lead font-weight-normal">
-      衛星画像を用いて野湯を探してみましょう。
-    </p>
     <div class="input-group justify-content-center">
       <div class="form-outline">
-        <input type="search" id="form1" class="form-control" placeholder="野湯を検索" v-model="keyword"/>
+        <input type="search" id="form1" class="form-control shadow-none" placeholder="野湯を検索" v-model="keyword"/>
       </div>
-      <button type="button" class="btn btn-warning">
+      <span class="input-group-btn">
+      <button class="btn btn-default btn-outline-secondary" @click="Search">
         <img src="~search.svg">
       </button>
+      </span>
     </div>
   </div>
 </div>
@@ -61,6 +63,16 @@ export default{
   },
   methods:{
     ...mapActions('hotsprings', ['fetchHotsprings']),
+    Search(){
+      this.$router.push({ path: 'hotsprings', query: {keyword: this.keyword} })
+    }
   }
 }
 </script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Mai&display=swap');
+.webfont{
+  font-family: 'Yuji Mai', serif;
+}
+</style>

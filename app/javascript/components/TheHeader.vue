@@ -10,6 +10,18 @@
         >
           <HotspringIcon />
         </router-link>
+        <router-link
+          to="/hotsprings"
+          class="navbar-link link-dark"
+        >
+          野湯一覧
+        </router-link>
+        <router-link
+          to="/explore"
+          class="navbar-link link-dark"
+        >
+          野湯探索
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -66,7 +78,7 @@
             >
               <a
                 href=""
-                class="nav-link active"
+                class="nav-link active link-dark"
                 @click.prevent="$refs.authentication.modal_appearance = true"
               >ログイン/新規登録</a>
             </li>
