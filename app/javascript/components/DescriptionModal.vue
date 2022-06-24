@@ -88,7 +88,7 @@ export default{
     })
   },
   beforeUnmount(){
-    window.removeEventListener("resize")
+    //window.removeEventListener("resize")
   }, 
   methods:{
     next(){

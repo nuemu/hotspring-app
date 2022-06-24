@@ -71,7 +71,7 @@ const hotsprings_module = {
     async fetchHotsprings({commit}, status){
       const response = await axios.get('hotsprings',{ params: {'status': status}})
       axios.defaults.headers.common['X-CSRF-Token'] = response.headers['x-csrf-token']
-      commit('setHotsprings', response.data)
+      commit('setHotsprings', response.data.data.map(hotspring => hotspring.attributes))
     },
     async fetchHotspring({commit}, lonlat){
       const lon = lonlat.split(',')[0]

@@ -1,7 +1,8 @@
 class Api::HotspringsController < Api::BaseController
   def index
     hotsprings = Hotspring.all
-    render json: hotsprings
+    hotsprings_json = HotspringOnlySerializer.new(hotsprings)
+    render json: hotsprings_json
   end
 
   def show

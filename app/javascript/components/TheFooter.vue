@@ -1,15 +1,8 @@
 <template>
-  <div>
     <Policies ref="policy" />
-    <About ref="about" />
     <footer class="footer bg-light">
       <div class="container">
         <span class="row justify-content-md-center">
-          <a
-            class="col-md-auto text-decoration-none link-secondary"
-            href=""
-            @click.prevent="$refs.about.modal_appearance=true"
-          >このアプリについて</a>
           <a
             class="col-md-auto text-decoration-none link-secondary"
             href=""
@@ -23,17 +16,14 @@
         </span>
       </div>
     </footer>
-  </div>
 </template>
 
 <script>
-import About from './AboutThis.vue'
 import Policies from './ThePolicies.vue'
 
 export default{
   components:{
-    Policies,
-    About,
+    Policies
   },
   data(){
     return{
@@ -45,8 +35,8 @@ export default{
 
 <style scoped>
 .footer {
-  position: relative;
-  bottom: 0;
   width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 </style>
