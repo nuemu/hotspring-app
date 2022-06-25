@@ -1,39 +1,52 @@
 <template>
   <div class="container vh-100 h-100 mt-5">
-    <div class="h-50">
+    <div class="h-75">
       <Map ref="map"/>
       <DetailPopup />
     </div>
     <div class="card">
       <div class="card-body">
         <div class="input-group justify-content-center">
-        <label for="status" class="input-group-text"><img src="~search.svg"></label>
-          <input type="search" id="form1" class="form-control shadow-none" placeholder="野湯名・県名を入力" v-model="keyword"/>
+          <label
+            for="status"
+            class="input-group-text"
+          >
+            <img src="~search.svg">
+          </label>
+          <input
+            id="form1" 
+            v-model="keyword"
+            type="search"
+            class="form-control shadow-none"
+            placeholder="キーワード(野湯名・県名等)を入力"
+          >
         </div>
         <p />
         <div class="input-group">
           <label for="status" class="input-group-text">状態</label>
           <select class="form-control form-select shadow-none" v-model="status" id="status">
             <option selected value="">All</option>
-            <option v-for="key in Object.keys(statuses)" :value="key" key="key">{{statuses[key]}}</option>
+            <option v-for="key in Object.keys(statuses)" :value="key" :key="key">{{statuses[key]}}</option>
           </select>
         </div>
         <div class="tex-algin-center">
-          <span v-for="key in Object.keys(statuses)" key="key"><StatusIcons :status="key"/>：{{statuses[key]}}&nbsp;</span>
+          <span v-for="key in Object.keys(statuses)" :key="key"><StatusIcons :status="key"/>：{{statuses[key]}}&nbsp;</span>
         </div>
       </div>
     </div>
     <p class="mt-3">条件に一致した温泉数：{{filterHotsprings.length}}件</p>
 
-    <table class="table table-hover mb-5">
+    <table class="table table-hover">
       <tbody>
-        <tr class="" v-for="hotspring in filterHotsprings" key="hotspring.id" @click="pageChange(hotspring)">
+        <tr v-for="hotspring in filterHotsprings" :key="hotspring.id" @click="pageChange(hotspring)">
           <ListItem :hot="hotspring" />
+        </tr>
+        <tr class="overflow-hidden" style="height: 50px;">
+          <p />
         </tr>
       </tbody>
     </table>
   </div>
-  <div v-if="filterHotsprings.length === 0">Not Found</div>
 </template>
 
 <script>
@@ -72,7 +85,8 @@ export default{
       if(this.keyword !== ''){
         this.hotsprings.forEach(hotspring => {
           if(hotspring.name.indexOf(this.keyword) !== -1 ||
-            hotspring.prefecture.indexOf(this.keyword) !== -1
+            hotspring.description.indexOf(this.keyword) !== -1 ||
+            hotspring.prefecture.indexOf(this.keyword) !== -1 
           ){
             if(this.status === '') hotsprings.push(hotspring)
             else if(hotspring.status === this.status) hotsprings.push(hotspring)
@@ -92,20 +106,16 @@ export default{
     }
   },
   watch:{
-    filterHotsprings(){
-      this.$refs.map.map.un('click', detail)
-      this.$refs.map.map.getLayers().forEach(layer => {
-        if(layer){
-          if(layer.get('name') !== '標準地図') this.$refs.map.map.removeLayer(layer)
-        }
-      })
-      const icons = cluster(this.filterHotsprings)
-      icons.forEach(icons => this.$refs.map.map.addLayer(icons))
-      this.$refs.map.map.on('click', detail)
-    }
+    keyword(){
+      this.mapIcon()
+    },
+    status(){
+      this.mapIcon()
+    },
   },
   created(){
     this.fetchHotsprings(1)
+      .then(() => this.mapIcon())
   },
   mounted(){
     if(this.$route.query.keyword){
@@ -116,8 +126,18 @@ export default{
   methods:{
     ...mapActions('hotsprings', ['fetchHotsprings']),
     pageChange(hotspring){
-      
       this.$router.push('/hotspring/'+hotspring.longtitude+','+hotspring.latitude)
+    },
+    mapIcon(){
+      this.$refs.map.map.un('click', detail)
+      this.$refs.map.map.getLayers().forEach(layer => {
+        if(layer){
+          if(layer.get('name') !== '標準地図') this.$refs.map.map.removeLayer(layer)
+        }
+      })
+      const icons = cluster(this.filterHotsprings)
+      icons.forEach(icons => this.$refs.map.map.addLayer(icons))
+      this.$refs.map.map.on('click', detail)
     }
   }
 }

@@ -232,6 +232,8 @@
 </template>
 
 <script>
+import prefectures from './prefecture_code.js'
+
 export default{
   mounted(){
     const prefs = document.querySelectorAll( '.geolonia-svg-map .prefecture' )
@@ -246,8 +248,7 @@ export default{
       })
 
       pref.addEventListener('click', (event) => {
-        console.log(event.currentTarget.children.item(0).type)
-        //location.href = `https://example.com/${event.currentTarget.dataset.code}`
+        this.$router.push(`/hotsprings?keyword=${prefectures[event.currentTarget.dataset.code]}`)
       })
     })
   }

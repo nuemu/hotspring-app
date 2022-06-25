@@ -206,6 +206,7 @@ export default{
       this.$refs.file.click()
     },
     uploadFile(e){
+      this.new_image_url=''
       this.file = e.target.files[0]
       this.url = URL.createObjectURL(this.file)
     },

@@ -2,25 +2,13 @@
   <div>
     <AuthenticationModal ref="authentication" />
     <FavoriteModal ref="favorite" />
-    <nav class="navbar navbar-expand-lg navbar-warning bg-warning">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <router-link
           to="/"
           class="navbar-brand"
         >
           <HotspringIcon />
-        </router-link>
-        <router-link
-          to="/hotsprings"
-          class="navbar-link link-dark"
-        >
-          野湯一覧
-        </router-link>
-        <router-link
-          to="/explore"
-          class="navbar-link link-dark"
-        >
-          野湯探索
         </router-link>
         <button
           class="navbar-toggler"
@@ -37,6 +25,24 @@
           id="navbarSupportedContent"
           class="collapse navbar-collapse"
         >
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <router-link
+                to="/hotsprings"
+                class="nav-link link-dark"
+              >
+                野湯を調べる
+              </router-link>
+            </li>
+            <li v-if="user_name!=='Guest'" class="nav-item">
+              <router-link
+                to="/explore"
+                class="nav-link link-dark"
+              >
+                野湯を探す
+              </router-link>
+            </li>
+          </ul>
           <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
             <li
               v-if="user_name!=='Guest'"

@@ -1,14 +1,14 @@
 <template>
   <div class="app_wrapper">
     <Header />
-    <router-view ref="view"/>
+    <router-view ref="view" />
     <Footer />
   </div>
 </template>
 
 <script>
 import 'bootstrap/scss/bootstrap.scss'
-import 'bootstrap/dist/js/bootstrap.js'
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import Header from './components/TheHeader.vue'
 import Footer from './components/TheFooter.vue'
 

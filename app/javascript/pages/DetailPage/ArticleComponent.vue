@@ -13,7 +13,7 @@
             ref="url"
             v-model="new_url"
             name="url"
-            class="form-control form-control-plaintext"
+            class="form-control form-control-plaintext shadow-none"
             rules="present|url"
             placeholder="情報提供をお願いします..."
           />

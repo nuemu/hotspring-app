@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1
-      v-if="status!=='unexplored' || !user_name"
       class="text-center"
     >
       <StatusIcons :status="hot.status" />
