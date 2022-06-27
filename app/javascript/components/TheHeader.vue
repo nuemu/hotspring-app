@@ -31,7 +31,7 @@
                 to="/hotsprings"
                 class="nav-link link-dark"
               >
-                野湯を調べる
+                野湯一覧
               </router-link>
             </li>
             <li v-if="user_name!=='Guest'" class="nav-item">
@@ -79,14 +79,24 @@
               </ul>
             </li>
             <li
-              v-else
+              v-if="user_name==='Guest'"
               class="nav-item"
             >
               <a
                 href=""
                 class="nav-link active link-dark"
-                @click.prevent="$refs.authentication.modal_appearance = true"
-              >ログイン/新規登録</a>
+                @click.prevent="$router.push('/register')"
+              >ユーザー登録</a>
+            </li>
+            <li
+              v-if="user_name==='Guest'"
+              class="nav-item"
+            >
+              <a
+                href=""
+                class="nav-link active link-dark"
+                @click.prevent="$router.push('/login')"
+              >ログイン</a>
             </li>
           </ul>
         </div>

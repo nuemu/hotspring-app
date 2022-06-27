@@ -17,7 +17,7 @@ class Api::SessionsController < Api::BaseController
     render json: user_json
   end
 
-  def admin
-    render json: current_user.admin == 'admin'
+  def csrf
+    render json: 'session'
   end
 end

@@ -106,6 +106,10 @@ const users_module = {
       const response = await axios.get('users')
       return response.data
     },
+    async csrf(){
+      const response = await axios.get('csrf')
+      axios.defaults.headers.common['X-CSRF-Token'] = response.headers['x-csrf-token']
+    },
   }
 }
 

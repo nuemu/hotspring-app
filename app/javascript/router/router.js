@@ -6,11 +6,22 @@ import Admin from '../admin/AdminPage.vue'
 import store from '../store/index'
 import HotspringsPage from '../pages/HotspringsPage/HotspringsPage.vue'
 
+import Register from '../pages/Authentication/RegisterPage.vue'
+import Login from '../pages/Authentication/LoginPage.vue'
+
 const routes = [
   {
     path: '/',
     name: 'TopPage',
     component: TopPage
+  },
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/register',
+    component: Register
   },
   {
     path: '/hotsprings',
@@ -41,17 +52,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  store.dispatch('users/fetchAuthUser').then((authUser) => {
-    if(to.matched.some(record => record.meta.requiredAdmin)){
-      store.dispatch('users/fetchAdmin').then((admin) => {
-        if(!admin){
-          next({ name: 'TopPage' });
-        } else {
-          next();
-        }
-      })
-    }
-    else next();
+  store.dispatch('users/csrf').then((token) => {
+    store.dispatch('users/fetchAuthUser').then((token) => {
+      next();
+    })
   })
 });
 

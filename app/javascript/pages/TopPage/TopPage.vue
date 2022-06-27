@@ -1,7 +1,7 @@
 <template>
   <Top />
-  <Japan />
   <About />
+  <Japan />
 </template>
 
 <script>

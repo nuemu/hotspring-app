@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     get 'hotspring', to: 'hotsprings#show'
     get 'article', to: 'articles#show'
     post 'image', to: 'hotsprings#image'
+    get 'csrf', to: 'sessions#csrf'
   end
 
   get '*path', to: 'static_pages#index', constraints: lambda { |req|

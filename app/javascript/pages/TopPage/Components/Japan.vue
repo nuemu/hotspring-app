@@ -1,7 +1,8 @@
 <template>
 <div class="text-center d-flex w-100 h-100">
   <div class="col-md-5 p-lg-5 mx-auto my-5 align-self-center">
-    <div>県から選ぶ</div>
+    <h1>まずは、最寄りの県から探してみましょう</h1>
+    <div></div>
     <p />
 
     <svg class="geolonia-svg-map" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
