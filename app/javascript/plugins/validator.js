@@ -38,3 +38,10 @@ defineRule('url', value => {
   return true
 })
 
+defineRule("confirmed", (value, [other]) => {
+  if (value !== other) {
+    return 'パスワードが一致しません';
+  }
+
+  return true;
+});

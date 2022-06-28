@@ -6,7 +6,7 @@
         <Form @submit="Submit">
           <div class="input-group mb-3">
             <span class="input-group-text">ユーザー名</span>
-            <Fログイン
+            <Form
               v-model="user.name"
               name="name"
               type="text"

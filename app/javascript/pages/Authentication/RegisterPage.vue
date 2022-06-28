@@ -38,6 +38,23 @@
             as="p"
           />
 
+          <div class="input-group mb-3">
+            <span class="input-group-text">パスワード(確認)</span>
+            <Field
+              v-model="user.password_confirmation"
+              name="password_confirmation"
+              type="password"
+              class="form-control"
+              rules="minimum|confirmed:@password"
+              placeholder="Password Confirmation"
+            />
+          </div>
+          <ErrorMessage
+            name="password_confirmation"
+            style="color:red;"
+            as="p"
+          />
+
           <div
             id="nav-tabContent"
             class="tab-content d-grid gap-2 d-md-flex justify-content-md-end"
@@ -45,7 +62,6 @@
             <button
               type="button"
               class="btn btn-secondary"
-              @click="Submit"
             >
               登録
             </button>
@@ -70,7 +86,7 @@ export default{
   },
   data(){
     return{
-      user: {'name': '', 'password': ''},
+      user: {'name': '', 'password': '', 'password_confirmation': ''},
       error_message: '',
     }
   },
