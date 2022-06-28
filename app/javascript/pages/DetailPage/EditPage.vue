@@ -5,7 +5,7 @@
         class="modal"
         @click.self="modal_appearance=false"
       >
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
           <div class="modal-content">
             <div class="modal-body">       
               <span class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -20,68 +20,74 @@
 
                 <Form
                   @submit="upload"
-                  class="text-center"
                 >
-                  <label>
-                    <img
-                      :src="img"
-                      class="img-fluid"
-                      style="max-height: 300px;"
-                    >
-                    <Field
-                      type="file"
-                      style="display:none"
-                      name="image"
-                      rules="file_size|file_present"
-                      @change="uploadFile"
-                    />
-                  </label>
+                  <div class="container text-center">
+                    <img :src="hot.image_url" class="img-fluid" style="height: 100px">
+                    ->
+                    <img :src="img" class="img-fluid" style="height: 100px">
+                  </div>
+                  <label for="image" class="form-label">画像(ファイル)</label>
+                  <Field
+                    type="file"
+                    id="image"
+                    name="image"
+                    class="form-control"
+                    rules="file_size|file_present"
+                    @change="uploadFile"
+                  />
                   <ErrorMessage
                     name="image"
                     style="color:red;"
                     as="p"
                   />
 
+                  <label for="image_url" class="form-label">画像(URL)</label>
                   <Field
                     ref="image_url"
                     v-model="new_image_url"
+                    id="image_url"
                     name="image_url"
-                    class="form"
+                    class="form-control"
                   />
 
-                  <h1
-                    class="text-center"
-                  >
+                  <label for="title" class="form-label">温泉名</label>
+                  <Field
+                    ref="title"
+                    id="title"
+                    v-model="new_name"
+                    name="title"
+                    class="form-control"
+                    rules="present"
+                  />
+                  <ErrorMessage
+                    name="title"
+                    style="color:red;"
+                    as="p"
+                  />
+
+                  <label for="latitude" class="form-label">座標</label>
+                  <div class="input-group">
+                    <span class="input-group-text">経度</span>
                     <Field
-                      ref="title"
-                      v-model="new_name"
-                      name="title"
-                      class="form"
+                      ref="latitude"
+                      id="latitude"
+                      v-model="new_latitude"
+                      name="latitude"
+                      class="form-control"
                       rules="present"
                     />
-                    <button class="btn">
-                      +
-                    </button>
-                    <ErrorMessage
-                      name="title"
-                      style="color:red;"
-                      as="p"
+                    <span class="input-group-text">経度</span>
+                    <Field
+                      ref="longtitude"
+                      v-model="new_longtitude"
+                      name="longtitude"
+                      class="form-control"
+                      rules="present"
                     />
-                  </h1>
-                
-                  <div class="text-center">
-                    <a
-                      :href="'https://www.google.com/maps/search/?api=1&query='+hot.latitude+'%2C'+hot.longtitude"
-                      class="link-dark"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      lat:{{ hot.latitude }}, long:{{ hot.longtitude }}
-                    </a>
                   </div>
 
+                  <label>状態</label>
                   <div class="container-sm text-center">
-                    投票：
                     <div
                       v-for="st in Object.keys(status_all)"
                       :key="st"
@@ -102,25 +108,22 @@
                     </div>
                   </div>
 
-                  <div
-                    class="container-sm"
-                  >
-                    <div class="input-group">
-                      <Field
-                        v-slot="{ field }"
-                        v-model="new_description"
-                        name="description"
-                        rules="present"
-                      >
-                        <textarea
-                          ref="description"
-                          v-bind="field"
-                          class="form-control form-control-plaintext"
-                          placeholder="詳細情報欄"
-                          @input="resizeTextarea"
-                        />
-                      </Field>
-                    </div>
+                  <label>詳細情報</label>
+                  <div class="input-group">
+                    <Field
+                      v-slot="{ field }"
+                      v-model="new_description"
+                      name="description"
+                      rules="present"
+                    >
+                      <textarea
+                        ref="description"
+                        v-bind="field"
+                        class="form-control"
+                        placeholder="詳細情報欄"
+                        @input="resizeTextarea"
+                      />
+                    </Field>
                     <ErrorMessage
                       name="description"
                       style="color:red;"
@@ -128,18 +131,28 @@
                     />
                   </div>
 
-                  <button class="btn btn-primary">
-                    更新
-                  </button>
+                  <div class="form-check">
+                    <Field
+                      ref="fix"
+                      v-model="fix"
+                      type="checkbox"
+                      class="form-check-input"
+                      name="fix"
+                      value="true"
+                    />
+                    <label class="form-check-label">編集固定</label>
+                  </div>
 
-                  </Form>
-
-                  <button class="btn btn-danger" @click="deleteHot">
-                    削除
-                  </button>
-
+                  <div>
+                    <button class="btn btn-primary">
+                      更新
+                    </button>
+                    <button class="btn btn-danger" @click.stop="deleteHot">
+                      削除
+                    </button>
+                  </div>
+                </Form>
               </div>
-
             </div>
           </div>
         </div>
@@ -175,6 +188,9 @@ export default{
       check: 'unexplored',
       new_description: '',
       new_image_url: '',
+      new_latitude: '',
+      new_longtitude: '',
+      fix: false,
     }
   },
   computed:{
@@ -182,6 +198,9 @@ export default{
     img(){
       if(this.url) return this.url
       const hotspring_icon = require('camera.svg')
+      if(this.new_image_url){
+        return this.new_image_url
+      }
       if(this.hotspring.image_url){
         return this.hotspring.image_url
       }
@@ -194,6 +213,8 @@ export default{
         this.new_description = this.hot.description 
         this.new_name = this.hot.name
         this.check = this.hot.status
+        this.new_latitude = this.hot.latitude
+        this.new_longtitude = this.hot.longtitude
         if(this.modal_appearance) this.resizeTextarea()
       },
       deep:true
@@ -221,8 +242,9 @@ export default{
         'description': this.new_description,
         'name': this.new_name,
         'id': this.hot.id,
-        'image_url': this.new_image_url
+        'fix': this.fix
       }
+      if(this.new_image_url !== '') params.image_url = this.new_image_url
       this.uploadImage(imageParams)
         .then(() => {
           this.updateHotspring(params)
@@ -242,7 +264,7 @@ export default{
     deleteHot(){
       this.deleteHotspring(this.hot.id)
         .then(() => this.modal_appearance = false)
-    }
+    },
   }
 }
 </script>

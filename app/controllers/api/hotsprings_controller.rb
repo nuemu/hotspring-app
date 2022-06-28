@@ -35,6 +35,6 @@ class Api::HotspringsController < Api::BaseController
   private
 
   def hotspring_params
-    params.permit(:name, :status, :latitude, :longtitude, :description, :prefecture, :image, :image_url)
+    params.permit(:name, :status, :latitude, :longtitude, :description, :prefecture, :image, :image_url, :fix)
   end
 end

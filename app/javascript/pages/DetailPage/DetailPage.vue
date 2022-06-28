@@ -6,14 +6,15 @@
     <div class="container">
       <span class="row">
         <a
-          :href="google_form"
-          class="btn col text-start"
-        >情報提供</a>
-
-        <a
+          v-if="!hot.fix"
           class="btn col text-end"
           @click="$refs.edit.modal_appearance=true"
         >編集</a>
+        <a
+          v-else
+          :href="google_form"
+          class="btn col text-end"
+        >情報提供</a>
       </span>
 
       <Image />

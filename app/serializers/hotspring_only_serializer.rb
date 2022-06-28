@@ -1,7 +1,7 @@
 class HotspringOnlySerializer
   include JSONAPI::Serializer
 
-  attributes :name, :latitude, :longtitude, :description, :id, :status, :prefecture
+  attributes :name, :latitude, :longtitude, :description, :id, :status, :prefecture, :fix
   attribute :image_url do |object|
     if object.image_url != ''
       object.image_url
