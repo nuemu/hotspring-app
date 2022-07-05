@@ -24,9 +24,11 @@ services:
     stdin_open: true
     depends_on:
       - db
+      - chrome
     restart: always
     environment:
       WEBPACKER_DEV_SERVER_HOST: webpacker
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
   webpacker:
     depends_on: 
       - app
@@ -42,3 +44,7 @@ services:
       - '3035:3035'
     tty: true
     stdin_open: true
+  chrome:
+    image: seleniarm/standalone-chromium:latest
+    ports:
+      - '4444:4444'
