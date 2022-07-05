@@ -14,7 +14,7 @@ class Api::ArticlesController < Api::BaseController
 
   def destroy
     article = current_user.articles.find(params[:id])
-    article.delete
+    article.destroy
     article_json = ArticleSerializer.new(article)
     render json: article_json
   end
