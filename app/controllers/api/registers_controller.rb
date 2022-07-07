@@ -13,6 +13,6 @@ class Api::RegistersController < Api::BaseController
   private
 
   def user_params
-    params.permit(:name, :password)
+    params.permit(:name, :password, :password_confirmation)
   end
 end

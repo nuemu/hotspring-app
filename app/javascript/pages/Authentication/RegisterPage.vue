@@ -45,7 +45,7 @@
               name="password_confirmation"
               type="password"
               class="form-control"
-              rules="minimum|confirmed:@password"
+              rules="confirmed:@password"
               placeholder="Password Confirmation"
             />
           </div>
@@ -56,17 +56,16 @@
           />
 
           <div
-            id="nav-tabContent"
             class="tab-content d-grid gap-2 d-md-flex justify-content-md-end"
           >
             <button
-              type="button"
               class="btn btn-secondary"
             >
               登録
             </button>
           </div>
         </Form>
+        <div v-if="error_message!==''" style="color: red;">{{error_message}}</div>
       </div>
       <div>登録済みの方は：<a href="/login" class="link-dark">ログインページ</a>へ</div>
     </div>
@@ -89,9 +88,6 @@ export default{
       user: {'name': '', 'password': '', 'password_confirmation': ''},
       error_message: '',
     }
-  },
-  created(){
-
   },
   methods:{
     ...mapActions('users',['register']),

@@ -1,7 +1,7 @@
 RSpec.describe "Hotspring", type: :request do
   let(:hotspring){ create(:hotspring) }
   describe "GET /api/hotsprings" do
-    it '#index' do
+    it 'with resposne hotsprings' do
       hot = hotspring
       get '/api/hotsprings'
       expect(response).to have_http_status(200)
@@ -9,13 +9,13 @@ RSpec.describe "Hotspring", type: :request do
     end
   end
   describe "Post /api/hotsprings" do
-    it 'with correct params' do
+    it 'is valid with correct params' do
       hot = build(:hotspring)
       post '/api/hotsprings', { params: { name: hot.name, 'latitude': hot.latitude, 'longtitude': hot.longtitude, 'description': hot.description } }
       expect(response).to have_http_status(200)
       expect(response.body).to include String(hot.latitude)
     end
-    it 'with empty name' do
+    it 'is valid with empty name' do
       hot = build(:hotspring)
       post '/api/hotsprings', { params: { 'latitude': hot.latitude, 'longtitude': hot.longtitude, 'description': hot.description } }
       expect(response).to have_http_status(200)

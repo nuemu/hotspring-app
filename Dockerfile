@@ -6,7 +6,8 @@ RUN apt-get update -qq && \
             nodejs \
             npm \
             yarn \
-            postgresql-client
+            postgresql-client \
+            vim
 
 RUN npm install --global yarn
 

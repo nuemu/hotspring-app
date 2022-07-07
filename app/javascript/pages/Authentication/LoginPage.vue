@@ -39,18 +39,16 @@
           />
 
           <div
-            id="nav-tabContent"
             class="tab-content d-grid gap-2 d-md-flex justify-content-md-end"
           >
             <button
-              type="button"
               class="btn btn-secondary"
-              @click="Submit"
             >
-              登録
+              ログイン
             </button>
           </div>
         </Form>
+        <div v-if="error_message!==''" style="color: red;">{{error_message}}</div>
       </div>
       <div>登録がお済みでない方は：<a href="/register" class="link-dark">新規登録ページ</a>へ</div>
     </div>
@@ -79,7 +77,7 @@ export default{
       await this.login(this.user)
         .then((res) => {
           if(res) this.$router.push('/hotsprings')
-          else this.error_message = '登録失敗しました'
+          else  this.error_message = 'ログインに失敗しました'
         })
     },
   }

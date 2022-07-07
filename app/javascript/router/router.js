@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import TopPage from '../pages/TopPage/TopPage.vue'
 import ExplorePage from '../pages/ExplorePage.vue'
 import DetailPage from '../pages/DetailPage/DetailPage.vue'
-import Admin from '../admin/AdminPage.vue'
 import store from '../store/index'
 import HotspringsPage from '../pages/HotspringsPage/HotspringsPage.vue'
 
@@ -34,11 +33,6 @@ const routes = [
   {
     path: '/explore',
     component: ExplorePage
-  },
-  {
-    path: '/admin',
-    component: Admin,
-    meta: { requiredAdmin: true }
   },
   {
     path: '/:pathMatch(.*)*',
