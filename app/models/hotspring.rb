@@ -29,7 +29,7 @@ class Hotspring < ApplicationRecord
   def distance_validator
     hotsprings = Hotspring.find_nearby(latitude, longtitude, 10)
     distances = hotsprings.map do |hotspring|
-      distance(hotspring.latitude, hotspring.longtitude, latitude, longtitude)
+      hotspring.distance(latitude, longtitude)
     end
     validate = distances.find { |d| d.positive? && d < 200 }
     return true if validate.nil?
@@ -42,11 +42,11 @@ class Hotspring < ApplicationRecord
   RX = 6_378_137.000_000 # 赤道半径
   RY = 6_356_752.314_245 # 極半径
 
-  def distance(lat1, lng1, lat2, lng2)
-    d_x = (lng1 - lng2) * DEG2RAD
-    d_y = (lat1 - lat2) * DEG2RAD
+  def distance(lat, lng)
+    d_x = (longtitude - lng) * DEG2RAD
+    d_y = (latitude - lat) * DEG2RAD
 
-    p = (lat1 + lat2) / 2.0 * DEG2RAD
+    p = (latitude + lat) / 2.0 * DEG2RAD
 
     e = Math::sqrt((RX ** 2 - RY ** 2) / (RX ** 2))
     w = Math::sqrt(1 - (e ** 2) * ((Math::sin(p)) ** 2))

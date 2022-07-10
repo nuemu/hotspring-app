@@ -122,13 +122,6 @@ const hotsprings_module = {
       const response = await axios.delete('articles/'+id)
       commit('deleteArticle',response.data.data.id)
     },
-    async postPost({commit}, params){
-      const response = await axios.post('posts', params)
-      return response.data.id
-    },
-    async updatePost({commit}, params){
-      const response = await axios.patch('posts/'+ params.id, params)
-    }
   }
 }
 

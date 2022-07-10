@@ -65,6 +65,12 @@
                 <li>
                   <a
                     class="dropdown-item"
+                    :href="'/user/'+user_name"
+                  >{{user_name}}のページ</a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
                     href="#"
                     @click.prevent="$refs.favorite.modal_appearance = true"
                   >お気に入り</a>

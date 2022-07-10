@@ -107,9 +107,21 @@ const users_module = {
       console.log(response.data)
       return response.data
     },
+    async updateUser({commit}, params){
+      const response = await axios.patch('users/'+params.id, params.data,  { "content-type": "multipart/form-data" })
+      commit('set_user', response.data.data.attributes.name)
+      return response.data.data.attributes.name
+    },
     async csrf(){
       const response = await axios.get('csrf')
       axios.defaults.headers.common['X-CSRF-Token'] = response.headers['x-csrf-token']
+    },
+    async postPost({commit}, params){
+      const response = await axios.post('posts', params)
+      //return response.data.id
+    },
+    async updatePost({commit}, params){
+      const response = await axios.patch('posts/'+ params.id, params, { "content-type": "multipart/form-data" })
     },
   }
 }
