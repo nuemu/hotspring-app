@@ -18,7 +18,7 @@
         <div class="d-flex align-items-center">
           <h3>野湯一覧</h3>
           &nbsp;
-          <Add />
+          <Add v-if="user_name===$route.params.id" />
         </div>
         <table class="table table-hover">
           <tbody>
@@ -60,6 +60,7 @@ export default {
     },
   },
   created(){
+    if(this.$route.params.id === 'Guest') this.$router.push('/login')
     this.fetchUser(this.$route.params.id)
       .then((response) => {
         this.user.name = response.data.attributes.name
