@@ -102,8 +102,9 @@ const users_module = {
       const response = await axios.delete('favorites/'+id)
       commit('unFav',response.data.id)
     },
-    async fetchUsers(){
-      const response = await axios.get('users')
+    async fetchUser({commit}, param){
+      const response = await axios.get('users/'+param)
+      console.log(response.data)
       return response.data
     },
     async csrf(){

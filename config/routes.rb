@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :articles, only: %w[create destroy]
     resource :sessions, only: %w[create]
     resource :registers, only: %w[create]
-    resources :users, only: %w[index]
+    resources :users, only: %w[show]
 
     resources :favorites, only: %w[create destroy]
     resources :comments, only: %w[create destroy]

@@ -3,5 +3,5 @@ class UserSerializer
   attribute :name
 
   has_many :favorites
-  has_many :posts
+  has_many :posts, serializer: PostSerializer
 end

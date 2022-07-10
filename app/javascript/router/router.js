@@ -7,6 +7,7 @@ import HotspringsPage from '../pages/HotspringsPage/HotspringsPage.vue'
 
 import Register from '../pages/Authentication/RegisterPage.vue'
 import Login from '../pages/Authentication/LoginPage.vue'
+import User from '../pages/UserPage/UserPage.vue'
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/user/:id',
+    name: 'user',
+    component: User
   },
   {
     path: '/register',
@@ -47,7 +53,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   store.dispatch('users/csrf').then((token) => {
-    store.dispatch('users/fetchAuthUser').then((token) => {
+    store.dispatch('users/fetchAuthUser').then((user) => {
       next();
     })
   })
