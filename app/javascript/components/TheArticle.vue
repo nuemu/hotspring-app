@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="w-100">
     <div class="text-end article_user">
-      投稿者：{{ user }}
+      <img src="~person.svg">投稿者：{{ user }}
       <span v-if="user == user_name">
         &emsp;<a
           href="#"
@@ -11,16 +11,16 @@
       </span>
     </div>
     <div
-      class="article"
+      class="article w-100"
       @click="click"
     >
       <div
-        class="card"
-        style="min-width: 18rem; height:100%;"
+        class="card overflow-hidden w-100"
+        style="min-width: 18rem; height:300px;"
       >
         <img
           :src="img"
-          class="card-img-top"
+          class="card-img-top p-1 img-fluid"
           style="height: 150px;"
         >
         <div class="card-body">

@@ -4,7 +4,7 @@
       Articles
     </div>
     <div
-      v-if="user_name"
+      v-if="user_name !== 'Guest'"
       class="container-sm"
     >
       <Form @submit="UrlSubmit">
@@ -13,11 +13,11 @@
             ref="url"
             v-model="new_url"
             name="url"
-            class="form-control form-control-plaintext shadow-none"
+            class="form-control form-control-plaintext shadow-none border-0"
             rules="present|url"
             placeholder="情報提供をお願いします..."
           />
-          <button class="btn">
+          <button class="btn btn-warning rounded-circle">
             +
           </button>
         </div>
@@ -28,11 +28,11 @@
         />
       </Form>
     </div>
-    <div class="container-sm row">
+    <div class="container-sm row row-cols-2">
       <div
         v-for="article in articles.slice().reverse()"
         :key="article.attributes.url"
-        class="col-sm-6"
+        class="col"
       >
         <Article
           :id="article.id"
