@@ -46,7 +46,7 @@
       </div>
     </div>
 
-    <p />
+    <p class="mb-5">&nbsp;</p>
   </div>
 </template>
 

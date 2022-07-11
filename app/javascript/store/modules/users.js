@@ -1,10 +1,13 @@
 import axios from '../../plugins/axios.js'
 
+const person = require('person.svg')
+
 const users_module = {
   namespaced: true,
   state(){
     return{
       user_name: 'Guest',
+      avatar: person,
       posts: [],
       favorites: [],
     }
@@ -12,6 +15,9 @@ const users_module = {
   getters:{
     user_name(state){
       return state.user_name
+    },
+    avatar(state){
+      return state.avatar
     },
     favorites(state){
       return state.favorites
@@ -23,6 +29,9 @@ const users_module = {
   mutations:{
     set_user(state, user_name){
       state.user_name = user_name
+    },
+    set_avatar(state, avatar){
+      state.avatar = avatar
     },
     set_token(state, token){
       axios.defaults.headers['Authorization']='Bearer '+token
@@ -82,16 +91,9 @@ const users_module = {
       })
       
       commit('set_user', response.data.data.attributes.name)
+      commit('set_avatar', response.data.data.attributes.image_url)
 
       return state.user_name
-    },
-    async fetchAdmin({commit}){
-      if (!localStorage.token) return null
-
-      commit('set_token', localStorage.token)
-
-      const response = await axios.get('admin')
-      return response.data
     },
     async Fav({commit}, hotspring_id){
       const response = await axios.post('favorites', {'hotspring_id': hotspring_id})

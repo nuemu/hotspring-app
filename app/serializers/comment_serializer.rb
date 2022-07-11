@@ -1,6 +1,6 @@
 class CommentSerializer
   include JSONAPI::Serializer
-  attributes :comment
+  attributes :comment, :created_at
 
   belongs_to :user, serializer: AssociateUserSerializer
   belongs_to :hotspring
