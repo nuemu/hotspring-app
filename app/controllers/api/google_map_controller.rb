@@ -6,9 +6,10 @@ class Api::GoogleMapController < Api::BaseController
 
   def show
     locations = []
-    locations = locations.concat(nearbySearch(params[:lat], params[:lng], 'tourist_attraction'))
-    locations = locations.concat(nearbySearch(params[:lat], params[:lng], 'park'))
-    render json: locations
+    #locations = locations.concat(nearbySearch(params[:lat], params[:lng], 'tourist_attraction'))
+    #locations = locations.concat(nearbySearch(params[:lat], params[:lng], 'park'))
+    #render json: locations
+    render json: nearbySearch(params[:lat], params[:lng], 'park')
   end
 
   private
@@ -24,26 +25,28 @@ class Api::GoogleMapController < Api::BaseController
     request = Net::HTTP::Get.new(url)
 
     response = https.request(request)
-    
 
-    photo = /HREF=\\"(.*)\\"/.match(response.read_body)
-    
     locations = JSON.parse(response.read_body)['results'].map do |result|
-      photo_url = URI('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+result['photos'][0]['photo_reference']+'&key='+ENV['GOOGLE_PLACES_API_KEY'])
+      photo_url = result['photos'] ? URI('https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference='+result['photos'][0]['photo_reference']+'&key='+ENV['GOOGLE_PLACES_API_KEY']) : nil
 
-      https = Net::HTTP.new(photo_url.host, photo_url.port)
-      https.use_ssl = true
+      photo = 'none'
 
-      request = Net::HTTP::Get.new(photo_url)
+      if photo_url
+        https = Net::HTTP.new(photo_url.host, photo_url.port)
+        https.use_ssl = true
 
-      response = https.request(request)
+        request = Net::HTTP::Get.new(photo_url)
 
-      doc = Nokogiri::HTML(response.read_body)
+        response = https.request(request)
+
+        doc = Nokogiri::HTML(response.read_body)
+        photo = doc.css('a')[0][:href]
+      end
 
       Places.new(
         result['geometry']['location'],
         result['name'],
-        doc.css('a')[0][:href]
+        photo
       )
     end
 

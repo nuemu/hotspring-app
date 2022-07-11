@@ -11,7 +11,7 @@
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img :src="location.photo" class="img-fluid rounded-circle w-100 text-center" style="height: 150px">
+          <img :src="location.photo !== 'none' ? location.photo : question" class="img-fluid rounded-circle w-100 text-center" style="height: 150px">
           <div class="w-100 text-center">{{location.name}}</div>
         </a>
       </div>
@@ -35,6 +35,7 @@ export default{
     return {
       locations: [],
       fetched: false,
+      question: require('questino.svg')
     }
   },
   methods: {
