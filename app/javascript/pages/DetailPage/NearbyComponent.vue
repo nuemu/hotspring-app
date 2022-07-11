@@ -35,7 +35,7 @@ export default{
     return {
       locations: [],
       fetched: false,
-      question: require('questino.svg')
+      question: require('question.svg')
     }
   },
   methods: {
