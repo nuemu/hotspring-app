@@ -18,11 +18,11 @@ Rails.application.routes.draw do
     resources :posts, only: %w[create update]
 
     get 'me', to: 'sessions#me'
-    get 'admin', to: 'sessions#admin'
     get 'hotspring', to: 'hotsprings#show'
     get 'article', to: 'articles#show'
     post 'image', to: 'hotsprings#image'
     get 'csrf', to: 'sessions#csrf'
+    get 'nearby', to: 'google_map#show'
   end
 
   get '*path', to: 'static_pages#index', constraints: lambda { |req|

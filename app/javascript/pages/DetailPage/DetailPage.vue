@@ -35,6 +35,15 @@
 
       <p />
 
+      <div class="nearby wrapper container">
+        <Nearby
+          ref="nearby"
+          :hot="hot"
+        />
+      </div>
+
+      <p />
+
       <div class="comment wrapper container">
         <Comment />
       </div>
@@ -55,10 +64,10 @@ import { mapActions, mapGetters, mapMutations } from 'vuex'
 
 import Image from './ImageComponent.vue'
 import Title from './TitleComponent.vue'
-import Status from './StatusComponent.vue'
 import Description from './DescriptionComponent.vue'
 import Comment from './CommentComponent.vue'
 import Article from './ArticleComponent.vue'
+import Nearby from './NearbyComponent.vue'
 
 import Edit from './EditPage.vue'
 
@@ -66,8 +75,8 @@ export default{
   components:{
     Image,
     Title,
-    Status,
     Description,
+    Nearby,
     Comment,
     Article,  
     Edit,

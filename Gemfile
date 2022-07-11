@@ -31,6 +31,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #Frontend
 gem 'webpacker', '~> 5.0'
 
+# HTML Parser
+gem 'nokogiri'
+
 group :development, :test do
   #debug tool
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
