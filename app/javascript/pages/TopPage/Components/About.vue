@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center w-100 h-75 align-self-center">
+  <div class="text-center w-100 h-100 align-self-center">
     <div class="w-75 mx-auto my-5 d-flex align-self-center">
       <div class="container">
         <img src="~furo.svg" class="img-fluid" style="height: 300px">

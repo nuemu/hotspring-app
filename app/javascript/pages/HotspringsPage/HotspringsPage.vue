@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from '../../plugins/axios'
 import { mapActions, mapGetters } from 'vuex'
 
 import ListItem from './Components/ListItem.vue'
@@ -83,13 +83,19 @@ export default{
     filterHotsprings(){
       var hotsprings = []
       if(this.keyword !== ''){
-        this.hotsprings.forEach(hotspring => {
-          if(hotspring.name.indexOf(this.keyword) !== -1 ||
-            hotspring.description.indexOf(this.keyword) !== -1 ||
-            hotspring.prefecture.indexOf(this.keyword) !== -1 
-          ){
-            if(this.status === '') hotsprings.push(hotspring)
-            else if(hotspring.status === this.status) hotsprings.push(hotspring)
+        this.keyword.split(' ').forEach((keyword) => {
+          if(keyword !== ''){
+            this.hotsprings.forEach(hotspring => {
+              if(hotspring.name.indexOf(keyword) !== -1 ||
+                hotspring.description.indexOf(keyword) !== -1 ||
+                hotspring.prefecture.indexOf(keyword) !== -1 ||
+                String(hotspring.latitude).indexOf(keyword) !== -1 ||
+                String(hotspring.longtitude).indexOf(keyword) !== -1
+              ){
+                if(this.status === '') hotsprings.push(hotspring)
+                else if(hotspring.status === this.status) hotsprings.push(hotspring)
+              }
+            })
           }
         })
         return hotsprings
@@ -121,6 +127,9 @@ export default{
     if(this.$route.query.keyword){
       this.keyword = this.$route.query.keyword
     }
+    if(this.$route.query.lat && this.$route.query.lng){
+      this.fetchCloseHotsprings()
+    }
     detail_popup(this.$refs.map.map)
   },
   methods:{
@@ -138,6 +147,15 @@ export default{
       const icons = cluster(this.filterHotsprings)
       icons.forEach(icons => this.$refs.map.map.addLayer(icons))
       this.$refs.map.map.on('click', detail)
+    },
+    async fetchCloseHotsprings(){
+      const response = await axios.get('find?lat='+this.$route.query.lat+'&lng='+this.$route.query.lng)
+      if(response.data.length > 0){
+        this.keyword = response.data.map(hotspring => {
+          hotspring.latitude + ' ' + hotspring.longtitude
+        }).join(' ')
+      }
+      else alert('5km圏内に温泉が見つかりませんでした。')
     }
   }
 }

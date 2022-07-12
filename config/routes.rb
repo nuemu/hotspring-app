@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     post 'image', to: 'hotsprings#image'
     get 'csrf', to: 'sessions#csrf'
     get 'nearby', to: 'google_map#show'
+    get 'text', to: 'google_map#index'
+    get 'find', to: 'hotsprings#find'
   end
 
   get '*path', to: 'static_pages#index', constraints: lambda { |req|

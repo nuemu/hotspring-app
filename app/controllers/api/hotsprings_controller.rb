@@ -32,6 +32,15 @@ class Api::HotspringsController < Api::BaseController
     hotspring.destroy
   end
 
+  def find
+    hotsprings = Hotspring.all
+    list = hotsprings.filter do |hotspring|
+      hotspring.distance(params[:lat].to_f, params[:lng].to_f) < 5000
+    end
+
+    render json: list
+  end
+
   private
 
   def hotspring_params
