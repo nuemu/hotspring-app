@@ -2,6 +2,7 @@
   <div
     id="register_popup"
     class="ol-popup"
+    style="max-height: 500px;"
   >
     <a
       id="register_popup-closer"
@@ -13,18 +14,15 @@
       ref="popup"
     />
     <p />
-    <div class="mb-3">
+    <div class="mb-3 over-flow-scroll">
       <Form @submit="DescriptionSubmit">
-        <div class="input-group">
-          <Field
-            v-slot="{ field }"
-            v-model="description"
-            name="description"
-            rules="present"
-          >
-            <button class="btn">
-              +
-            </button>
+        <Field
+          v-slot="{ field }"
+          v-model="description"
+          name="description"
+          rules="present"
+        >
+          <div>
             <textarea
               ref="description"
               rows="1"
@@ -33,13 +31,18 @@
               placeholder="登録理由等記入"
               @input="resizeTextarea"
             />
-          </Field>
-        </div>
-        <ErrorMessage
-          name="description"
-          style="color:red;"
-          as="p"
-        />
+          </div>
+          <ErrorMessage
+            name="description"
+            style="color:red;"
+            as="p"
+          />
+          <div class="d-flex justify-content-center">
+            <button class="btn btn-warning rounded">
+              登録
+            </button>
+          </div>
+        </Field>
       </Form>
     </div>
   </div>
@@ -76,7 +79,9 @@ export default{
               document.getElementById('register_popup-closer').click()
               this.description=''
             })
+            .catch(() => alert('登録失敗しました'))
         })
+        .catch(() => alert('登録失敗しました(外部APIエラー)'))
     },
     resizeTextarea(){
       const PADDING_Y = 20;
@@ -86,7 +91,7 @@ export default{
       lineHeight = lineHeight.replace(/[^-\d\.]/g, '')
 
       const lines = (textarea.value + '\n').match(/\n/g).length
-      if(lines < 9) textarea.style.height = lineHeight * lines + PADDING_Y + 'px'
+      if(lines < 5) textarea.style.height = lineHeight * lines + PADDING_Y + 'px'
     }
   }
 }
@@ -94,7 +99,4 @@ export default{
 
 <style scoped>
 @import '../ol/popup.css';
-#register_popup{
-  overflow: scroll;
-}
 </style>
