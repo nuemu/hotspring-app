@@ -1,13 +1,13 @@
 class Api::HotspringsController < Api::BaseController
   def index
-    hotsprings = Hotspring.all
+    hotsprings = Hotspring.all.with_attached_image
     hotsprings_json = HotspringOnlySerializer.new(hotsprings)
     render json: hotsprings_json
   end
 
   def show
     hotspring = Hotspring
-                .includes(:posts, articles: :user, comments: :user)
+                .includes(:posts, articles: :user, comments: :user).with_attached_image
                 .find_nearby(params[:lat].to_f, params[:lon].to_f, nil)[0]
     hotspring_json = HotspringSerializer.new(hotspring, { include: [:posts, :articles, :comments] })
     render json: hotspring_json

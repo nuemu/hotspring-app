@@ -34,6 +34,14 @@
                 野湯一覧
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link
+                to="/mountains"
+                class="nav-link link-dark"
+              >
+                山一覧
+              </router-link>
+            </li>
             <li v-if="user_name!=='Guest'" class="nav-item">
               <router-link
                 to="/explore"

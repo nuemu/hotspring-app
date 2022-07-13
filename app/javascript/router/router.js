@@ -8,6 +8,7 @@ import HotspringsPage from '../pages/HotspringsPage/HotspringsPage.vue'
 import Register from '../pages/Authentication/RegisterPage.vue'
 import Login from '../pages/Authentication/LoginPage.vue'
 import User from '../pages/UserPage/UserPage.vue'
+import Mountain from '../pages/MountainPage/PageBase.vue'
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
   {
     path: '/register',
     component: Register
+  },
+  {
+    path: '/mountains',
+    component: Mountain
   },
   {
     path: '/hotsprings',

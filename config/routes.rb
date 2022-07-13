@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     resource :sessions, only: %w[create]
     resource :registers, only: %w[create]
     resources :users, only: %w[show update destroy]
+    resources :mountains, only: %w[index show]
 
     resources :favorites, only: %w[create destroy]
     resources :comments, only: %w[create destroy]

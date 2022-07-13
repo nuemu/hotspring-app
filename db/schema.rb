@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_20_073946) do
+ActiveRecord::Schema.define(version: 2022_07_13_051227) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,19 @@ ActiveRecord::Schema.define(version: 2022_06_20_073946) do
     t.index ["latitude", "longtitude"], name: "index_hotsprings_on_latitude_and_longtitude", unique: true
   end
 
+  create_table "mountains", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "ruby"
+    t.string "prefecture", null: false
+    t.string "location", null: false
+    t.string "height", null: false
+    t.float "latitude", null: false
+    t.float "longtitude", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["latitude", "longtitude"], name: "index_mountains_on_latitude_and_longtitude", unique: true
+  end
+
   create_table "posts", force: :cascade do |t|
     t.bigint "hotspring_id", null: false
     t.bigint "user_id", null: false
@@ -96,6 +109,16 @@ ActiveRecord::Schema.define(version: 2022_06_20_073946) do
     t.index ["hotspring_id"], name: "index_posts_on_hotspring_id"
     t.index ["user_id", "hotspring_id"], name: "index_posts_on_user_id_and_hotspring_id", unique: true
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "spots", force: :cascade do |t|
+    t.bigint "hotspring_id", null: false
+    t.bigint "mountain_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hotspring_id", "mountain_id"], name: "index_spots_on_hotspring_id_and_mountain_id", unique: true
+    t.index ["hotspring_id"], name: "index_spots_on_hotspring_id"
+    t.index ["mountain_id"], name: "index_spots_on_mountain_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -118,4 +141,6 @@ ActiveRecord::Schema.define(version: 2022_06_20_073946) do
   add_foreign_key "favorites", "users"
   add_foreign_key "posts", "hotsprings"
   add_foreign_key "posts", "users"
+  add_foreign_key "spots", "hotsprings"
+  add_foreign_key "spots", "mountains"
 end
