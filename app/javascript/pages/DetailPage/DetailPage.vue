@@ -6,7 +6,7 @@
     <div class="container">
       <span class="row">
         <a
-          v-if="!hot.fix"
+          v-if="!hot.fix & user_name !== 'Guest'"
           class="btn col text-end"
           @click="$refs.edit.modal_appearance=true"
         >編集</a>
