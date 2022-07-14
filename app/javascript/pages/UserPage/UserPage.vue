@@ -12,21 +12,26 @@
       <p />
       <div class="d-flex justify-content-center align-items-center">
         <img :src="avatar" class="rounded-circle border img-thumbnail img-fluid" style="height: 100px">
-        <h3>{{user.name}}</h3>
+        <div class="ms-5">
+          <h3>{{user.name}}</h3>
+          <div>行ったことのある野湯:{{user.hotsprings.length}}</div>
+        </div>
       </div>
-      <div class="">
+      <Introduce :introduce="user.introduce"/>
+      <p />
+      <div class="container">
         <div class="d-flex align-items-center">
-          <h3>野湯一覧</h3>
+          <h3 v-if="user.hotsprings.length !== 0">行ったことのある野湯</h3>
           &nbsp;
-          <Add v-if="user_name===$route.params.id" />
+          <Add v-if="user_name===$route.params.id && user.hotsprings.length !== 0" />
         </div>
         <table class="table table-hover">
           <tbody>
             <tr v-for="hotspring in user.hotsprings" :key="hotspring.id" @click="pageChange(hotspring)">
               <ListItem :hot="hotspring" />
             </tr>
-            <tr class="overflow-hidden" style="height: 50px;">
-              <p />
+            <tr v-if="user.hotsprings.length === 0 && user_name===$route.params.id">
+              <div class="justify-content-center d-flex"><Add v-if="user_name===$route.params.id" /></div>
             </tr>
           </tbody>
         </table>
@@ -40,18 +45,20 @@ import { mapActions, mapGetters } from 'vuex'
 import Edit from './Components/EditPage.vue'
 import ListItem from './Components/ListItem.vue'
 import Add from './Components/AddHotspring.vue'
+import Introduce from './Components/Introduce.vue'
 const avatar = require('person.svg')
 
 export default {
-  data(){
-    return {
-      user: {name: 'loading...', avatar: avatar, hotsprings: ['loading...']}
-    }
-  },
   components:{
     Edit,
     ListItem,
-    Add
+    Add,
+    Introduce,
+  },
+  data(){
+    return {
+      user: {name: 'loading...', avatar: avatar, hotsprings: ['loading...'], introduce: '未入力'}
+    }
   },
   computed:{
     ...mapGetters('users', ['user_name']),
@@ -65,6 +72,7 @@ export default {
       .then((response) => {
         this.user.name = response.data.attributes.name
         this.user.avatar = response.data.attributes.image_url
+        this.user.introduce = response.data.attributes.introduce
         this.user.hotsprings = response.included.map(data => data.attributes.hotspring.data.attributes)
       })
   },

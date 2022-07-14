@@ -1,7 +1,8 @@
 <template>
   <div class="text-center d-flex w-100">
     <div class="col-md-5 p-lg-5 mx-auto my-5 align-self-center">
-      <h3 class="text-center">県から探す</h3>
+      <h3 class="text-center">情報を投稿しましょう！</h3>
+      <div>現在の登録状況</div>
       <p />
       <svg class="geolonia-svg-map" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
         <title>Japanese Prefectures</title>

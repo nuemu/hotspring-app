@@ -9,12 +9,13 @@ import Register from '../pages/Authentication/RegisterPage.vue'
 import Login from '../pages/Authentication/LoginPage.vue'
 import User from '../pages/UserPage/UserPage.vue'
 import Mountain from '../pages/MountainPage/PageBase.vue'
+import HowTo from '../pages/HowToPage/HowTo.vue'
 
 const routes = [
   {
     path: '/',
     name: 'TopPage',
-    component: TopPage
+    component: TopPage,
   },
   {
     path: '/login',
@@ -38,12 +39,17 @@ const routes = [
     component: HotspringsPage
   },
   {
+    path: '/howto',
+    component: HowTo,
+  },
+  {
     path: '/hotspring/:name',
     component: DetailPage
   },
   {
     path: '/explore',
-    component: ExplorePage
+    component: ExplorePage,
+    name: 'Explore'
   },
   {
     path: '/:pathMatch(.*)*',
@@ -59,7 +65,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   store.dispatch('users/csrf').then((token) => {
     store.dispatch('users/fetchAuthUser').then((user) => {
-      next();
+      if(!user && to.name === 'Explore') next('/login');
+      else next();
     })
   })
 });

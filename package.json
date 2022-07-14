@@ -19,7 +19,6 @@
     "eslint-plugin-vue": "^8.5.0",
     "ol": "^6.13.0",
     "rails_admin": "3.0.0",
-    "swiper": "^8.1.1",
     "vee-validate": "^4.5.10",
     "vue": "^3.2.31",
     "vue-loader": "^17.0.0",

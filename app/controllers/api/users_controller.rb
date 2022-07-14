@@ -14,9 +14,15 @@ class Api::UsersController < Api::BaseController
     render json: UserSerializer.new(user, { include: [:posts] })
   end
 
+  def destroy
+    user = User.find_by(name: params[:id])
+    user.destroy
+    render json: 'Success'
+  end
+
   private
 
   def user_params
-    params.permit(:user_name, :avatar)
+    params.permit(:name, :avatar, :introduce)
   end
 end

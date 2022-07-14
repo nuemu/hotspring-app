@@ -1,6 +1,6 @@
 class UserSerializer
   include JSONAPI::Serializer
-  attribute :name
+  attribute :name, :introduce
 
   attribute :image_url do |object|
     object.generate_image_url

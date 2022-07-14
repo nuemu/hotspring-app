@@ -12,15 +12,15 @@
     </h2>
     <div :id="'flush-collapse-'+index" class="accordion-collapse collapse" :aria-labelledby="'flush-heading-'+index" data-bs-parent="#accordionFlush">
       <div class="accordion-body">
-        <div class="d-flex justify-content-center m-1" style="height: 200px">
-          <div v-for="hotspring in hotsprings" :key="hotspring" class="ms-3 me-3">
+        <div class="d-flex justify-content-center overflow-scroll ps-3 pe-3" style="height: 200px">
+          <div v-for="hotspring in hotsprings" :key="hotspring" class="ms-3 me-3 col-2">
             <router-link
               :to="'/hotspring/'+hotspring.longtitude+','+hotspring.latitude"
-              class="text-decoration-none link-dark"
+              class="text-decoration-none link-dark col"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <img :src="hotspring.image_url ? hotspring.image_url : question" class="img-fluid rounded-circle w-100 text-center" style="height: 150px">
+              <img :src="hotspring.image_url ? hotspring.image_url : question" class="img-fluid rounded-circle w-100 text-center" style="height: 150px; width:">
               <div class="w-100 text-center"><StatusIcons :status="hotspring.status"/>{{hotspring.name}}</div>
             </router-link>
           </div>

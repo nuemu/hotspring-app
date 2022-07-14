@@ -8,6 +8,7 @@ const users_module = {
     return{
       user_name: 'Guest',
       avatar: person,
+      introduce: '',
       posts: [],
       favorites: [],
     }
@@ -18,6 +19,9 @@ const users_module = {
     },
     avatar(state){
       return state.avatar
+    },
+    introduce(state){
+      return state.introduce
     },
     favorites(state){
       return state.favorites
@@ -32,6 +36,9 @@ const users_module = {
     },
     set_avatar(state, avatar){
       state.avatar = avatar
+    },
+    set_introduce(state, introduce){
+      state.introduce = introduce
     },
     set_token(state, token){
       axios.defaults.headers['Authorization']='Bearer '+token
@@ -92,6 +99,7 @@ const users_module = {
       
       commit('set_user', response.data.data.attributes.name)
       commit('set_avatar', response.data.data.attributes.image_url)
+      commit('set_introduce', response.data.data.attributes.introduce)
 
       return state.user_name
     },
@@ -106,7 +114,6 @@ const users_module = {
     },
     async fetchUser({commit}, param){
       const response = await axios.get('users/'+param)
-      console.log(response.data)
       return response.data
     },
     async updateUser({commit}, params){
