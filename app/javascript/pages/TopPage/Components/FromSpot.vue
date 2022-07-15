@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center">
+  <div class="d-flex justify-content-center" id="sample">
     <div class="d-flex justify-content-center align-items-center mb-5 me-3">
       <router-link to="/hotsprings" class="btn rounded-circle btn-outline-warning p-5">
         <h3 class="text-center text-dark">野湯一覧から探す</h3>

@@ -298,7 +298,7 @@ export default{
     mapColor(sum){
       var color = '#d3d3d3' //lightgrey
       for(let i=0; i<5; i++){
-        if(sum > Math.floor(i*Math.max(...this.list)/5)) color = this.colors[i]
+        if(sum >= Math.floor(i*Math.max(...this.list)/5)) color = this.colors[i]
       }
       return color
     }

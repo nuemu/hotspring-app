@@ -75,12 +75,6 @@ export default{
       if(this.description[this.index].ref !== 'center') this.positionSet()
     }
   },
-  created(){
-    if(localStorage.getItem('initial')=='done'){
-      this.initial = false
-      this.modal_appearance = false
-    }
-  },
   mounted(){
     this.positionSet()
     window.addEventListener("resize", ()=>{
