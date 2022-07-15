@@ -20,4 +20,25 @@ class User < ApplicationRecord
 
   # More authorities in the future ? Is boolean better ?
   enum admin: { 'user': 0, 'admin': 1 }
+
+  def level_up
+    amount = self.posts.length
+    level = 0
+    
+    if amount >= 20
+      level += 1
+    elsif amount >= 10
+      level += 1
+    elsif amount >= 5
+      level += 1
+    elsif amount >= 2
+      level += 1
+    elsif amount > 0
+      level += 1
+    end
+
+    if self.level != level
+      self.update(level: level)
+    end
+  end
 end

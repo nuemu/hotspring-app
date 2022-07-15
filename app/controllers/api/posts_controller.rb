@@ -7,7 +7,9 @@ class Api::PostsController < Api::BaseController
     hotsprings.each do |hotspring|
       current_user.posts << Post.new(hotspring_id: hotspring.id)
     end
-    
+
+    current_user.level_up
+
     render json: current_user.posts
   end
 

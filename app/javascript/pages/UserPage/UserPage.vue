@@ -11,9 +11,10 @@
       </span>
       <p />
       <div class="d-flex justify-content-center align-items-center">
-        <img :src="avatar" class="rounded-circle border img-thumbnail img-fluid" style="height: 100px">
+        <img :src="avatar" :class="'rounded-circle border img-thumbnail img-fluid border border-3 border-'+level" style="height: 100px">
         <div class="ms-5">
           <h3>{{user.name}}</h3>
+          <div>ユーザーレベル:{{user.level}}</div>
           <div>行ったことのある野湯:{{user.hotsprings.length}}</div>
         </div>
       </div>
@@ -57,7 +58,7 @@ export default {
   },
   data(){
     return {
-      user: {name: 'loading...', avatar: avatar, hotsprings: ['loading...'], introduce: '未入力'}
+      user: {name: 'loading...', avatar: avatar, hotsprings: ['loading...'], introduce: '未入力', level: 0}
     }
   },
   computed:{
@@ -65,12 +66,21 @@ export default {
     avatar(){
       return this.user.avatar ? this.user.avatar : avatar
     },
+    level(){
+      var color = 'primary'
+      if(this.user.level > 0) color = 'info'
+      if(this.user.level >= 2) color = 'success'
+      if(this.user.level >= 5) color = 'warning'
+      if(this.user.level >= 10) color = 'danger'
+      return color
+    }
   },
   created(){
     if(this.$route.params.id === 'Guest') this.$router.push('/login')
     this.fetchUser(this.$route.params.id)
       .then((response) => {
         this.user.name = response.data.attributes.name
+        this.user.level = response.data.attributes.level
         this.user.avatar = response.data.attributes.image_url
         this.user.introduce = response.data.attributes.introduce
         this.user.hotsprings = response.included.map(data => data.attributes.hotspring.data.attributes)

@@ -66,7 +66,7 @@
         <div>
           <img
             :src="comment.attributes.user.data.attributes.image_url ? comment.attributes.user.data.attributes.image_url : person"
-            class="img-fluid thumbnail rounded-circle mt-1"
+            :class="'img-fluid thumbnail rounded-circle mt-1 border border-2 border-'+level(comment.attributes.user.data.attributes.level)"
             style="width: 25px; height; 25px"
           >
         </div>
@@ -113,7 +113,7 @@ export default{
   },
   computed:{
     ...mapGetters('hotsprings', ['hotspring','comments']),
-    ...mapGetters('users', ['user_name', 'avatar']),
+    ...mapGetters('users', ['user_name', 'avatar'])
   },
   methods:{
     ...mapActions('hotsprings',['postComment', 'deleteComment']),
@@ -135,6 +135,15 @@ export default{
 
       const lines = (textarea.value + '\n').match(/\n/g).length
       textarea.style.height = lineHeight * lines + PADDING_Y + 'px'
+    },
+    level(level){
+      var color = 'primary'
+      if(level > 0) color = 'info'
+      if(level >= 2) color = 'success'
+      if(level >= 5) color = 'warning'
+      if(level >= 10) color = 'danger'
+      console.log(color, level)
+      return color
     }
   }
 }
