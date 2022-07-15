@@ -22,19 +22,19 @@ class User < ApplicationRecord
   enum admin: { 'user': 0, 'admin': 1 }
 
   def level_up
-    amount = self.posts.length
+    amount = 8*self.posts.length + 2*self.comments.length + 2*self.articles.length
     level = 0
     
-    if amount >= 20
-      level += 1
-    elsif amount >= 10
-      level += 1
-    elsif amount >= 5
-      level += 1
-    elsif amount >= 2
-      level += 1
-    elsif amount > 0
-      level += 1
+    if amount >= 50
+      level = 5
+    elsif amount >= 25 && amount < 25
+      level = 4
+    elsif amount >= 15 && amount < 25
+      level = 3
+    elsif amount >= 10 && amount < 15
+      level = 2
+    elsif amount > 0 && amount < 10
+      level = 1
     end
 
     if self.level != level

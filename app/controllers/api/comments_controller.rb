@@ -2,6 +2,7 @@ class Api::CommentsController < Api::BaseController
   def create
     comments = current_user.comments << Comment.new(hotspring_id: comment_params[:hotspring_id], comment: comment_params[:comment])
     comment = CommentSerializer.new(comments[-1])
+    current_user.level_up
     render json: comment
   end
 
