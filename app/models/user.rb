@@ -22,21 +22,25 @@ class User < ApplicationRecord
   enum admin: { 'user': 0, 'admin': 1 }
 
   def level_up
-    amount = 8 * posts.length + 2 * comments.length + 2 * articles.length
-    level = 0
-
-    if amount >= 50
-      level = 5
-    elsif amount >= 25 && amount < 25
-      level = 4
-    elsif amount >= 15 && amount < 25
-      level = 3
-    elsif amount >= 10 && amount < 15
-      level = 2
-    elsif amount > 0 && amount < 10
-      level = 1
-    end
+    exp = 8 * posts.length + 2 * comments.length + 2 * articles.length
+    level = calculate_level(exp)
 
     update(level: level) if self.level != level
+  end
+
+  def calculate_level(exp)
+    level = 0
+    if exp >= 50
+      level = 5
+    elsif exp >= 25
+      level = 4
+    elsif exp >= 15
+      level = 3
+    elsif exp >= 10
+      level = 2
+    elsif exp.positive?
+      level = 1
+    end
+    level
   end
 end
