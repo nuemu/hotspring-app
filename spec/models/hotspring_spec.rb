@@ -17,7 +17,7 @@ RSpec.describe 'Hotspring Model Test,', type: :model do
       it 'is invalid with too close points' do
         hotspring = create(:hotspring, name: '')
         gap = 0.000000000001
-        hotspring_close = build(:hotspring, latitude: hotspring.latitude+gap, longtitude: hotspring.longtitude)
+        hotspring_close = build(:hotspring, latitude: hotspring.latitude + gap, longtitude: hotspring.longtitude)
         expect(hotspring_close).not_to be_valid
       end
     end

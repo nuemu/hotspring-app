@@ -14,8 +14,8 @@ gem 'dotenv-rails'
 gem 'pg', '~> 1.1'
 gem 'jsonapi-serializer'
 
-gem "image_processing", ">= 1.2"
-gem "aws-sdk-s3", require: false
+gem 'image_processing', '>= 1.2'
+gem 'aws-sdk-s3', require: false
 
 #Authentication
 gem 'sorcery'

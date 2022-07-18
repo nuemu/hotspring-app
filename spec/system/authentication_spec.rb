@@ -61,7 +61,7 @@ RSpec.describe 'Authentication', type: :system, js: true do
         click_link 'ログイン'
         fill_in 'name', with: user.name
         fill_in 'password', with: 'password'
-        #click_button 'ログイン' 原因不明、Dockerと共有されてない？
+        # click_button 'ログイン' 原因不明、Dockerと共有されてない？
         click_button '登録'
         expect(page).to have_content(user.name)
       end

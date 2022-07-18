@@ -47,4 +47,3 @@ class Api::HotspringsController < Api::BaseController
     params.permit(:name, :status, :latitude, :longtitude, :description, :prefecture, :image, :image_url, :fix)
   end
 end
-

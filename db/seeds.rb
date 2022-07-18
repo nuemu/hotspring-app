@@ -1,11 +1,11 @@
-require "uri"
-require "net/http"
-require "json"
+require 'uri'
+require 'net/http'
+require 'json'
 require 'nokogiri'
 
 User.create(name: 'Guest', password: 'password', password_confirmation: 'password')
 
-url = URI("https://www.gsi.go.jp/kihonjohochousa/kihonjohochousa41140.html")
+url = URI('https://www.gsi.go.jp/kihonjohochousa/kihonjohochousa41140.html')
 
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
@@ -14,7 +14,7 @@ request = Net::HTTP::Get.new(url)
 response = https.request(request)
 doc = Nokogiri::HTML(response.read_body)
 doc.css('tr').each do |tr|
-  mountain = Mountain.new()
+  mountain = Mountain.new
   tr.css('td').each_with_index do |td, index|
     case index
     when 0

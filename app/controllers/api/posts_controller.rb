@@ -2,7 +2,7 @@ class Api::PostsController < Api::BaseController
   require 'rexml/document'
 
   def create
-    hotsprings = getVisited()
+    hotsprings = get_visited
 
     hotsprings.each do |hotspring|
       current_user.posts << Post.new(hotspring_id: hotspring.id)
@@ -20,13 +20,13 @@ class Api::PostsController < Api::BaseController
     render json: post
   end
 
-  def getVisited()
+  def get_visited
     file = params[:file].tempfile
     content = String(file.read)
     doc = REXML::Document.new(content)
 
     locations = REXML::XPath.match(doc, '/gpx/trk/trkseg/trkpt').map do |location|
-      {latitude: location.attribute('lat').value, longtitude: location.attribute('lon').value}
+      { latitude: location.attribute('lat').value, longtitude: location.attribute('lon').value }
     end
 
     # まとめられる？
@@ -41,13 +41,11 @@ class Api::PostsController < Api::BaseController
     hotsprings = Hotspring.where(latitude: lats.min..lats.max, longtitude: lons.min..lons.max)
 
     # 計算量...
-    visited = hotsprings.filter do |hotspring|
+    hotsprings.filter do |hotspring|
       close_enough = locations.filter do |location|
         hotspring.distance(location[:latitude].to_f, location[:longtitude].to_f) < 200
       end
-      close_enough.length > 0
+      close_enough.!empty?
     end
-
-    return visited
   end
 end

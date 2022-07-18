@@ -4,7 +4,7 @@ class Hotspring < ApplicationRecord
   validates :latitude, presence: true
   validates :longtitude, presence: true
 
-  validates_uniqueness_of :latitude, scope: :longtitude
+  validates :latitude, uniqueness: { scope: :longtitude }
 
   has_many :posts, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -49,13 +49,12 @@ class Hotspring < ApplicationRecord
 
     p = (latitude + lat) / 2.0 * DEG2RAD
 
-    e = Math::sqrt((RX ** 2 - RY ** 2) / (RX ** 2))
-    w = Math::sqrt(1 - (e ** 2) * ((Math::sin(p)) ** 2))
+    e = Math.sqrt((RX**2 - RY**2) / (RX**2))
+    w = Math.sqrt(1 - (e**2) * (Math.sin(p)**2))
 
-    m = RX * (1 - e ** 2) / (w ** 3)
+    m = RX * (1 - e**2) / (w**3)
     n = RX / w
 
-    d = Math::sqrt( (d_y * m) ** 2 + (d_x * n * Math::cos(p)) ** 2 )
-    return d
+    Math.sqrt((d_y * m)**2 + (d_x * n * Math.cos(p))**2)
   end
 end

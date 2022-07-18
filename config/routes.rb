@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to: 'static_pages#index'
 
   get 'admin_login', to: 'admin#new'
-  post 'admin_login' => "admin#create"
+  post 'admin_login' => 'admin#create'
   post 'admin_logout' => 'admin#destroy'
 
   namespace :api do
@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     post 'image', to: 'hotsprings#image'
     get 'csrf', to: 'sessions#csrf'
     get 'nearby', to: 'google_map#show'
-    get 'text', to: 'google_map#index'
     get 'find', to: 'hotsprings#find'
   end
 

@@ -22,9 +22,9 @@ class User < ApplicationRecord
   enum admin: { 'user': 0, 'admin': 1 }
 
   def level_up
-    amount = 8*self.posts.length + 2*self.comments.length + 2*self.articles.length
+    amount = 8 * posts.length + 2 * comments.length + 2 * articles.length
     level = 0
-    
+
     if amount >= 50
       level = 5
     elsif amount >= 25 && amount < 25
@@ -37,8 +37,6 @@ class User < ApplicationRecord
       level = 1
     end
 
-    if self.level != level
-      self.update(level: level)
-    end
+    update(level: level) if self.level != level
   end
 end

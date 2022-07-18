@@ -1,9 +1,9 @@
 class Api::UsersController < Api::BaseController
   def show
     user = User
-      .includes(posts: :hotspring)
-      .with_attached_avatar
-      .find_by(name: params[:id])
+           .includes(posts: :hotspring)
+           .with_attached_avatar
+           .find_by(name: params[:id])
     render json: UserSerializer.new(user, { include: [:posts] })
   end
 
