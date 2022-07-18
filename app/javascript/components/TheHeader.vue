@@ -42,7 +42,10 @@
                 山一覧
               </router-link>
             </li>
-            <li v-if="user_name!=='Guest'" class="nav-item">
+            <li
+              v-if="user_name!=='Guest'"
+              class="nav-item"
+            >
               <router-link
                 to="/explore"
                 class="nav-link link-dark"
@@ -74,7 +77,7 @@
                   <a
                     class="dropdown-item"
                     :href="'/user/'+user_name"
-                  >{{user_name}}のページ</a>
+                  >{{ user_name }}のページ</a>
                 </li>
                 <li>
                   <a

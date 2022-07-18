@@ -17,11 +17,21 @@
         </h1>
         <p />
         <div class="justify-content-center">
-          <button class="btn btn-outline-dark w-50" @click.prevent="$router.push('/hotsprings')">野湯一覧</button>
+          <button
+            class="btn btn-outline-dark w-50"
+            @click.prevent="$router.push('/hotsprings')"
+          >
+            野湯一覧
+          </button>
         </div>
         <p />
         <div class="justify-content-center">
-          <button class="btn btn-outline-secondary w-50" @click.prevent="$router.push('/register')">ユーザー登録</button>
+          <button
+            class="btn btn-outline-secondary w-50"
+            @click.prevent="$router.push('/register')"
+          >
+            ユーザー登録
+          </button>
         </div>
       </div>
     </div>

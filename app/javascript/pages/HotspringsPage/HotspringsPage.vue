@@ -1,7 +1,7 @@
 <template>
   <div class="container vh-100 h-100 mt-5">
     <div class="h-75">
-      <Map ref="map"/>
+      <Map ref="map" />
       <DetailPopup />
     </div>
     <div class="card">
@@ -23,25 +23,56 @@
         </div>
         <p />
         <div class="input-group">
-          <label for="status" class="input-group-text">状態</label>
-          <select class="form-control form-select shadow-none" v-model="status" id="status">
-            <option selected value="">All</option>
-            <option v-for="key in Object.keys(statuses)" :value="key" :key="key">{{statuses[key]}}</option>
+          <label
+            for="status"
+            class="input-group-text"
+          >状態</label>
+          <select
+            id="status"
+            v-model="status"
+            class="form-control form-select shadow-none"
+          >
+            <option
+              selected
+              value=""
+            >
+              All
+            </option>
+            <option
+              v-for="key in Object.keys(statuses)"
+              :key="key"
+              :value="key"
+            >
+              {{ statuses[key] }}
+            </option>
           </select>
         </div>
         <div class="tex-algin-center">
-          <span v-for="key in Object.keys(statuses)" :key="key"><StatusIcons :status="key"/>：{{statuses[key]}}&nbsp;</span>
+          <span
+            v-for="key in Object.keys(statuses)"
+            :key="key"
+          ><StatusIcons :status="key" />：{{ statuses[key] }}&nbsp;</span>
         </div>
       </div>
     </div>
-    <p class="mt-3">条件に一致した温泉数：{{filterHotsprings.length}}件</p>
+    <p class="mt-3">
+      条件に一致した温泉数：{{ filterHotsprings.length }}件
+    </p>
 
     <table class="table table-hover">
       <tbody>
-        <tr v-for="hotspring in filterHotsprings" :key="hotspring.id" @click="pageChange(hotspring)">
+        <tr
+          v-for="hotspring in filterHotsprings"
+          :key="hotspring.id"
+          @click="pageChange(hotspring)"
+        >
+          <ListItemThumb :hot="hotspring" />
           <ListItem :hot="hotspring" />
         </tr>
-        <tr class="overflow-hidden" style="height: 50px;">
+        <tr
+          class="overflow-hidden"
+          style="height: 50px;"
+        >
           <p />
         </tr>
       </tbody>
@@ -54,6 +85,7 @@ import axios from '../../plugins/axios'
 import { mapActions, mapGetters } from 'vuex'
 
 import ListItem from './Components/ListItem.vue'
+import ListItemThumb from './Components/ListItemThumb.vue'
 
 import hotspring_status from '../../ol/hotspring_status.js'
 import StatusIcons from '../../components/StatusIcons.vue'
@@ -65,18 +97,19 @@ import { detail } from '../../ol/detail_event.js'
 import DetailPopup from '../../components/DetailPopup.vue'
 
 export default{
+  components:{
+    ListItem,
+    ListItemThumb,
+    StatusIcons,
+    Map,
+    DetailPopup,
+  },
   data(){
     return {
       keyword: '',
       statuses: hotspring_status,
       status: ''
     }
-  },
-  components:{
-    ListItem,
-    StatusIcons,
-    Map,
-    DetailPopup,
   },
   computed:{
     ...mapGetters('hotsprings',['hotsprings']),

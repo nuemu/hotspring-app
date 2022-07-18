@@ -18,14 +18,17 @@
 
               <Form @submit="Submit">
                 <div class="form-group">
-                  <label for="image" class="form-label">画像(ファイル)</label>
+                  <label
+                    for="image"
+                    class="form-label"
+                  >画像(ファイル)</label>
                   <Field
-                    type="file"
                     id="image"
+                    v-model="file"
+                    type="file"
                     name="image"
                     class="form-control"
                     rules="file_size|file_present"
-                    v-model="file"
                   />
                   <ErrorMessage
                     name="image"
@@ -35,7 +38,10 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="name" class="form-label">ユーザー名</label>
+                  <label
+                    for="name"
+                    class="form-label"
+                  >ユーザー名</label>
                   <Field
                     id="name"
                     ref="name"
@@ -47,7 +53,10 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="introduce" class="form-label">自己紹介</label>
+                  <label
+                    for="introduce"
+                    class="form-label"
+                  >自己紹介</label>
                   <Field
                     v-slot="{ field }"
                     v-model="new_introduce"
@@ -70,8 +79,12 @@
                 </div>
                 <p />
                 <div class="d-flex justify-content-center">
-                  <button class="btn btn-primary me-3">保存</button>
-                  <button class="btn btn-danger ms-3">退会</button>
+                  <button class="btn btn-primary me-3">
+                    保存
+                  </button>
+                  <button class="btn btn-danger ms-3">
+                    退会
+                  </button>
                 </div>
               </Form>
             </div>

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <Edit ref="edit" :hot="hot"/>
+    <Edit
+      ref="edit"
+      :hot="hot"
+    />
     <p />
 
     <div class="container">
@@ -55,7 +58,9 @@
       </div>
     </div>
 
-    <p class="mb-5">&nbsp;</p>
+    <p class="mb-5">
+&nbsp;
+    </p>
   </div>
 </template>
 

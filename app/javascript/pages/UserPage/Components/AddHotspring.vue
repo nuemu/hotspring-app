@@ -1,12 +1,15 @@
 <template>
   <Form @input="byGpx">
     <span class="form-group">
-      <label for="name" class="form-label"><img src="~plus.svg">(.gpxファイルをアップロードして追加)</label>
+      <label
+        for="name"
+        class="form-label"
+      ><img src="~plus.svg">(.gpxファイルをアップロードして追加)</label>
       <Field
         id="name"
-        type="file"
         ref="name"
         v-model="file"
+        type="file"
         name="name"
         class="form-control d-none"
         rules="present"

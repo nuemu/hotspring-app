@@ -46,7 +46,11 @@
               </table>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-secondary" :href="DownloadURL" :download="FileName">CSV出力</a>
+              <a
+                class="btn btn-secondary"
+                :href="DownloadURL"
+                :download="FileName"
+              >CSV出力</a>
             </div>
           </div>
         </div>

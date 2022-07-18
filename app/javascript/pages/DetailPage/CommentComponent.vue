@@ -23,7 +23,7 @@
             class="text-start comment_user text-dark d-flex align-items-center"
           >
             <h3 class="m-0">&nbsp;{{ user_name }}</h3>
-            <span class="text-secondary">&nbsp;投稿日時：{{date(Date.now())}}</span>
+            <span class="text-secondary">&nbsp;投稿日時：{{ date(Date.now()) }}</span>
           </a>
           <Form @submit="CommentSubmit">
             <div class="input-group h-100">
@@ -42,7 +42,10 @@
                   @input="resizeTextarea"
                 />
               </Field>
-              <button class="btn btn-warning rounded" style="height: 40px;">
+              <button
+                class="btn btn-warning rounded"
+                style="height: 40px;"
+              >
                 投稿
               </button>
             </div>
@@ -71,9 +74,12 @@
           >
         </div>
         <div class="w-100">
-          <a :href="'/user/'+comment.attributes.user.data.attributes.name" class="text-start comment_user text-dark d-flex align-items-center">
+          <a
+            :href="'/user/'+comment.attributes.user.data.attributes.name"
+            class="text-start comment_user text-dark d-flex align-items-center"
+          >
             <h3 class="m-0">&nbsp;{{ comment.attributes.user.data.attributes.name }}</h3>
-            <span class="text-secondary">&nbsp;投稿日時：{{date(comment.attributes.created_at)}}</span>
+            <span class="text-secondary">&nbsp;投稿日時：{{ date(comment.attributes.created_at) }}</span>
             <span v-if="comment.attributes.user.data.attributes.name == user_name">
               &emsp;<a
                 href="#"

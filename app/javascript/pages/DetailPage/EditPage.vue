@@ -17,19 +17,29 @@
               </span>
 
               <div class="container">
-
                 <Form
                   @submit="upload"
                 >
                   <div class="container text-center">
-                    <img :src="hot.image_url" class="img-fluid" style="height: 100px">
+                    <img
+                      :src="hot.image_url"
+                      class="img-fluid"
+                      style="height: 100px"
+                    >
                     ->
-                    <img :src="img" class="img-fluid" style="height: 100px">
+                    <img
+                      :src="img"
+                      class="img-fluid"
+                      style="height: 100px"
+                    >
                   </div>
-                  <label for="image" class="form-label">画像(ファイル)</label>
+                  <label
+                    for="image"
+                    class="form-label"
+                  >画像(ファイル)</label>
                   <Field
-                    type="file"
                     id="image"
+                    type="file"
                     name="image"
                     class="form-control"
                     rules="file_size|file_present"
@@ -41,19 +51,25 @@
                     as="p"
                   />
 
-                  <label for="image_url" class="form-label">画像(URL)</label>
+                  <label
+                    for="image_url"
+                    class="form-label"
+                  >画像(URL)</label>
                   <Field
+                    id="image_url"
                     ref="image_url"
                     v-model="new_image_url"
-                    id="image_url"
                     name="image_url"
                     class="form-control"
                   />
 
-                  <label for="title" class="form-label">温泉名</label>
+                  <label
+                    for="title"
+                    class="form-label"
+                  >温泉名</label>
                   <Field
-                    ref="title"
                     id="title"
+                    ref="title"
                     v-model="new_name"
                     name="title"
                     class="form-control"
@@ -65,12 +81,15 @@
                     as="p"
                   />
 
-                  <label for="latitude" class="form-label">座標</label>
+                  <label
+                    for="latitude"
+                    class="form-label"
+                  >座標</label>
                   <div class="input-group">
                     <span class="input-group-text">経度</span>
                     <Field
-                      ref="latitude"
                       id="latitude"
+                      ref="latitude"
                       v-model="new_latitude"
                       name="latitude"
                       class="form-control"
@@ -147,7 +166,10 @@
                     <button class="btn btn-primary">
                       更新
                     </button>
-                    <button class="btn btn-danger" @click.stop="deleteHot">
+                    <button
+                      class="btn btn-danger"
+                      @click.stop="deleteHot"
+                    >
                       削除
                     </button>
                   </div>
@@ -170,12 +192,12 @@ import status_icons from '../../ol/status_icons/icon_loader'
 import status from '../../ol/hotspring_status.js'
 
 export default{
-  props:['hot'],
   components:{
     Form,
     Field,
     ErrorMessage,
   },
+  props:['hot'],
   data(){
     return{
       user: {'name': '', 'password': ''},

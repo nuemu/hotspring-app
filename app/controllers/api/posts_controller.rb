@@ -21,14 +21,14 @@ class Api::PostsController < Api::BaseController
   end
 
   def visited_hotsprings
+    visited_coordinate
     visited
     
     # 計算量...
     @visited_hotsprings.filter do |hotspring|
-      close_enough = locations.filter do |location|
+      close_enough = @locations.filter do |location|
         hotspring.distance(location[:latitude].to_f, location[:longtitude].to_f) < 200
       end
-      close_enough.!empty?
     end
   end
 
@@ -40,8 +40,6 @@ class Api::PostsController < Api::BaseController
     @locations = REXML::XPath.match(doc, '/gpx/trk/trkseg/trkpt').map do |location|
       { latitude: location.attribute('lat').value, longtitude: location.attribute('lon').value }
     end
-
-    visited_coordinate
   end
 
   def visited

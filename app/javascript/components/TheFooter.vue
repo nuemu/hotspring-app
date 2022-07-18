@@ -1,9 +1,13 @@
 <template>
+  <div>
     <Policies ref="policy" />
     <footer class="footer bg-light">
       <div class="container">
         <span class="row justify-content-md-center">
-          <router-link to="/howto" class="col-md-auto text-decoration-none link-secondary">使い方</router-link>
+          <router-link
+            to="/howto"
+            class="col-md-auto text-decoration-none link-secondary"
+          >使い方</router-link>
           <a
             class="col-md-auto text-decoration-none link-secondary"
             href=""
@@ -17,6 +21,7 @@
         </span>
       </div>
     </footer>
+  </div>
 </template>
 
 <script>

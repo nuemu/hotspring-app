@@ -2,53 +2,53 @@
   <div class="container">
     <Description ref="description" />
     <p />
-      <button
-        class="btn btn-light btn-outline-warning rounded-circle"
-        @click="$refs.description.modal_appearance=true"
-        data-bs-toggle="tooltip"
-        data-bs-placement="right"
-        title="温泉の探し方"
-        ref="info"
-      >
-        <img :src="icons['question']">
-      </button>
+    <button
+      ref="info"
+      class="btn btn-light btn-outline-warning rounded-circle"
+      data-bs-toggle="tooltip"
+      data-bs-placement="right"
+      title="温泉の探し方"
+      @click="$refs.description.modal_appearance=true"
+    >
+      <img :src="icons['question']">
+    </button>
     <p />
     <div>
       <div class="text-center">
         <h5 class="lead">
           Click
         </h5>
-          <button 
-            :class="'btn rounded-circle '+options[2]"
-            @click="none"
-            data-bs-toggle="tooltip"
-            data-bs-placement="right"
-            title="アイコンをクリックする"
-          >
-            <img :src="icons['hand']">
-          </button>
-          <p />
-          <button
-            :class="'btn rounded-circle '+options[1]"
-            @click="draw"
-            data-bs-toggle="tooltip"
-            data-bs-placement="right"
-            title="地図上に多角形を描画する"
-            ref="pencil"
-          >
-            <img :src="icons['pencil']">
-          </button>
-          <p />
-          <button
-            :class="'btn rounded-circle '+options[0]"
-            @click="register"
-            data-bs-toggle="tooltip"
-            data-bs-placement="right"
-            title="選択した地点を登録する"
-            ref="pin"
-          >
-            <img :src="icons['pin']">
-          </button>
+        <button 
+          :class="'btn rounded-circle '+options[2]"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          title="アイコンをクリックする"
+          @click="none"
+        >
+          <img :src="icons['hand']">
+        </button>
+        <p />
+        <button
+          ref="pencil"
+          :class="'btn rounded-circle '+options[1]"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          title="地図上に多角形を描画する"
+          @click="draw"
+        >
+          <img :src="icons['pencil']">
+        </button>
+        <p />
+        <button
+          ref="pin"
+          :class="'btn rounded-circle '+options[0]"
+          data-bs-toggle="tooltip"
+          data-bs-placement="right"
+          title="選択した地点を登録する"
+          @click="register"
+        >
+          <img :src="icons['pin']">
+        </button>
       </div>
     </div>
     <p />
@@ -62,14 +62,14 @@
           :key="name"
         >
           <button
-            :class="'btn rounded-circle '+maps[index]"
-            @click="Render(index)"
             :ref="name.layer"
-            @mouseover="Mouseover"
+            :class="'btn rounded-circle '+maps[index]"
             data-bs-toggle="tooltip"
             data-bs-placement="right"
             data-bs-html="true"
             :title="name.description"
+            @click="Render(index)"
+            @mouseover="Mouseover"
           >
             <img :src="icons[name.layer]">
           </button>

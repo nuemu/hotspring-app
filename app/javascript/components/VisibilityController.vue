@@ -19,8 +19,14 @@
             <img :src="icons[status]"> : {{ t_status[status] }}
           </span>
           <span class="text-end">
-            <img v-if="visible[index]" :src="icons['visible']">
-            <img v-else :src="icons['invisible']">
+            <img
+              v-if="visible[index]"
+              :src="icons['visible']"
+            >
+            <img
+              v-else
+              :src="icons['invisible']"
+            >
           </span>
         </button>
       </div>

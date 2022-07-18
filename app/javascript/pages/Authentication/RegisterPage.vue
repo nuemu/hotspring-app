@@ -65,9 +65,19 @@
             </button>
           </div>
         </Form>
-        <div v-if="error_message!==''" style="color: red;">{{error_message}}</div>
+        <div
+          v-if="error_message!==''"
+          style="color: red;"
+        >
+          {{ error_message }}
+        </div>
       </div>
-      <div>登録済みの方は：<a href="/login" class="link-dark">ログインページ</a>へ</div>
+      <div>
+        登録済みの方は：<a
+          href="/login"
+          class="link-dark"
+        >ログインページ</a>へ
+      </div>
     </div>
   </div>
 </template>

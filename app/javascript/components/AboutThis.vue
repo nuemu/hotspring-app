@@ -8,7 +8,6 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable full modal-fullscreen">
           <div class="modal-content">
             <div class="modal-body bg-warning p-0 position-absolute h-100 w-100">
-
               <div class="text-center d-flex w-100 h-100">
                 <div class="col-md-5 p-lg-5 mx-auto my-5 align-self-center">
                   <h1 class="display-1 font-weight-normal fadeLeft webfont">
@@ -25,17 +24,43 @@
                     始める
                   </a>
                 </div>
-                <a href="" class="arrow" @click.prevent="next(1)" />
-                <img src="~tree1.svg" class="top tree" style="left:0%;">
-                <img src="~tree2.svg" class="top tree" style="right:0%;">
-                <img src="~cloud_l.svg" class="top cloud" style="left:0%;top:-20%;">
-                <img src="~cloud_r.svg" class="top cloud" style="right:0%;">
+                <a
+                  href=""
+                  class="arrow"
+                  @click.prevent="next(1)"
+                />
+                <img
+                  src="~tree1.svg"
+                  class="top tree"
+                  style="left:0%;"
+                >
+                <img
+                  src="~tree2.svg"
+                  class="top tree"
+                  style="right:0%;"
+                >
+                <img
+                  src="~cloud_l.svg"
+                  class="top cloud"
+                  style="left:0%;top:-20%;"
+                >
+                <img
+                  src="~cloud_r.svg"
+                  class="top cloud"
+                  style="right:0%;"
+                >
               </div>
 
-              <div class="vh-100" ref="1">
+              <div
+                ref="1"
+                class="vh-100"
+              >
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
-                    <img src="~flog.svg" class="img-fluid col-md-5">
+                    <img
+                      src="~flog.svg"
+                      class="img-fluid col-md-5"
+                    >
                   </div>
 
                   <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
@@ -49,13 +74,19 @@
                     <div>このサイトでは、そんな浪漫を追ってみたい方のために、野湯探しの手法を提供します。</div>
                   </div>
 
-                  <a href="" class="arrow" @click.prevent="next(2)" />
+                  <a
+                    href=""
+                    class="arrow"
+                    @click.prevent="next(2)"
+                  />
                 </div>
               </div>
 
-              <div class="vh-100" ref="2">
+              <div
+                ref="2"
+                class="vh-100"
+              >
                 <div class="d-flex justify-content-center w-100 h-100">
-
                   <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
                     <h1 class="display-4 font-weight-normal webfont">
                       野湯ってどう探すの？
@@ -68,29 +99,60 @@
                   </div>
 
                   <div class="container text-center p-lg-5 mx-auto my-5 align-self-center">
-                    <img src="~adventure.svg" class="img-fluid col-md-5">
+                    <img
+                      src="~adventure.svg"
+                      class="img-fluid col-md-5"
+                    >
                   </div>
-                  <a href="" class="arrow" @click.prevent="next(3)" />
+                  <a
+                    href=""
+                    class="arrow"
+                    @click.prevent="next(3)"
+                  />
                 </div>
               </div>
 
-              <div class="vh-100" ref="3">
+              <div
+                ref="3"
+                class="vh-100"
+              >
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
                     <h1 class="display-4 font-weight-normal fadeLeft webfont">
                       湯telliteでできること
                     </h1>
                     <ul class="list-group list-group-flush">
-                      <li v-for="(about,index) in abouts" :key="about" class="list-group-item bg-warning border-dark">
-                        <div v-if="selecting==index" class="container">
-                          <a class="link-dark link" href="" @click.prevent="select(index)">{{about.title}}</a>
+                      <li
+                        v-for="(about,index) in abouts"
+                        :key="about"
+                        class="list-group-item bg-warning border-dark"
+                      >
+                        <div
+                          v-if="selecting==index"
+                          class="container"
+                        >
+                          <a
+                            class="link-dark link"
+                            href=""
+                            @click.prevent="select(index)"
+                          >{{ about.title }}</a>
                           <p />
-                          <div class="container-sm" style="white-space: pre-wrap;">
-                            {{about.description}}
+                          <div
+                            class="container-sm"
+                            style="white-space: pre-wrap;"
+                          >
+                            {{ about.description }}
                           </div>
                         </div>
-                        <div v-else class="container">
-                          <a class="link-secondary link" href="" @click.prevent="select(index)">{{about.title}}</a>
+                        <div
+                          v-else
+                          class="container"
+                        >
+                          <a
+                            class="link-secondary link"
+                            href=""
+                            @click.prevent="select(index)"
+                          >{{ about.title }}</a>
                         </div>
                       </li>
                     </ul>
@@ -99,17 +161,33 @@
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center flex-grow-1">
                     <div class="swiper">
                       <div class="swiper-wrapper">
-                        <img src="~normal.jpg" class="img-fluid swiper-slide">
-                        <img src="~thermal.jpg" class="img-fluid swiper-slide">
-                        <img src="~air.jpg" class="img-fluid swiper-slide">
+                        <img
+                          src="~normal.jpg"
+                          class="img-fluid swiper-slide"
+                        >
+                        <img
+                          src="~thermal.jpg"
+                          class="img-fluid swiper-slide"
+                        >
+                        <img
+                          src="~air.jpg"
+                          class="img-fluid swiper-slide"
+                        >
                       </div>
                     </div>
                   </div>
-                  <a href="" class="arrow" @click.prevent="next(4)" />
+                  <a
+                    href=""
+                    class="arrow"
+                    @click.prevent="next(4)"
+                  />
                 </div>
               </div>
 
-              <div class="vh-100" ref="5">
+              <div
+                ref="5"
+                class="vh-100"
+              >
                 <div class="d-flex justify-content-center w-100 h-100">
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center">
                     <h1 class="display-4 font-weight-normal fadeLeft">
@@ -132,12 +210,14 @@
                   </div>
 
                   <div class="container col-md-5 p-lg-5 mx-auto my-5 align-self-center flex-grow-1">
-                    <img src="~danger.svg" class="img-fluid" style="width:80%;">
+                    <img
+                      src="~danger.svg"
+                      class="img-fluid"
+                      style="width:80%;"
+                    >
                   </div>
-                  
                 </div>
               </div>
-
             </div>
           </div>
         </div>

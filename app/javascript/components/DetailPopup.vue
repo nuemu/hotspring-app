@@ -12,17 +12,41 @@
       id="detail-popup-content"
       ref="popup"
     >
-      <div class="container overflow-scroll" style="max-height:250px;">
+      <div
+        class="container overflow-scroll"
+        style="max-height:250px;"
+      >
         <h4 class="text-center">
-          <a :href="'/hotspring/' + coordinate" class='link-dark'>{{name}}</a>
+          <a
+            :href="'/hotspring/' + coordinate"
+            class="link-dark"
+          >{{ name }}</a>
         </h4>
         <div class="text-center">
-          <img v-if="image!=='no image'" :src="image" class="img-fluid" style="height:150px;">
-          <div v-else>no image</div>
+          <img
+            v-if="image!=='no image'"
+            :src="image"
+            class="img-fluid"
+            style="height:150px;"
+          >
+          <div v-else>
+            no image
+          </div>
         </div>
-        <div><a :href="google_map" class="link-danger" target="_blank" rel="noopener noreferrer">{{coordinate}}</a></div>
-        <div class="text-center">状態:{{status}}</div>
-        <div style='white-space: pre-line;'>{{hotspring.description}}</div>
+        <div>
+          <a
+            :href="google_map"
+            class="link-danger"
+            target="_blank"
+            rel="noopener noreferrer"
+          >{{ coordinate }}</a>
+        </div>
+        <div class="text-center">
+          状態:{{ status }}
+        </div>
+        <div style="white-space: pre-line;">
+          {{ hotspring.description }}
+        </div>
       </div>
     </div>
     <p />

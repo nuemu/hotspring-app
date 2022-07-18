@@ -9,14 +9,20 @@
           :class="modal_class"
           :style="modal_position"
         >
-          <div class="modal-left-arrow" v-if="description[index].ref!=='center'" />
-          <div class="modal-content overflow-scroll border border-0" :style="modal_style">
+          <div
+            v-if="description[index].ref!=='center'"
+            class="modal-left-arrow"
+          />
+          <div
+            class="modal-content overflow-scroll border border-0"
+            :style="modal_style"
+          >
             <div
               ref="modal"
               class="modal-body"
             >
               <div class="d-grid gap-2 d-md-flex justify-content-between">
-                <span class="lead">温泉の探し方{{index+1}}/{{description_number+1}}</span>
+                <span class="lead">温泉の探し方{{ index+1 }}/{{ description_number+1 }}</span>
                 <button
                   type="button"
                   class="btn-close"
@@ -27,12 +33,18 @@
               <div
                 class="container"
                 style="white-space: pre-wrap;"
-                v-html="description[index].description"
+                v-text="description[index].description"
               />
               <p />
               <div class="container d-grid gap-2 d-md-flex justify-content-between">
-                <a href="" @click.prevent="previous">前へ</a>
-                <a href="" @click.prevent="next">次へ</a>
+                <a
+                  href=""
+                  @click.prevent="previous"
+                >前へ</a>
+                <a
+                  href=""
+                  @click.prevent="next"
+                >次へ</a>
               </div>
             </div>
           </div>
