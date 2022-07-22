@@ -1,10 +1,10 @@
 class Api::UsersController < Api::BaseController
   def show
     user = User
-           .includes(posts: :hotspring)
+           .includes(:comments, :articles, posts: :hotspring)
            .with_attached_avatar
            .find_by(name: params[:id])
-    render json: UserSerializer.new(user, { include: [:posts] })
+    render json: UserSerializer.new(user, { include: [:posts, :comments, :articles] })
   end
 
   def update

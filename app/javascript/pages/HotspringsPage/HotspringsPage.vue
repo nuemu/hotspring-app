@@ -125,6 +125,7 @@ export default{
                 String(hotspring.latitude).indexOf(keyword) !== -1 ||
                 String(hotspring.longtitude).indexOf(keyword) !== -1
               ){
+                console.log(hotspring.status, this.status)
                 if(this.status === '') hotsprings.push(hotspring)
                 else if(hotspring.status === this.status) hotsprings.push(hotspring)
               }

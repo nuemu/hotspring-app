@@ -1,8 +1,9 @@
 <template>
   <div class="container">
-    <h3>自己紹介</h3>
+    <p />
+    <h3 class="text-center mt-5">自己紹介</h3>
     <div
-      class="container-sm"
+      class="container-sm text-center"
       style="white-space: pre-wrap;"
     >
       {{ introduce }}

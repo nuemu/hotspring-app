@@ -8,4 +8,6 @@ class UserSerializer
 
   has_many :favorites
   has_many :posts, serializer: PostSerializer
+  has_many :comments, serializer: CommentSerializer
+  has_many :articles, serializer: ArticleSerializer
 end

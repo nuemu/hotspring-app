@@ -18,15 +18,19 @@
         >
         <div class="ms-5">
           <h3>{{ user.name }}</h3>
-          <div>ユーザーレベル:{{ user.level }}</div>
-          <div>行ったことのある野湯:{{ user.hotsprings.length }}</div>
+          <div>投稿したコメント数:{{ user.comments.length }}</div>
+          <div>共有した記事数:{{ user.articles.length }}</div>
+          <div>行ったことのある野湯数:{{ user.hotsprings.length }}</div>
         </div>
       </div>
       <Introduce :introduce="user.introduce" />
       <p />
       <div class="container">
         <div class="d-flex align-items-center">
-          <h3 v-if="user.hotsprings.length !== 0">
+          <h3
+            v-if="user.hotsprings.length !== 0"
+            class="text-center"
+          >
             行ったことのある野湯
           </h3>
           &nbsp;
@@ -73,7 +77,7 @@ export default {
   },
   data(){
     return {
-      user: {name: 'loading...', avatar: avatar, hotsprings: ['loading...'], introduce: '未入力', level: 0}
+      user: {name: 'loading...', avatar: avatar, articles: ['loading...'], comments: ['loading...'], hotsprings: ['loading...'], introduce: '未入力', level: 0}
     }
   },
   computed:{
@@ -99,7 +103,9 @@ export default {
         this.user.level = response.data.attributes.level
         this.user.avatar = response.data.attributes.image_url
         this.user.introduce = response.data.attributes.introduce
-        this.user.hotsprings = response.included.map(data => data.attributes.hotspring.data.attributes)
+        this.user.comments = response.included.filter(data => data.type==='comment').map(data => data.attributes.comment)
+        this.user.articles = response.included.filter(data => data.type==='article').map(data => data.attributes.url)
+        this.user.hotsprings = response.included.filter(data => data.type==='post').map(data => data.attributes.hotspring.data.attributes)
       })
   },
   methods: {
