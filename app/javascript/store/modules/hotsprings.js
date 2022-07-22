@@ -1,6 +1,7 @@
 import axios from '../../plugins/axios.js'
 import {cluster} from '../../ol/cluster.js'
 import status from '../../ol/hotspring_status.js'
+import router from '../../router/router'
 
 const hotsprings_module = {
   namespaced: true,
@@ -76,6 +77,7 @@ const hotsprings_module = {
       const lon = lonlat.split(',')[0]
       const lat = lonlat.split(',')[1]
       const response = await axios.get('hotspring' ,{ params: {'lat': lat, 'lon': lon}})
+      if(!response.data.data){ router.push('/'); return }
       commit('setHotspring', response.data.data.attributes)
       response.data.included.forEach(element => {
         switch(element.type){

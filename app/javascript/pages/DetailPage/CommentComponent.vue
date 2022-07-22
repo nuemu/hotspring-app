@@ -148,7 +148,6 @@ export default{
       if(level >= 2) color = 'success'
       if(level >= 5) color = 'warning'
       if(level >= 10) color = 'danger'
-      console.log(color, level)
       return color
     }
   }

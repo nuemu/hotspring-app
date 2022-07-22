@@ -3,7 +3,7 @@
     <img
       :src="img"
       class="img-fluid"
-      style="max-height: 300px;"
+      style="height: 250px;"
     >
   </div>
 </template>
@@ -22,7 +22,7 @@ export default{
     ...mapGetters('hotsprings', ['hotspring', 'status']),
     img(){
       if(this.url) return this.url
-      const hotspring_icon = require('hotspring.svg')
+      const hotspring_icon = require('camera.svg')
       if(this.hotspring.image_url){
         return this.hotspring.image_url
       }
