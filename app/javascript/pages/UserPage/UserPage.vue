@@ -94,6 +94,7 @@ export default {
     if(this.$route.params.id === 'Guest') this.$router.push('/login')
     this.fetchUser(this.$route.params.id)
       .then((response) => {
+        if(!response.data) this.$router.push('/')
         this.user.name = response.data.attributes.name
         this.user.level = response.data.attributes.level
         this.user.avatar = response.data.attributes.image_url

@@ -82,7 +82,10 @@
                   <button class="btn btn-primary me-3">
                     保存
                   </button>
-                  <button class="btn btn-danger ms-3">
+                  <button
+                    class="btn btn-danger ms-3"
+                    @click.prevent="Delete"
+                  >
                     退会
                   </button>
                 </div>
@@ -122,7 +125,8 @@ export default{
     this.new_introduce = this.introduce
   },
   methods: {
-    ...mapActions('users', ['updateUser', 'updateImage']),
+    ...mapActions('users', ['updateUser', 'updateImage', 'deleteUser']),
+    // GPS取得、見送り...
     getLocation(){
       navigator.geolocation.getCurrentPosition((position)=> {
         //緯度
@@ -133,7 +137,7 @@ export default{
         this.postPost({lat: lat, long: lng})
       });
     },
-    async Submit(){
+    Submit(){
       var params = {id: this.user_name}
       let formData = new FormData();
       formData.append('name', this.new_name)
@@ -145,6 +149,12 @@ export default{
       this.updateUser(params)
         .then((response) => {this.$modal_appearance=false; this.$router.push('/user/'+response)})
     },
+    Delete(){
+      this.deleteUser({id: this.user_name})
+        .then(() => {
+          this.$router.push('/')
+        })
+    }
   }
 }
 </script>

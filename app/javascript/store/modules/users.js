@@ -121,6 +121,10 @@ const users_module = {
       commit('set_user', response.data.data.attributes.name)
       return response.data.data.attributes.name
     },
+    async deleteUser({commit}, params){
+      await axios.delete('users/'+params.id)
+      commit('logout')
+    },
     async csrf(){
       const response = await axios.get('csrf')
       axios.defaults.headers.common['X-CSRF-Token'] = response.headers['x-csrf-token']
