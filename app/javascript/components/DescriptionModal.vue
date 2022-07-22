@@ -33,7 +33,7 @@
               <div
                 class="container"
                 style="white-space: pre-wrap;"
-                v-text="description[index].description"
+                v-html="description[index].description"
               />
               <p />
               <div class="container d-grid gap-2 d-md-flex justify-content-between">
